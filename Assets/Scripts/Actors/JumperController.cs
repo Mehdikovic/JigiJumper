@@ -1,4 +1,5 @@
 ﻿using Cinemachine;
+using System;
 using UnityEngine;
 
 namespace JigiJumper.Actors
@@ -8,16 +9,19 @@ namespace JigiJumper.Actors
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
         [SerializeField] private float _speed = 10f;
         
-        PlanetController _planet;
+        PlanetController _currentPlanet;
+        PlanetController _oldPlanet;
+
+        static public event Action<PlanetController, PlanetController> OnPlanetReached;
 
         private void Update()
         {
             HandleInput();
 
-            if (_planet != null)
+            if (_currentPlanet != null)
             {
-                transform.position = _planet.GetPivotCircuit().position;
-                transform.rotation = _planet.GetPivotCircuit().rotation;
+                transform.position = _currentPlanet.GetPivotCircuit().position;
+                transform.rotation = _currentPlanet.GetPivotCircuit().rotation;
             }
             else
             {
@@ -29,7 +33,8 @@ namespace JigiJumper.Actors
         {
             if (Input.GetMouseButtonUp(0))
             {
-                _planet = null;
+                _oldPlanet = _currentPlanet;
+                _currentPlanet = null;
             }
         }
 
@@ -39,15 +44,15 @@ namespace JigiJumper.Actors
             
             if (planetController == null) { return; }
 
-            _planet = planetController;
+            _currentPlanet = planetController;
 
-            Transform pivot = _planet.GetPivot();
-
+            Transform pivot = planetController.GetPivot();
             float angle = Vector2.SignedAngle(pivot.transform.up, -transform.up);
-
             pivot.localRotation *= Quaternion.Euler(Vector3.forward * angle);
 
-            _cinemachine.Follow = _planet.transform;
+            _cinemachine.Follow = planetController.transform;
+
+            OnPlanetReached?.Invoke(_oldPlanet, planetController);
         }
     }
 }

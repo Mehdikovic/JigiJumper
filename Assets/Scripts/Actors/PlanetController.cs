@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace JigiJumper.Actors
@@ -37,6 +38,11 @@ namespace JigiJumper.Actors
         public Transform GetPivotCircuit()
         {
             return _circuit;
+        }
+
+        public void SetCircuitRadius(float curcuitPosY)
+        {
+            _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
         }
     }
 }

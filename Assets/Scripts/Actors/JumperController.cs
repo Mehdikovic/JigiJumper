@@ -36,14 +36,29 @@ namespace JigiJumper.Actors
                 _oldPlanet = _currentPlanet;
                 _currentPlanet = null;
             }
+
+            if (Input.GetKeyDown(KeyCode.R) && _currentPlanet == null && _oldPlanet != null)
+            {
+                Restart();
+            }
+        }
+
+        private void Restart()
+        {
+            _oldPlanet.isVisited = false;
+            PutJumperOnCircuit(_oldPlanet);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             PlanetController planetController = collision.GetComponent<PlanetController>();
-            
-            if (planetController == null) { return; }
+            PutJumperOnCircuit(planetController);
+        }
 
+        private void PutJumperOnCircuit(PlanetController planetController)
+        {
+            if (planetController == null) { return; }
+            
             if (planetController.isVisited) { return; }
 
             planetController.isVisited = true;
@@ -56,7 +71,10 @@ namespace JigiJumper.Actors
 
             _cinemachine.Follow = planetController.transform;
 
-            OnPlanetReached?.Invoke(_oldPlanet, planetController);
+            if (_oldPlanet != planetController)
+            {
+                OnPlanetReached?.Invoke(_oldPlanet, planetController);
+            }
         }
     }
 }

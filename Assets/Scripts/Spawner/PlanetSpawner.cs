@@ -49,6 +49,7 @@ namespace JigiJumper.Spawner
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);
 
             Vector3 scale = newPlanet.transform.localScale;
+            newPlanet.GetComponent<PlanetController>().SetCircuitRadius(data.curcuitPosY);
 
             newPlanet.transform.localScale = new Vector3(data.radius, data.radius, scale.z);
 

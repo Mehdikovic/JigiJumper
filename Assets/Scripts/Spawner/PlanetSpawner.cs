@@ -6,23 +6,18 @@ namespace JigiJumper.Spawner
 {
     public class PlanetSpawner : MonoBehaviour
     {
-        [SerializeField] PlanetController _largePlanetPrefab = null;
-        [SerializeField] PlanetController _mediumPlanetPrefab = null;
+        [SerializeField] PlanetController _planetPrefab = null;
 
         PlanetController _lastPalnet = null;
 
-        SimplePool _largePool;
-        SimplePool _mediumPool;
+        SimplePool _planetPool;
 
         private void Awake()
         {
-            _largePool = new SimplePool();
-            _largePool.Preload(_largePlanetPrefab.gameObject, transform, 3);
+            _planetPool = new SimplePool();
+            _planetPool.Preload(_planetPrefab.gameObject, transform, 5);
 
             _lastPalnet = SpawnTheFirst();
-
-            _mediumPool = new SimplePool();
-            _mediumPool.Preload(_mediumPlanetPrefab.gameObject, transform, 5);
 
             JumperController.OnPlanetReached += OnPlanetReached;
         }
@@ -33,7 +28,9 @@ namespace JigiJumper.Spawner
 
             if (oldPlanet != null)
             {
-                _largePool.Despawn(oldPlanet.gameObject);
+                // todo enable animations
+                oldPlanet.isVisited = false;
+                _planetPool.Despawn(oldPlanet.gameObject);
             }
 
             SpawnNewPlanet();
@@ -41,16 +38,22 @@ namespace JigiJumper.Spawner
 
         private void SpawnNewPlanet()
         {
-            Vector3 newPos = _lastPalnet.transform.position;
-            newPos.y += 5.5f;
-            newPos.x += .5f;
+            var newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
 
-            _largePool.Spawn(_largePlanetPrefab.gameObject, newPos, Quaternion.identity, transform);
+            //todo must grab info about each planet and make new pos based on them
+
+            float xPos = Random.Range(-2f, 2f);
+            float yPos = Random.Range(5f, 5.5f);
+
+            float newXPos = newPlanet.transform.position.x + xPos;
+            float newYPos = newPlanet.transform.position.y + yPos;
+
+            newPlanet.transform.position = new Vector2(newXPos, newYPos);
         }
 
         private PlanetController SpawnTheFirst()
         {
-            return _largePool.Spawn(_largePlanetPrefab.gameObject, Vector3.zero, Quaternion.identity, transform).GetComponent<PlanetController>();
+            return _planetPool.Spawn(_planetPrefab.gameObject, Vector3.zero, Quaternion.identity, transform).GetComponent<PlanetController>();
         }
     }
 }

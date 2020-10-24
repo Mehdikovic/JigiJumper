@@ -44,6 +44,10 @@ namespace JigiJumper.Actors
             
             if (planetController == null) { return; }
 
+            if (planetController.isVisited) { return; }
+
+            planetController.isVisited = true;
+
             _currentPlanet = planetController;
 
             Transform pivot = planetController.GetPivot();

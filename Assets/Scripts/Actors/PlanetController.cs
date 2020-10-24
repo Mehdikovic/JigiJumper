@@ -10,6 +10,9 @@ namespace JigiJumper.Actors
         [SerializeField] private Transform _pivot = null;
 
         Transform _circuit;
+        bool _isVisited = false;
+
+        public bool isVisited { get => _isVisited; set => _isVisited = value; }
 
         private void Awake()
         {

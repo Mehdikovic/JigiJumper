@@ -43,7 +43,7 @@ namespace JigiJumper.Spawner
 
         private void SpawnNewPlanet()
         {
-            var newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
+            GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
            
             //todo must grab info about each planet and make new pos based on them
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);

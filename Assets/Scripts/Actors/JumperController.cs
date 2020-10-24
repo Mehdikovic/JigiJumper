@@ -8,7 +8,7 @@ namespace JigiJumper.Actors
     {
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
         [SerializeField] private float _speed = 10f;
-        
+
         PlanetController _currentPlanet;
         PlanetController _oldPlanet;
 
@@ -37,7 +37,7 @@ namespace JigiJumper.Actors
                 _currentPlanet = null;
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && _currentPlanet == null && _oldPlanet != null)
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 Restart();
             }
@@ -45,6 +45,8 @@ namespace JigiJumper.Actors
 
         private void Restart()
         {
+            if (_currentPlanet != null || _oldPlanet == null) { return; }
+
             _oldPlanet.isVisited = false;
             PutJumperOnCircuit(_oldPlanet);
         }
@@ -58,7 +60,7 @@ namespace JigiJumper.Actors
         private void PutJumperOnCircuit(PlanetController planetController)
         {
             if (planetController == null) { return; }
-            
+
             if (planetController.isVisited) { return; }
 
             planetController.isVisited = true;

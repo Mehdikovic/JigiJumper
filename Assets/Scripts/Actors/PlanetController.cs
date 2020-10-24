@@ -30,15 +30,9 @@ namespace JigiJumper.Actors
             _pivot.Rotate(Vector3.forward * (Time.deltaTime * _rotationSpeed));
         }
 
-        public Transform GetPivot()
-        {
-            return _pivot;
-        }
+        public Transform GetPivot() => _pivot;
 
-        public Transform GetPivotCircuit()
-        {
-            return _circuit;
-        }
+        public Transform GetPivotCircuit() => _circuit;
 
         public void SetCircuitRadius(float curcuitPosY)
         {

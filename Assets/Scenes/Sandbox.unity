@@ -231,7 +231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfb6a1e7692d9aa4a895a1a752791e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetType: 1
   _planetPrefab: {fileID: 1638439117, guid: 609c96cb494929345842ab74d987a38d, type: 3}
+  _planetData: {fileID: 11400000, guid: 964754baa0dcb174f8a926f7829e86e6, type: 2}
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0

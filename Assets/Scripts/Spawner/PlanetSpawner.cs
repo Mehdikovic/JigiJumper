@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Actors;
+using JigiJumper.Data;
 using UnityEngine;
 
 
@@ -6,7 +7,10 @@ namespace JigiJumper.Spawner
 {
     public class PlanetSpawner : MonoBehaviour
     {
+        //todo delete this line
+        [SerializeField] private PlanetType planetType = PlanetType.Medium;
         [SerializeField] PlanetController _planetPrefab = null;
+        [SerializeField] PlanetData _planetData = null;
 
         PlanetController _lastPalnet = null;
 
@@ -29,6 +33,7 @@ namespace JigiJumper.Spawner
             if (oldPlanet != null)
             {
                 // todo enable animations
+                // reseting planets
                 oldPlanet.isVisited = false;
                 _planetPool.Despawn(oldPlanet.gameObject);
             }
@@ -39,11 +44,16 @@ namespace JigiJumper.Spawner
         private void SpawnNewPlanet()
         {
             var newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-
+           
             //todo must grab info about each planet and make new pos based on them
+            PlanetDataStructure data = _planetData.GetPlanetData(planetType);
 
-            float xPos = Random.Range(-2f, 2f);
-            float yPos = Random.Range(5f, 5.5f);
+            Vector3 scale = newPlanet.transform.localScale;
+
+            newPlanet.transform.localScale = new Vector3(data.radius, data.radius, scale.z);
+
+            float xPos = Random.Range(data.xRange.x, data.xRange.y);
+            float yPos = Random.Range(data.yRange.x, data.yRange.y);
 
             float newXPos = newPlanet.transform.position.x + xPos;
             float newYPos = newPlanet.transform.position.y + yPos;

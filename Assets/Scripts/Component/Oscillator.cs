@@ -16,8 +16,6 @@ namespace JigiJumper.Component
         float _originalX;
         Coroutine _oscillator;
 
-        bool _isRunning = true;
-
         public void Init(PlanetDataStructure data)
         {
             _data = data;
@@ -40,24 +38,19 @@ namespace JigiJumper.Component
 
         public void StopOscillattion()
         {
-            _isRunning = false;
+            if (_oscillator == null) { return; }
+            StopCoroutine(_oscillator);
         }
 
         public void InitialOscillattion()
         {
-            _isRunning = true;
             _oscillator = StartCoroutine(Tick());
-        }
-
-        public void ResumeOscillation()
-        {
-            _isRunning = true;
         }
 
         IEnumerator Tick()
         {
             int direction = 1;
-            while (_isRunning)
+            while (true)
             {
                 _lerpValue += Time.deltaTime * direction * _speed;
 

@@ -34,7 +34,7 @@ namespace JigiJumper.Spawner
             {
                 // todo enable animations
                 // reseting planets
-                oldPlanet.isVisited = false;
+                oldPlanet.ResetPlanet();
                 _planetPool.Despawn(oldPlanet.gameObject);
             }
 
@@ -44,22 +44,9 @@ namespace JigiJumper.Spawner
         private void SpawnNewPlanet()
         {
             GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-           
-            //todo must grab info about each planet and make new pos based on them
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);
 
-            Vector3 scale = newPlanet.transform.localScale;
-            newPlanet.GetComponent<PlanetController>().SetCircuitRadius(data.curcuitPosY);
-
-            newPlanet.transform.localScale = new Vector3(data.radius, data.radius, scale.z);
-
-            float xPos = Random.Range(data.xRange.x, data.xRange.y);
-            float yPos = Random.Range(data.yRange.x, data.yRange.y);
-
-            float newXPos = newPlanet.transform.position.x + xPos;
-            float newYPos = newPlanet.transform.position.y + yPos;
-
-            newPlanet.transform.position = new Vector2(newXPos, newYPos);
+            newPlanet.GetComponent<PlanetController>().Config(data);
         }
 
         private PlanetController SpawnTheFirst()

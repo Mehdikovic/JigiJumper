@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JigiJumper.Component;
+using JigiJumper.Data;
 using UnityEngine;
 
 
@@ -12,17 +13,29 @@ namespace JigiJumper.Actors
 
         Transform _circuit;
         bool _isVisited = false;
-
+        Oscillator _oscillator;
+        
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
 
         private void Awake()
         {
             _circuit = _pivot.GetChild(0);
+            _oscillator = GetComponent<Oscillator>();
+            JumperController.OnPlanetReached += OnnewPlanetReached;
         }
 
         void LateUpdate()
         {
             HandleRotation();
+        }
+
+        void SetCircuitRadius(float curcuitPosY)
+        {
+            _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
+        }
+        private void OnnewPlanetReached(PlanetController oldPlanet, PlanetController newRachedPlanet)
+        {
+            newRachedPlanet.GetComponent<Oscillator>().StopOscillattion();
         }
 
         private void HandleRotation()
@@ -34,9 +47,16 @@ namespace JigiJumper.Actors
 
         public Transform GetPivotCircuit() => _circuit;
 
-        public void SetCircuitRadius(float curcuitPosY)
+        public void ResetPlanet()
         {
-            _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
+            _isVisited = false;
+            _oscillator.StopOscillattion();
+        }
+
+        public void Config(PlanetDataStructure data)
+        {
+            SetCircuitRadius(data.curcuitPosY);
+            _oscillator.Init(data);
         }
     }
 }

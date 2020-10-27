@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Actors;
+using JigiJumper.Managers;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ namespace JigiJumper.Spawner
     {
         [SerializeField] PlanetController _planetPrefab = null;
 
-        PlanetController _lastPalnet;
+        PlanetController _currentPlanet;
         JumperController _jumper;
 
         SimplePool _planetPool;
@@ -18,8 +19,8 @@ namespace JigiJumper.Spawner
             _planetPool = new SimplePool();
             _planetPool.Preload(_planetPrefab.gameObject, transform, 3);
 
-            _lastPalnet = SpawnTheFirst();
-            _jumper = FindObjectOfType<JumperController>();
+            _currentPlanet = SpawnTheFirst();
+            _jumper = GameManager.Instance.jumper;
         }
 
         private void OnEnable()
@@ -32,24 +33,24 @@ namespace JigiJumper.Spawner
             _jumper.OnPlanetReached -= OnPlanetReached;
         }
 
-        private void OnPlanetReached(PlanetController previousPlanet, PlanetController newPlanetReached)
+        private void OnPlanetReached(PlanetController previousPlanet, PlanetController newPlanet)
         {
-            _lastPalnet = newPlanetReached;
+            _currentPlanet = newPlanet;
 
             if (previousPlanet != null)
             {
-                previousPlanet.OnJumperExit();
+                previousPlanet.OnDespawningPreviousPlanet();
                 _planetPool.Despawn(previousPlanet.gameObject);
             }
 
-            _lastPalnet.OnJumperEnter();
+            _currentPlanet.OnJumperEnter();
             SpawnNewPlanet();
         }
 
         private void SpawnNewPlanet()
         {
-            GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-            newPlanet.GetComponent<PlanetController>().InitialComponents(_jumper);
+            GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _currentPlanet.transform.position, Quaternion.identity, transform);
+            newPlanet.GetComponent<PlanetController>().InitialComponents();
         }
 
         private PlanetController SpawnTheFirst()

@@ -21,9 +21,7 @@ namespace JigiJumper.Component
         {
             _data = data;
             _originalX = transform.position.x;
-
-            Vector3 scale = transform.localScale;
-            transform.localScale = new Vector3(data.radius, data.radius, scale.z);
+            transform.localScale = new Vector3(data.radius, data.radius, 1f);
 
             _lerpValue = Random.value;
 
@@ -76,16 +74,19 @@ namespace JigiJumper.Component
             StopOscillattion();
         }
 
-        public void OnInitialDataReceived(JumperController jumper, PlanetDataStructure data)
+        public void OnNewSpawnedPlanetInitialization(PlanetDataStructure data)
         {
             Init(data);
             //todo check that to be enable of disable based on probability
             InitialOscillattion();
         }
 
+        public void OnDespawnedPreviousPlanet()
+        {
+        }
+
         public void OnJumperExit()
         {
-           
         }
     }
 }

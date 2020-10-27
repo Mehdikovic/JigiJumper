@@ -1,13 +1,12 @@
-﻿using JigiJumper.Actors;
-using JigiJumper.Data;
+﻿using JigiJumper.Data;
 
 namespace JigiJumper.Component
 {
     public interface IPlanetEventHandler
     {
-        void OnInitialDataReceived(JumperController jumper,PlanetDataStructure data);
-
+        void OnNewSpawnedPlanetInitialization(PlanetDataStructure data);
         void OnJumperEnter();
         void OnJumperExit();
+        void OnDespawnedPreviousPlanet();
     }
 }

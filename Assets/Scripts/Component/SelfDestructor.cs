@@ -16,21 +16,23 @@ namespace JigiJumper.Component
         private JumperController _jumper;
         private bool _isActivated;
         private GameManager _gameManager;
+        private bool _isFirstPlanet = true;
 
         private void Awake()
         {
             _gameManager = GameManager.Instance;
+            _jumper = _gameManager.jumper;
         }
 
         public bool isActiveComponent => _isActivated;
         public float timer => _timer;
 
-        //called before the JumperEnter and wouldn't be called for the first spawned object
-        public void OnInitialDataReceived(JumperController jumper, PlanetDataStructure data)
+        // called before the JumperEnter and wouldn't be called for the first spawned object
+        // ** when this function called, we're guaranteed that it's not the first planet who calls it **
+        public void OnNewSpawnedPlanetInitialization(PlanetDataStructure data)
         {
+            _isFirstPlanet = false;
             _timer = _selfDestructionTimer;
-            _jumper = jumper;
-            
         }
 
         private void Update()
@@ -48,16 +50,20 @@ namespace JigiJumper.Component
 
         public void OnJumperEnter()
         {
-            // if jumper is null then i'm the first spawned planet
-            // and don't need to be selfdestruction
-            if (_jumper == null) { return; } 
-            
+            if (_isFirstPlanet) { return; }
+
             _isActivated = true; // todo read this from probability
+        }
+
+        public void OnDespawnedPreviousPlanet()
+        {
+            _isActivated = false;
         }
 
         public void OnJumperExit()
         {
             _isActivated = false;
+            print("Stop selfDestruction planet " + name);
         }
     }
 }

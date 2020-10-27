@@ -30,23 +30,21 @@ namespace JigiJumper.Actors
             HandleRotation();
         }
 
-        // NOT Callbacks
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
         
         public Transform GetPivot() => _pivot;
 
         public Transform GetPivotCircuit() => _circuit;
 
-        public void InitialComponents(JumperController jumper)
+        public void InitialComponents()
         {
             //todo get info from probablility
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);
             
             SetCircuitRadius(data.curcuitPosY);
-
             foreach (var receiver in _receivers)
             {
-                receiver.OnInitialDataReceived(jumper, data);
+                receiver.OnNewSpawnedPlanetInitialization(data);
             }
         }
 
@@ -60,11 +58,19 @@ namespace JigiJumper.Actors
 
         public void OnJumperExit()
         {
+            foreach (var receiver in _receivers)
+            {
+                receiver.OnJumperExit();
+            }
+        }
+
+        public void OnDespawningPreviousPlanet()
+        {
             _isVisited = false;
 
             foreach (var receiver in _receivers)
             {
-                receiver.OnJumperExit();
+                receiver.OnDespawnedPreviousPlanet();
             }
         }
 

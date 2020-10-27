@@ -30,21 +30,20 @@ namespace JigiJumper.Actors
             }
         }
 
-        public GameObject currentPlanetGameObject => _currentPlanet?.gameObject;
+        public GameObject currentPlanetGameObject => (_currentPlanet != null) ? _currentPlanet.gameObject : null;
 
         private void HandleInput()
         {
             if (Input.GetMouseButtonUp(0))
             {
+                if (_currentPlanet == null) { return; }
+                _currentPlanet.OnJumperExit();
                 _previousPlanet = _currentPlanet;
                 _currentPlanet = null;
             }
-
             if (Input.GetKeyDown(KeyCode.R))
             {
-                // todo do better restart system,
-                // in this system right now there is no chance for planet to reset its timer destruction and so on
-                Restart(); 
+                Restart();
             }
         }
 

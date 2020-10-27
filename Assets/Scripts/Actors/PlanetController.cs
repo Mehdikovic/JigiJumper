@@ -37,7 +37,7 @@ namespace JigiJumper.Actors
 
         public Transform GetPivotCircuit() => _circuit;
 
-        public void InitialComponetns(JumperController jumper)
+        public void InitialComponents(JumperController jumper)
         {
             //todo get info from probablility
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);

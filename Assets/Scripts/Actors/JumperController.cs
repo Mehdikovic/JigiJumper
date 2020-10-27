@@ -29,6 +29,8 @@ namespace JigiJumper.Actors
             }
         }
 
+        public GameObject currentPlanetGameObject => _currentPlanet?.gameObject;
+
         private void HandleInput()
         {
             if (Input.GetMouseButtonUp(0))
@@ -39,7 +41,9 @@ namespace JigiJumper.Actors
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                Restart();
+                // todo do better restart system,
+                // in this system right now there is no chance for planet to reset its timer destruction and so on
+                Restart(); 
             }
         }
 

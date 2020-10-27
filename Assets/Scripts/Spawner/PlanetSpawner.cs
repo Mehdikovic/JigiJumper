@@ -1,5 +1,4 @@
 ﻿using JigiJumper.Actors;
-using JigiJumper.Data;
 using UnityEngine;
 
 
@@ -50,7 +49,7 @@ namespace JigiJumper.Spawner
         private void SpawnNewPlanet()
         {
             GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-            newPlanet.GetComponent<PlanetController>().InitialComponetns(_jumper);
+            newPlanet.GetComponent<PlanetController>().InitialComponents(_jumper);
         }
 
         private PlanetController SpawnTheFirst()

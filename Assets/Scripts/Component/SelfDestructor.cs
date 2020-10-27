@@ -63,7 +63,6 @@ namespace JigiJumper.Component
         public void OnJumperExit()
         {
             _isActivated = false;
-            print("Stop selfDestruction planet " + name);
         }
     }
 }

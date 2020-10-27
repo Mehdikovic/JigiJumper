@@ -1,4 +1,5 @@
-﻿using JigiJumper.Data;
+﻿using JigiJumper.Actors;
+using JigiJumper.Data;
 using System.Collections;
 using UnityEngine;
 
@@ -75,7 +76,7 @@ namespace JigiJumper.Component
             StopOscillattion();
         }
 
-        public void OnInitialDataReceived(PlanetDataStructure data)
+        public void OnInitialDataReceived(JumperController jumper, PlanetDataStructure data)
         {
             Init(data);
             //todo check that to be enable of disable based on probability

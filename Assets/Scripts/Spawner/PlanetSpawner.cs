@@ -9,7 +9,8 @@ namespace JigiJumper.Spawner
     {
         [SerializeField] PlanetController _planetPrefab = null;
 
-        PlanetController _lastPalnet = null;
+        PlanetController _lastPalnet;
+        JumperController _jumper;
 
         SimplePool _planetPool;
 
@@ -19,8 +20,17 @@ namespace JigiJumper.Spawner
             _planetPool.Preload(_planetPrefab.gameObject, transform, 3);
 
             _lastPalnet = SpawnTheFirst();
+            _jumper = FindObjectOfType<JumperController>();
+        }
 
-            JumperController.OnPlanetReached += OnPlanetReached;
+        private void OnEnable()
+        {
+            _jumper.OnPlanetReached += OnPlanetReached;
+        }
+
+        private void OnDisable()
+        {
+            _jumper.OnPlanetReached -= OnPlanetReached;
         }
 
         private void OnPlanetReached(PlanetController oldPlanet, PlanetController newPlanetReached)
@@ -40,7 +50,7 @@ namespace JigiJumper.Spawner
         private void SpawnNewPlanet()
         {
             GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-            newPlanet.GetComponent<PlanetController>().InitialComponetns();
+            newPlanet.GetComponent<PlanetController>().InitialComponetns(_jumper);
         }
 
         private PlanetController SpawnTheFirst()

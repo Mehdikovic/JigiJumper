@@ -12,7 +12,7 @@ namespace JigiJumper.Actors
         PlanetController _currentPlanet;
         PlanetController _oldPlanet;
 
-        static public event Action<PlanetController, PlanetController> OnPlanetReached;
+        public event Action<PlanetController, PlanetController> OnPlanetReached;
 
         private void Update()
         {

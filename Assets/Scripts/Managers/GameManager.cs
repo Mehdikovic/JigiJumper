@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Actors;
+using JigiJumper.Utils;
 using UnityEngine;
 
 
@@ -19,12 +20,15 @@ namespace JigiJumper.Managers
         }
         #endregion
 
+        LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>( () => FindObjectOfType<JumperController>());
         JumperController _jumper;
 
         private void Awake()
         {
-            _jumper = FindObjectOfType<JumperController>();
+            _jumper = _lazyJumper.value;
         }
+
+        public JumperController jumper => jumper == null ? _lazyJumper.value: _jumper;
 
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)
         {

@@ -32,14 +32,14 @@ namespace JigiJumper.Spawner
             _jumper.OnPlanetReached -= OnPlanetReached;
         }
 
-        private void OnPlanetReached(PlanetController oldPlanet, PlanetController newPlanetReached)
+        private void OnPlanetReached(PlanetController previousPlanet, PlanetController newPlanetReached)
         {
             _lastPalnet = newPlanetReached;
 
-            if (oldPlanet != null)
+            if (previousPlanet != null)
             {
-                oldPlanet.OnJumperExit();
-                _planetPool.Despawn(oldPlanet.gameObject);
+                previousPlanet.OnJumperExit();
+                _planetPool.Despawn(previousPlanet.gameObject);
             }
 
             _lastPalnet.OnJumperEnter();

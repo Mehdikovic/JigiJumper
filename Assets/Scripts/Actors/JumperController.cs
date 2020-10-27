@@ -1,6 +1,7 @@
-﻿using Cinemachine;
-using System;
+﻿using System;
+using Cinemachine;
 using UnityEngine;
+
 
 namespace JigiJumper.Actors
 {
@@ -10,7 +11,7 @@ namespace JigiJumper.Actors
         [SerializeField] private float _speed = 10f;
 
         PlanetController _currentPlanet;
-        PlanetController _oldPlanet;
+        PlanetController _previousPlanet;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
 
@@ -35,7 +36,7 @@ namespace JigiJumper.Actors
         {
             if (Input.GetMouseButtonUp(0))
             {
-                _oldPlanet = _currentPlanet;
+                _previousPlanet = _currentPlanet;
                 _currentPlanet = null;
             }
 
@@ -49,10 +50,10 @@ namespace JigiJumper.Actors
 
         private void Restart()
         {
-            if (_currentPlanet != null || _oldPlanet == null) { return; }
+            if (_currentPlanet != null || _previousPlanet == null) { return; }
 
-            _oldPlanet.isVisited = false;
-            PutJumperOnCircuit(_oldPlanet);
+            _previousPlanet.isVisited = false;
+            PutJumperOnCircuit(_previousPlanet);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -64,11 +65,9 @@ namespace JigiJumper.Actors
         private void PutJumperOnCircuit(PlanetController planetController)
         {
             if (planetController == null) { return; }
-
             if (planetController.isVisited) { return; }
 
             planetController.isVisited = true;
-
             _currentPlanet = planetController;
 
             Transform pivot = planetController.GetPivot();
@@ -77,9 +76,9 @@ namespace JigiJumper.Actors
 
             _cinemachine.Follow = planetController.transform;
 
-            if (_oldPlanet != planetController)
+            if (_previousPlanet != planetController)
             {
-                OnPlanetReached?.Invoke(_oldPlanet, planetController);
+                OnPlanetReached?.Invoke(_previousPlanet, planetController);
             }
         }
     }

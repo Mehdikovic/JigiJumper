@@ -7,10 +7,7 @@ namespace JigiJumper.Spawner
 {
     public class PlanetSpawner : MonoBehaviour
     {
-        //todo delete this line
-        [SerializeField] private PlanetType planetType = PlanetType.Medium;
         [SerializeField] PlanetController _planetPrefab = null;
-        [SerializeField] PlanetData _planetData = null;
 
         PlanetController _lastPalnet = null;
 
@@ -19,7 +16,7 @@ namespace JigiJumper.Spawner
         private void Awake()
         {
             _planetPool = new SimplePool();
-            _planetPool.Preload(_planetPrefab.gameObject, transform, 5);
+            _planetPool.Preload(_planetPrefab.gameObject, transform, 3);
 
             _lastPalnet = SpawnTheFirst();
 
@@ -32,21 +29,18 @@ namespace JigiJumper.Spawner
 
             if (oldPlanet != null)
             {
-                // todo enable animations
-                // reseting planets
-                oldPlanet.ResetPlanet();
+                oldPlanet.OnJumperExit();
                 _planetPool.Despawn(oldPlanet.gameObject);
             }
 
+            _lastPalnet.OnJumperEnter();
             SpawnNewPlanet();
         }
 
         private void SpawnNewPlanet()
         {
             GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _lastPalnet.transform.position, Quaternion.identity, transform);
-            PlanetDataStructure data = _planetData.GetPlanetData(planetType);
-
-            newPlanet.GetComponent<PlanetController>().Config(data);
+            newPlanet.GetComponent<PlanetController>().InitialComponetns();
         }
 
         private PlanetController SpawnTheFirst()

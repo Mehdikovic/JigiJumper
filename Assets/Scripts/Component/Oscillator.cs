@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace JigiJumper.Component
 {
-    public class Oscillator : MonoBehaviour
+    public class Oscillator : MonoBehaviour, IPlanetEventHandler
     {
         [Range(0f, 1f)]
         [SerializeField] float _speed = 0.5f;
@@ -16,7 +16,7 @@ namespace JigiJumper.Component
         float _originalX;
         Coroutine _oscillator;
 
-        public void Init(PlanetDataStructure data)
+        void Init(PlanetDataStructure data)
         {
             _data = data;
             _originalX = transform.position.x;
@@ -32,14 +32,13 @@ namespace JigiJumper.Component
             float newXPos = _originalX + xPos;
 
             transform.position = new Vector2(newXPos, newYPos);
-
-            InitialOscillattion();
         }
 
-        public void StopOscillattion()
+        void StopOscillattion()
         {
             if (_oscillator == null) { return; }
             StopCoroutine(_oscillator);
+            _oscillator = null;
         }
 
         public void InitialOscillattion()
@@ -69,6 +68,23 @@ namespace JigiJumper.Component
 
                 yield return null;
             }
+        }
+
+        public void OnJumperEnter()
+        {
+            StopOscillattion();
+        }
+
+        public void OnInitialDataReceived(PlanetDataStructure data)
+        {
+            Init(data);
+            //todo check that to be enable of disable based on probability
+            InitialOscillattion();
+        }
+
+        public void OnJumperExit()
+        {
+           
         }
     }
 }

@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09453ef01010c54a90b60ec21cc119d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetType: 1
+  _planetData: {fileID: 11400000, guid: 964754baa0dcb174f8a926f7829e86e6, type: 2}
   _rotationSpeed: 50
   _pivot: {fileID: 676186244}
 --- !u!114 &6680666158047256350

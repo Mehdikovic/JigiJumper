@@ -1,7 +1,8 @@
-﻿using JigiJumper.Actors;
-using JigiJumper.Data;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+
+using JigiJumper.Data;
+using JigiJumper.Actors;
 
 
 namespace JigiJumper.Component
@@ -22,7 +23,7 @@ namespace JigiJumper.Component
         {
             _planetController = GetComponent<PlanetController>();
 
-            _planetController.OnNewSpawnedPlanetInitialization += OnNewSpawnedPlanetInitialization;
+            _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             _planetController.OnJumperEnter += OnJumperEnter;
         }
 
@@ -78,7 +79,7 @@ namespace JigiJumper.Component
             }
         }
 
-        public void OnNewSpawnedPlanetInitialization(PlanetDataStructure data)
+        public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             Init(data);
             //todo check that to be enable of disable based on probability

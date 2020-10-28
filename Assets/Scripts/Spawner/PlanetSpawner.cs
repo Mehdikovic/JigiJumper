@@ -1,6 +1,7 @@
-﻿using JigiJumper.Actors;
+﻿using UnityEngine;
+
 using JigiJumper.Managers;
-using UnityEngine;
+using JigiJumper.Actors;
 
 
 namespace JigiJumper.Spawner

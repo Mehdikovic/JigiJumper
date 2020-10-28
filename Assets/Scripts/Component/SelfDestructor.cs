@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 using JigiJumper.Data;
-using JigiJumper.Actors;
 using JigiJumper.Managers;
+using JigiJumper.Actors;
 
 
 namespace JigiJumper.Component
@@ -26,14 +26,10 @@ namespace JigiJumper.Component
             _jumper = _gameManager.jumper;
             _planetController = GetComponent<PlanetController>();
 
-            _planetController.OnNewSpawnedPlanetInitialization += OnNewSpawnedPlanetInitialization;
+            _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             _planetController.OnJumperEnter += OnJumperEnter;
             _planetController.OnJumperExit += OnJumperExit;
         }
-
-       
-        // called before the JumperEnter and wouldn't be called for the first spawned object
-        // ** when this function called, we're guaranteed that it's not the first planet who calls it **
 
         private void Update()
         {
@@ -51,7 +47,9 @@ namespace JigiJumper.Component
         public bool isActiveComponent => _isActivated;
         public float timer => _timer;
 
-        public void OnNewSpawnedPlanetInitialization(PlanetDataStructure data)
+        // called before the JumperEnter and wouldn't be called for the first spawned object
+        // ** when this function called, we're guaranteed that it's not the first planet who calls it **
+        public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             _isFirstPlanet = false;
             _timer = _selfDestructionTimer;

@@ -1,7 +1,8 @@
-﻿using JigiJumper.Component;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
+using JigiJumper.Component;
 
 
 namespace JigiJumper.UI

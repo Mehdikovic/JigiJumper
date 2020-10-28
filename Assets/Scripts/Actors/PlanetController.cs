@@ -1,7 +1,5 @@
-﻿using JigiJumper.Component;
-using JigiJumper.Data;
+﻿using JigiJumper.Data;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -20,7 +18,7 @@ namespace JigiJumper.Actors
         bool _isVisited = false;
 
 
-        public event Action<PlanetDataStructure> OnNewSpawnedPlanetInitialization;
+        public event Action<PlanetDataStructure> OnSpawnedInitialization;
         public event Action OnJumperEnter;
         public event Action OnJumperExit;
         public event Action OnPlanetDespawned;
@@ -48,7 +46,7 @@ namespace JigiJumper.Actors
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);
             
             SetCircuitRadius(data.curcuitPosY);
-            OnNewSpawnedPlanetInitialization?.Invoke(data);
+            OnSpawnedInitialization?.Invoke(data);
         }
 
         public void InvokeOnJumperEnter()

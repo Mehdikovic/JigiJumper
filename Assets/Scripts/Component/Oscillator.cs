@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace JigiJumper.Component
 {
-    public class Oscillator : MonoBehaviour, IPlanetEventHandler
+    public class Oscillator : MonoBehaviour
     {
         [Range(0f, 1f)]
         [SerializeField] float _speed = 0.5f;
@@ -16,6 +16,15 @@ namespace JigiJumper.Component
 
         float _originalX;
         Coroutine _oscillator;
+        PlanetController _planetController;
+
+        private void Awake()
+        {
+            _planetController = GetComponent<PlanetController>();
+
+            _planetController.OnNewSpawnedPlanetInitialization += OnNewSpawnedPlanetInitialization;
+            _planetController.OnJumperEnter += OnJumperEnter;
+        }
 
         void Init(PlanetDataStructure data)
         {
@@ -40,7 +49,7 @@ namespace JigiJumper.Component
             _oscillator = null;
         }
 
-        public void InitialOscillattion()
+        void InitialOscillattion()
         {
             _oscillator = StartCoroutine(Tick());
         }
@@ -69,11 +78,6 @@ namespace JigiJumper.Component
             }
         }
 
-        public void OnJumperEnter()
-        {
-            StopOscillattion();
-        }
-
         public void OnNewSpawnedPlanetInitialization(PlanetDataStructure data)
         {
             Init(data);
@@ -81,12 +85,9 @@ namespace JigiJumper.Component
             InitialOscillattion();
         }
 
-        public void OnDespawnedPreviousPlanet()
+        public void OnJumperEnter()
         {
-        }
-
-        public void OnJumperExit()
-        {
+            StopOscillattion();
         }
     }
 }

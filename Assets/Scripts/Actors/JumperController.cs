@@ -37,7 +37,7 @@ namespace JigiJumper.Actors
             if (Input.GetMouseButtonUp(0))
             {
                 if (_currentPlanet == null) { return; }
-                _currentPlanet.OnJumperExit();
+                _currentPlanet.InvokeOnJumperExit();
                 _previousPlanet = _currentPlanet;
                 _currentPlanet = null;
             }

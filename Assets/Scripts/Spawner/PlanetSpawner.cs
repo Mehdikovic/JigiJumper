@@ -39,18 +39,18 @@ namespace JigiJumper.Spawner
 
             if (previousPlanet != null)
             {
-                previousPlanet.OnDespawningPreviousPlanet();
+                previousPlanet.InvokeOnPlanetDespawned();
                 _planetPool.Despawn(previousPlanet.gameObject);
             }
 
-            _currentPlanet.OnJumperEnter();
+            _currentPlanet.InvokeOnJumperEnter();
             SpawnNewPlanet();
         }
 
         private void SpawnNewPlanet()
         {
             GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _currentPlanet.transform.position, Quaternion.identity, transform);
-            newPlanet.GetComponent<PlanetController>().InitialComponents();
+            newPlanet.GetComponent<PlanetController>().InvokeOnComponentInitialization();
         }
 
         private PlanetController SpawnTheFirst()

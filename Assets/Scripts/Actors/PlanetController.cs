@@ -1,5 +1,6 @@
 ﻿using JigiJumper.Component;
 using JigiJumper.Data;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,12 +18,17 @@ namespace JigiJumper.Actors
 
         Transform _circuit;
         bool _isVisited = false;
-        IEnumerable<IPlanetEventHandler> _receivers;
+
+
+        public event Action<PlanetDataStructure> OnNewSpawnedPlanetInitialization;
+        public event Action OnJumperEnter;
+        public event Action OnJumperExit;
+        public event Action OnPlanetDespawned;
+
 
         private void Awake()
         {
             _circuit = _pivot.GetChild(0);
-            _receivers = GetComponents<IPlanetEventHandler>();
         }
 
         private void LateUpdate()
@@ -36,42 +42,30 @@ namespace JigiJumper.Actors
 
         public Transform GetPivotCircuit() => _circuit;
 
-        public void InitialComponents()
+        public void InvokeOnComponentInitialization()
         {
             //todo get info from probablility
             PlanetDataStructure data = _planetData.GetPlanetData(planetType);
             
             SetCircuitRadius(data.curcuitPosY);
-            foreach (var receiver in _receivers)
-            {
-                receiver.OnNewSpawnedPlanetInitialization(data);
-            }
+            OnNewSpawnedPlanetInitialization?.Invoke(data);
         }
 
-        public void OnJumperEnter()
+        public void InvokeOnJumperEnter()
         {
-            foreach (var receiver in _receivers)
-            {
-                receiver.OnJumperEnter();
-            }
+            OnJumperEnter?.Invoke();
         }
 
-        public void OnJumperExit()
+        public void InvokeOnJumperExit()
         {
-            foreach (var receiver in _receivers)
-            {
-                receiver.OnJumperExit();
-            }
+            OnJumperExit?.Invoke();
         }
 
-        public void OnDespawningPreviousPlanet()
+        public void InvokeOnPlanetDespawned()
         {
             _isVisited = false;
 
-            foreach (var receiver in _receivers)
-            {
-                receiver.OnDespawnedPreviousPlanet();
-            }
+            OnPlanetDespawned?.Invoke();
         }
 
         private void SetCircuitRadius(float curcuitPosY)

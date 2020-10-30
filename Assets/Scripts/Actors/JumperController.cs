@@ -14,6 +14,9 @@ namespace JigiJumper.Actors
         PlanetController _previousPlanet;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
+        public event Action<PlanetController> OnHoldForJumping;
+
+        private float _holdingPassedTime = 0f;
 
         private void Update()
         {
@@ -34,17 +37,32 @@ namespace JigiJumper.Actors
 
         private void HandleInput()
         {
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (_currentPlanet == null) { return; }
-                _currentPlanet.InvokeOnJumperExit();
-                _previousPlanet = _currentPlanet;
-                _currentPlanet = null;
-            }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Restart();
             }
+
+            if (_currentPlanet == null) { return; }
+
+            if (Input.GetMouseButton(0))
+            {
+                _holdingPassedTime += Time.deltaTime;
+                if (_holdingPassedTime >= 1f)
+                {
+                    OnHoldForJumping?.Invoke(_currentPlanet);
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                _holdingPassedTime = 0f;
+
+                _currentPlanet.InvokeOnJumperExit();
+                _previousPlanet = _currentPlanet;
+                _currentPlanet = null;
+            }
+
+
         }
 
         private void Restart()

@@ -18,7 +18,7 @@ namespace JigiJumper.Component
         private float _timer;
         private bool _isActivated;
         private bool _isFirstPlanet = true;
-
+        private bool _isOnHoldForJumping = false;
 
         private void Awake()
         {
@@ -26,9 +26,24 @@ namespace JigiJumper.Component
             _jumper = _gameManager.jumper;
             _planetController = GetComponent<PlanetController>();
 
+            _jumper.OnHoldForJumping += OnHoldForJumping;
+
             _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             _planetController.OnJumperEnter += OnJumperEnter;
             _planetController.OnJumperExit += OnJumperExit;
+        }
+
+        private void OnHoldForJumping(PlanetController currentJumperPlanet)
+        {
+            // we don't concer with another planet controller nor the first one
+            if (_isFirstPlanet || currentJumperPlanet != _planetController) { return; }
+            
+            if (_isActivated) { return; } // this had been activated before when the jumper enters.
+
+            if (_isOnHoldForJumping) { return; } // a control flag to run this callback just once
+
+            _isOnHoldForJumping = true;
+            _isActivated = true;
         }
 
         private void Update()
@@ -59,7 +74,8 @@ namespace JigiJumper.Component
         {
             if (_isFirstPlanet) { return; }
 
-            _isActivated = true; // todo read this from probability
+            _isActivated = false; // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
+            _isOnHoldForJumping = false;
         }
 
         public void OnJumperExit()

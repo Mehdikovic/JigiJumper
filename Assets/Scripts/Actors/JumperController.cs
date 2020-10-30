@@ -14,7 +14,7 @@ namespace JigiJumper.Actors
         PlanetController _previousPlanet;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
-        public event Action<PlanetController> OnHoldForJumping;
+        
 
         private float _holdingPassedTime = 0f;
 
@@ -49,7 +49,7 @@ namespace JigiJumper.Actors
                 _holdingPassedTime += Time.deltaTime;
                 if (_holdingPassedTime >= 1f)
                 {
-                    OnHoldForJumping?.Invoke(_currentPlanet);
+                    _currentPlanet.InvokeOnHoldingForJump();
                 }
             }
 

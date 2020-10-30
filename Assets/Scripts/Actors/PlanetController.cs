@@ -14,14 +14,16 @@ namespace JigiJumper.Actors
 
         [SerializeField] private Transform _pivot = null;
 
-        Transform _circuit;
-        bool _isVisited = false;
+        private Transform _circuit;
+        private bool _isVisited = false;
+        private bool _isOnHoldForJumping = false;
 
 
         public event Action<PlanetDataStructure> OnSpawnedInitialization;
         public event Action OnJumperEnter;
         public event Action OnJumperExit;
         public event Action OnPlanetDespawned;
+        public event Action OnHoldingForJump;
 
 
         private void Awake()
@@ -46,6 +48,7 @@ namespace JigiJumper.Actors
 
         public void InvokeOnJumperEnter()
         {
+            _isOnHoldForJumping = false;
             OnJumperEnter?.Invoke();
         }
 
@@ -57,8 +60,15 @@ namespace JigiJumper.Actors
         public void InvokeOnPlanetDespawned()
         {
             _isVisited = false;
-
             OnPlanetDespawned?.Invoke();
+        }
+
+        public void InvokeOnHoldingForJump()
+        {
+            if (_isOnHoldForJumping) { return; }
+            _isOnHoldForJumping = true;
+            
+            OnHoldingForJump?.Invoke();
         }
 
         private void SetCircuitRadius(float curcuitPosY)

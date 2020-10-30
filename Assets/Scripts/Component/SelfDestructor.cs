@@ -16,39 +16,29 @@ namespace JigiJumper.Component
 
         private PlanetController _planetController;
         private GameManager _gameManager;
-        private JumperController _jumper;
         private float _timer;
         private bool _isActivated;
         private bool _isFirstPlanet = true;
-        private bool _isOnHoldForJumping = false;
 
         private float _storedRotationSpeed;
 
         private void Awake()
         {
             _gameManager = GameManager.Instance;
-            _jumper = _gameManager.jumper;
             _planetController = GetComponent<PlanetController>();
 
-            _jumper.OnHoldForJumping += OnHoldForJumping;
+            _planetController.OnHoldingForJump += OnHoldForJumping;
 
             _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             _planetController.OnJumperEnter += OnJumperEnter;
             _planetController.OnJumperExit += OnJumperExit;
         }
 
-        private void OnHoldForJumping(PlanetController currentJumperPlanet)
+        private void OnHoldForJumping()
         {
-            // we don't concer with another planet controller nor the first one
-            if (_isFirstPlanet || currentJumperPlanet != _planetController) { return; }
-            
+            if (_isFirstPlanet) { return; } // we don't concer with another planet controller nor the first one
             if (_isActivated) { return; } // this had been activated before when the jumper enters.
-
-            if (_isOnHoldForJumping) { return; } // a control flag to run this callback just once
-
-            _isOnHoldForJumping = true;
             _isActivated = true;
-
             _rotationSpeed *= .4f;
         }
 
@@ -76,7 +66,7 @@ namespace JigiJumper.Component
         }
 
         public bool isActiveComponent => _isActivated;
-        
+
         public float timer => _timer;
 
         // called before the JumperEnter and wouldn't be called for the first spawned object
@@ -90,11 +80,10 @@ namespace JigiJumper.Component
         public void OnJumperEnter()
         {
             _storedRotationSpeed = _rotationSpeed;
-            
+
             if (_isFirstPlanet) { return; }
-            
-            _isActivated = false; // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
-            _isOnHoldForJumping = false;
+
+            _isActivated = true; // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
         }
 
         public void OnJumperExit()

@@ -159,7 +159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   planetType: 1
   _planetData: {fileID: 11400000, guid: 964754baa0dcb174f8a926f7829e86e6, type: 2}
-  _rotationSpeed: 50
   _pivot: {fileID: 676186244}
 --- !u!114 &6680666158047256350
 MonoBehaviour:
@@ -187,6 +186,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _selfDestructionTimer: 5
+  _rotationSpeed: 150
+  _pivot: {fileID: 676186244}
 --- !u!1 &113138695131851341
 GameObject:
   m_ObjectHideFlags: 0

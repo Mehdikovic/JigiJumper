@@ -10,7 +10,7 @@ namespace JigiJumper.Actors
         //todo delete this line
         [SerializeField] private PlanetType planetType = PlanetType.Medium;
         [SerializeField] PlanetData _planetData = null;
-        [SerializeField] private float _rotationSpeed = 50f;
+        
 
         [SerializeField] private Transform _pivot = null;
 
@@ -27,11 +27,6 @@ namespace JigiJumper.Actors
         private void Awake()
         {
             _circuit = _pivot.GetChild(0);
-        }
-
-        private void LateUpdate()
-        {
-            HandleRotation();
         }
 
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
@@ -69,11 +64,6 @@ namespace JigiJumper.Actors
         private void SetCircuitRadius(float curcuitPosY)
         {
             _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
-        }
-
-        private void HandleRotation()
-        {
-            _pivot.Rotate(Vector3.forward * (Time.deltaTime * _rotationSpeed));
         }
     }
 }

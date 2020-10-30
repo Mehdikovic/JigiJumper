@@ -11,6 +11,8 @@ namespace JigiJumper.Component
     {
         [Range(5f, 10f)]
         [SerializeField] private float _selfDestructionTimer = 5f;
+        [SerializeField] private float _rotationSpeed = 50f;
+        [SerializeField] private Transform _pivot = null;
 
         private PlanetController _planetController;
         private GameManager _gameManager;
@@ -19,6 +21,8 @@ namespace JigiJumper.Component
         private bool _isActivated;
         private bool _isFirstPlanet = true;
         private bool _isOnHoldForJumping = false;
+
+        private float _storedRotationSpeed;
 
         private void Awake()
         {
@@ -44,6 +48,8 @@ namespace JigiJumper.Component
 
             _isOnHoldForJumping = true;
             _isActivated = true;
+
+            _rotationSpeed *= .4f;
         }
 
         private void Update()
@@ -58,8 +64,19 @@ namespace JigiJumper.Component
                 _isActivated = false;
             }
         }
-        
+
+        private void LateUpdate()
+        {
+            HandleRotation();
+        }
+
+        private void HandleRotation()
+        {
+            _pivot.Rotate(Vector3.forward * (Time.deltaTime * _rotationSpeed));
+        }
+
         public bool isActiveComponent => _isActivated;
+        
         public float timer => _timer;
 
         // called before the JumperEnter and wouldn't be called for the first spawned object
@@ -72,8 +89,10 @@ namespace JigiJumper.Component
 
         public void OnJumperEnter()
         {
+            _storedRotationSpeed = _rotationSpeed;
+            
             if (_isFirstPlanet) { return; }
-
+            
             _isActivated = false; // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
             _isOnHoldForJumping = false;
         }
@@ -81,6 +100,8 @@ namespace JigiJumper.Component
         public void OnJumperExit()
         {
             _isActivated = false;
+
+            _rotationSpeed = _storedRotationSpeed;
         }
     }
 }

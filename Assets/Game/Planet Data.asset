@@ -17,19 +17,19 @@ MonoBehaviour:
     radius: 3
     curcuitPosY: 0.6
     xRange: {x: -0.75, y: 0.75}
-    yRange: {x: 5.5, y: 6}
+    yRange: {x: 5, y: 5.5}
   - type: 1
     radius: 2
     curcuitPosY: 0.6
     xRange: {x: -1.2, y: 1.2}
-    yRange: {x: 5.5, y: 6}
+    yRange: {x: 5, y: 5.25}
   - type: 2
     radius: 1
     curcuitPosY: 0.7
     xRange: {x: -1.7, y: 1.7}
-    yRange: {x: 5.5, y: 7}
+    yRange: {x: 4.75, y: 6.5}
   - type: 3
     radius: 0.5
     curcuitPosY: 0.9
     xRange: {x: -2, y: 2}
-    yRange: {x: 5.5, y: 7}
+    yRange: {x: 3.5, y: 6}

@@ -3,23 +3,27 @@
 using JigiJumper.Data;
 using JigiJumper.Managers;
 using JigiJumper.Actors;
-
+using System;
 
 namespace JigiJumper.Component
 {
     public class SelfDestructor : MonoBehaviour
     {
+        enum State { None, OnEnterDestruction, OnHoldDestruction }
+
         [Range(5f, 10f)]
         [SerializeField] private float _selfDestructionTimer = 5f;
         [SerializeField] private float _rotationSpeed = 50f;
         [SerializeField] private Transform _pivot = null;
+
+        [SerializeField] State state = State.None;
 
         private PlanetController _planetController;
         private GameManager _gameManager;
         private float _timer;
         private bool _isActivated;
         private bool _isFirstPlanet = true;
-
+        private State _internalState = State.None;
         private float _storedRotationSpeed;
 
         private void Awake()
@@ -36,8 +40,9 @@ namespace JigiJumper.Component
 
         private void OnHoldForJumping()
         {
-            if (_isFirstPlanet) { return; } // we don't concer with another planet controller nor the first one
-            if (_isActivated) { return; } // this had been activated before when the jumper enters.
+            if (_internalState != State.OnHoldDestruction) { return; }
+            if (_isFirstPlanet) { return; } // we don't concer with the first one
+            if (_isActivated) { return; } // this had been activated before when the jumper enters. EXTRA CHECK, we don't realy need this because of internal state contoller
             _isActivated = true;
             _rotationSpeed *= .4f;
         }
@@ -83,7 +88,18 @@ namespace JigiJumper.Component
 
             if (_isFirstPlanet) { return; }
 
-            _isActivated = true; // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
+            _internalState = state; //GetRandomState();
+
+            if (_internalState == State.OnEnterDestruction)
+            {
+                _isActivated = true;
+            }
+        }
+
+        private State GetRandomState()
+        {
+            // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
+            return State.None;
         }
 
         public void OnJumperExit()

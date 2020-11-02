@@ -5,6 +5,7 @@ using UnityEngine;
 namespace JigiJumper.Data
 {
     public enum PlanetType { Large, Medium, Small, Tiny }
+    public enum State { None, OnEnterDestruction, OnHoldDestruction }
 
     [System.Serializable]
     public class PlanetDataStructure

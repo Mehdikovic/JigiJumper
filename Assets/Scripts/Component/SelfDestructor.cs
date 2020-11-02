@@ -9,8 +9,6 @@ namespace JigiJumper.Component
 {
     public class SelfDestructor : MonoBehaviour
     {
-        enum State { None, OnEnterDestruction, OnHoldDestruction }
-
         [Range(5f, 10f)]
         [SerializeField] private float _selfDestructionTimer = 5f;
         [SerializeField] private float _rotationSpeed = 50f;

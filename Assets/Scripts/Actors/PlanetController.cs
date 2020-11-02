@@ -9,8 +9,6 @@ namespace JigiJumper.Actors
     public class PlanetController : MonoBehaviour
     {
         [SerializeField] PlanetData _planetData = null;
-        
-
         [SerializeField] private Transform _pivot = null;
 
         private Transform _circuit;

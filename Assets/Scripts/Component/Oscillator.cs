@@ -5,6 +5,7 @@ using JigiJumper.Data;
 using JigiJumper.Actors;
 using JigiJumper.Managers;
 
+
 namespace JigiJumper.Component
 {
     public class Oscillator : MonoBehaviour
@@ -15,16 +16,15 @@ namespace JigiJumper.Component
 
         float _originalX;
         Coroutine _oscillator;
-        PlanetController _planetController;
         SpawnProbabilities _spawnProbabilities;
 
         private void Awake()
         {
-            _planetController = GetComponent<PlanetController>();
             _spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
+            PlanetController planetController = GetComponent<PlanetController>();
 
-            _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
-            _planetController.OnJumperEnter += OnJumperEnter;
+            planetController.OnSpawnedInitialization += OnSpawnedInitialization;
+            planetController.OnJumperEnter += OnJumperEnter;
         }
 
         void Init(PlanetDataStructure data)

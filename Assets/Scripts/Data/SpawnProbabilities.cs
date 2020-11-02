@@ -19,7 +19,7 @@ namespace JigiJumper.Data
         [SerializeField] private ValueProbability[] _rotationSpeed = null;
         [SerializeField] private float _defaultRotationSpeed = 0f;
         [SerializeField] private StateProbability[] _state = null;
-        [SerializeField] private State _defaultState = State.None;
+        [SerializeField] private DestructionState _defaultState = DestructionState.None;
         [SerializeField] private ValueProbability[] _selfDestructionTimer = null;
         [SerializeField] private float _defaultSelfDestructionTimer = 0f;
 
@@ -103,7 +103,7 @@ namespace JigiJumper.Data
             return _defaultRotationSpeed;
         }
 
-        public State GetState()
+        public DestructionState GetState()
         {
             if (_state == null || _state.Length == 0) { return _defaultState; }
 
@@ -141,7 +141,7 @@ namespace JigiJumper.Data
         [System.Serializable]
         protected struct StateProbability
         {
-            public State state;
+            public DestructionState state;
             public int probability;
         }
     }

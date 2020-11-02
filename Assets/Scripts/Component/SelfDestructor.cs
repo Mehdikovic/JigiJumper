@@ -3,7 +3,7 @@
 using JigiJumper.Data;
 using JigiJumper.Managers;
 using JigiJumper.Actors;
-using System;
+
 
 namespace JigiJumper.Component
 {
@@ -12,7 +12,6 @@ namespace JigiJumper.Component
         [SerializeField] private Transform _pivot = null;
 
         private GameManager _gameManager;
-        private PlanetController _planetController;
         private SpawnProbabilities _spawnProbabiliteis;
         
         private float _rotationSpeed;
@@ -20,25 +19,25 @@ namespace JigiJumper.Component
         private float _timer;
         private bool _isActivated;
         private bool _isFirstPlanet = true;
-        private State _internalState = State.None;
+        private DestructionState _internalState = DestructionState.None;
 
 
         private void Awake()
         {
             _gameManager = GameManager.Instance;
-            _planetController = GetComponent<PlanetController>();
             _spawnProbabiliteis = _gameManager.GetSpawnProbabilities();
+            PlanetController planetController = GetComponent<PlanetController>();
 
-            _planetController.OnHoldingForJump += OnHoldForJumping;
+            planetController.OnHoldingForJump += OnHoldForJumping;
 
-            _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
-            _planetController.OnJumperEnter += OnJumperEnter;
-            _planetController.OnJumperExit += OnJumperExit;
+            planetController.OnSpawnedInitialization += OnSpawnedInitialization;
+            planetController.OnJumperEnter += OnJumperEnter;
+            planetController.OnJumperExit += OnJumperExit;
         }
 
         private void OnHoldForJumping()
         {
-            if (_internalState != State.OnHoldDestruction) { return; }
+            if (_internalState != DestructionState.OnHoldDestruction) { return; }
             if (_isFirstPlanet) { return; } // we don't concer with the first one
             if (_isActivated) { return; } // this had been activated before when the jumper enters. EXTRA CHECK, we don't realy need this because of internal state contoller
             _isActivated = true;
@@ -93,7 +92,7 @@ namespace JigiJumper.Component
 
             _internalState = _spawnProbabiliteis.GetState();
             
-            if (_internalState == State.OnEnterDestruction)
+            if (_internalState == DestructionState.OnEnterDestruction)
             {
                 _isActivated = true;
             }

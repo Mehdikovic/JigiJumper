@@ -8,15 +8,13 @@ namespace JigiJumper.Actors
     public class JumperController : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
-        [SerializeField] private float _speed = 10f;
+        [SerializeField] private float _speed = 10f; // todo read from level based data
 
-        PlanetController _currentPlanet;
-        PlanetController _previousPlanet;
+        private PlanetController _currentPlanet;
+        private PlanetController _previousPlanet;
+        private float _holdingPassedTime = 0f;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
-        
-
-        private float _holdingPassedTime = 0f;
 
         private void Update()
         {

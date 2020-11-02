@@ -32,7 +32,7 @@ namespace JigiJumper.Managers
             _jumper = _lazyJumper.value;
         }
 
-        public JumperController jumper => _jumper == null ? _lazyJumper.value: _jumper;
+        public JumperController jumper => _lazyJumper.value;
 
         public SpawnProbabilities GetSpawnProbabilities()
         {

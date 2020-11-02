@@ -218,7 +218,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &168246216
 MonoBehaviour:
@@ -399,11 +399,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450465809}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 40.46, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 705266660}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1450465811
 MonoBehaviour:
@@ -417,6 +417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03adb94030acbf41ba21b8f61688814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spwanProbabilities: {fileID: 11400000, guid: f68435364c9e0454da72681997b8f5a1,
+    type: 2}
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +580,10 @@ PrefabInstance:
       propertyPath: _cinemachine
       value: 
       objectReference: {fileID: 26268157}
+    - target: {fileID: 705266658, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: _speed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5656339767696157777, guid: 4ddfdba9d94b74144ad3eb35658c1e9c,
         type: 3}
       propertyPath: m_Name
@@ -621,7 +627,7 @@ PrefabInstance:
     - target: {fileID: 5656339767696157778, guid: 4ddfdba9d94b74144ad3eb35658c1e9c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5656339767696157778, guid: 4ddfdba9d94b74144ad3eb35658c1e9c,
         type: 3}

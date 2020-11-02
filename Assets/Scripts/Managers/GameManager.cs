@@ -2,7 +2,8 @@
 
 using JigiJumper.Actors;
 using JigiJumper.Utils;
-
+using JigiJumper.Data;
+using System;
 
 namespace JigiJumper.Managers
 {
@@ -21,6 +22,8 @@ namespace JigiJumper.Managers
         }
         #endregion
 
+        [SerializeField] private SpawnProbabilities _spwanProbabilities = null;
+
         LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>( () => FindObjectOfType<JumperController>());
         JumperController _jumper;
 
@@ -30,6 +33,11 @@ namespace JigiJumper.Managers
         }
 
         public JumperController jumper => _jumper == null ? _lazyJumper.value: _jumper;
+
+        public SpawnProbabilities GetSpawnProbabilities()
+        {
+            return _spwanProbabilities;
+        }
 
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)
         {

@@ -3,25 +3,25 @@ using UnityEngine;
 
 using JigiJumper.Data;
 using JigiJumper.Actors;
-
+using JigiJumper.Managers;
 
 namespace JigiJumper.Component
 {
     public class Oscillator : MonoBehaviour
     {
-        [Range(0f, 1f)]
-        [SerializeField] float _speed = 0.5f;
-
+        float _speed = 0f;
         float _lerpValue = 0f;
         PlanetDataStructure _data;
 
         float _originalX;
         Coroutine _oscillator;
         PlanetController _planetController;
+        SpawnProbabilities _spawnProbabilities;
 
         private void Awake()
         {
             _planetController = GetComponent<PlanetController>();
+            _spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
 
             _planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             _planetController.OnJumperEnter += OnJumperEnter;
@@ -63,10 +63,18 @@ namespace JigiJumper.Component
                 _lerpValue += Time.deltaTime * direction * _speed;
 
                 if (_lerpValue >= 1f)
+                {
                     direction *= -1;
+                    _lerpValue = 1f;
+                    yield return null;
+                }
 
                 if (_lerpValue <= 0f)
+                {
                     direction *= -1;
+                    _lerpValue = 0f;
+                    yield return null;
+                }
 
                 float xPos = Mathf.Lerp(_data.xRange.x, _data.xRange.y, _lerpValue);
 
@@ -82,7 +90,7 @@ namespace JigiJumper.Component
         public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             Init(data);
-            //todo check that to be enable of disable based on probability
+            _speed = _spawnProbabilities.GetOscillationSpeed();
             InitialOscillattion();
         }
 

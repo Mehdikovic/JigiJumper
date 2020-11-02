@@ -9,25 +9,25 @@ namespace JigiJumper.Component
 {
     public class SelfDestructor : MonoBehaviour
     {
-        [Range(5f, 10f)]
-        [SerializeField] private float _selfDestructionTimer = 5f;
-        [SerializeField] private float _rotationSpeed = 50f;
         [SerializeField] private Transform _pivot = null;
 
-        [SerializeField] State state = State.None;
-
-        private PlanetController _planetController;
         private GameManager _gameManager;
+        private PlanetController _planetController;
+        private SpawnProbabilities _spawnProbabiliteis;
+        
+        private float _rotationSpeed;
+        private float _storedRotationSpeed;
         private float _timer;
         private bool _isActivated;
         private bool _isFirstPlanet = true;
         private State _internalState = State.None;
-        private float _storedRotationSpeed;
+
 
         private void Awake()
         {
             _gameManager = GameManager.Instance;
             _planetController = GetComponent<PlanetController>();
+            _spawnProbabiliteis = _gameManager.GetSpawnProbabilities();
 
             _planetController.OnHoldingForJump += OnHoldForJumping;
 
@@ -77,34 +77,33 @@ namespace JigiJumper.Component
         public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             _isFirstPlanet = false;
-            _timer = _selfDestructionTimer;
+            _timer = _spawnProbabiliteis.GetSelfDestructionTimer();
+            _rotationSpeed = _spawnProbabiliteis.GetRotationSpeed();
         }
 
         public void OnJumperEnter()
         {
+            if (_isFirstPlanet) {
+                _rotationSpeed = _spawnProbabiliteis.GetRotationSpeed();
+                _storedRotationSpeed = _rotationSpeed;
+                return; 
+            }
+
             _storedRotationSpeed = _rotationSpeed;
 
-            if (_isFirstPlanet) { return; }
-
-            _internalState = state; //GetRandomState();
-
+            _internalState = _spawnProbabiliteis.GetState();
+            
             if (_internalState == State.OnEnterDestruction)
             {
                 _isActivated = true;
             }
         }
 
-        private State GetRandomState()
-        {
-            // todo read this from probability, activates as soon as jumper enters OR when the planet is holder jumper
-            return State.None;
-        }
-
         public void OnJumperExit()
         {
             _isActivated = false;
 
-            _rotationSpeed = _storedRotationSpeed;
+            _rotationSpeed = _storedRotationSpeed; // because of restart system we need to store previous value of rotation
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Data;
+using JigiJumper.Managers;
 using System;
 using UnityEngine;
 
@@ -7,8 +8,6 @@ namespace JigiJumper.Actors
 {
     public class PlanetController : MonoBehaviour
     {
-        //todo delete this line
-        [SerializeField] private PlanetType planetType = PlanetType.Medium;
         [SerializeField] PlanetData _planetData = null;
         
 
@@ -17,7 +16,7 @@ namespace JigiJumper.Actors
         private Transform _circuit;
         private bool _isVisited = false;
         private bool _isOnHoldForJumping = false;
-
+        private SpawnProbabilities _spawnProbabilities;
 
         public event Action<PlanetDataStructure> OnSpawnedInitialization;
         public event Action OnJumperEnter;
@@ -29,6 +28,7 @@ namespace JigiJumper.Actors
         private void Awake()
         {
             _circuit = _pivot.GetChild(0);
+            _spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
         }
 
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
@@ -40,7 +40,7 @@ namespace JigiJumper.Actors
         public void InvokeOnComponentInitialization()
         {
             //todo get info from probablility
-            PlanetDataStructure data = _planetData.GetPlanetData(planetType);
+            PlanetDataStructure data = _planetData.GetPlanetData(_spawnProbabilities.GetPlanetType());
             
             SetCircuitRadius(data.curcuitPosY);
             OnSpawnedInitialization?.Invoke(data);

@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 1638439117}
   - component: {fileID: 6680666158047256350}
   - component: {fileID: -3717156998485886812}
+  - component: {fileID: 8322414229692117489}
   m_Layer: 8
   m_Name: Planet
   m_TagString: Untagged
@@ -157,7 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09453ef01010c54a90b60ec21cc119d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetType: 0
   _planetData: {fileID: 11400000, guid: 964754baa0dcb174f8a926f7829e86e6, type: 2}
   _pivot: {fileID: 676186244}
 --- !u!114 &6680666158047256350
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c4d3bcc9bbd8746a35aae1b8c080e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
 --- !u!114 &-3717156998485886812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,10 +184,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605a263b52e2dbd428d9a9b2732ec530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfDestructionTimer: 5
-  _rotationSpeed: 150
   _pivot: {fileID: 676186244}
-  state: 0
+--- !u!114 &8322414229692117489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113138694505962678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e339dc4c780d643b33b3828356e60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 113138695131851331}
+  _colors:
+  - {r: 0.58591396, g: 0.9716981, b: 0.087086126, a: 1}
+  - {r: 0.08627448, g: 0.972549, b: 0.6932478, a: 1}
+  - {r: 0.972549, g: 0.7598889, b: 0.08627448, a: 1}
+  - {r: 0.9811321, g: 0.21751513, b: 0.24869189, a: 1}
+  - {r: 0.9622642, g: 0.19517623, b: 0.46085876, a: 1}
+  - {r: 0.34709862, g: 0.7497035, b: 0.9811321, a: 1}
+  - {r: 0.61128724, g: 0.15263437, b: 0.9245283, a: 1}
+  - {r: 0, g: 0.5566038, b: 0.41440156, a: 1}
+  - {r: 1, g: 0.95126635, b: 0.033018887, a: 1}
+  - {r: 0.8301887, g: 0.31768173, b: 0, a: 1}
 --- !u!1 &113138695131851341
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +280,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 486a826db15e5774981eb30353a0d03b, type: 3}
-  m_Color: {r: 0.39300618, g: 0.8018868, b: 0.374466, a: 1}
+  m_Color: {r: 0.48064786, g: 0.8, b: 0.37254903, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -473,7 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.990566, g: 0.22895159, b: 0.22895159, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:

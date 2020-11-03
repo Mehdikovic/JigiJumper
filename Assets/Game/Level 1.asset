@@ -15,11 +15,11 @@ MonoBehaviour:
   _jumperSpeed: []
   _defaultJumperSpeed: 20
   _types: []
-  _defaultType: 3
+  _defaultType: 1
   _oscillationSpeed: []
-  _defaultOscillaionSpeed: 1
+  _defaultOscillaionSpeed: 0
   _rotationSpeed: []
-  _defaultRotationSpeed: 200
+  _defaultRotationSpeed: 50
   _state: []
   _defaultState: 0
   _selfDestructionTimer: []

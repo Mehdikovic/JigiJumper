@@ -22,7 +22,8 @@ namespace JigiJumper.Managers
         }
         #endregion
 
-        [SerializeField] private SpawnProbabilities _spwanProbabilities = null;
+        [SerializeField] private SpawnProbabilities[] _spwanProbabilities = null;
+        [SerializeField] private int index = 0; // todo remove me!
 
         LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>( () => FindObjectOfType<JumperController>());
         JumperController _jumper;
@@ -36,7 +37,7 @@ namespace JigiJumper.Managers
 
         public SpawnProbabilities GetSpawnProbabilities()
         {
-            return _spwanProbabilities;
+            return _spwanProbabilities[index];
         }
 
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   _jumperSpeed: []
-  _defaultJumperSpeed: 20
+  _defaultJumperSpeed: 10
   _types: []
   _defaultType: 1
   _oscillationSpeed: []

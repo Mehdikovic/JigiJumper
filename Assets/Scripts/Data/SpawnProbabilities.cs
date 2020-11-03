@@ -111,7 +111,9 @@ namespace JigiJumper.Data
 
         public float GetRotationSpeed()
         {
-            if (_rotationSpeed == null || _rotationSpeed.Length == 0) { return _defaultRotationSpeed; }
+            int direction = Random.Range(0, 9) % 2 == 0 ? 1 : -1;
+            
+            if (_rotationSpeed == null || _rotationSpeed.Length == 0) { return _defaultRotationSpeed * direction; }
 
             int random = Random.Range(1, 101);
             int aggregation = 0;
@@ -122,11 +124,11 @@ namespace JigiJumper.Data
                 aggregation += rotationSpeedProbability.probability;
                 if (random <= aggregation)
                 {
-                    return rotationSpeedProbability.value;
+                    return rotationSpeedProbability.value * direction;
                 }
             }
 
-            return _defaultRotationSpeed;
+            return _defaultRotationSpeed * direction;
         }
 
         public DestructionState GetState()

@@ -16,11 +16,9 @@ namespace JigiJumper.Component
 
         float _originalX;
         Coroutine _oscillator;
-        SpawnProbabilities _spawnProbabilities;
 
         private void Awake()
         {
-            _spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
             PlanetController planetController = GetComponent<PlanetController>();
 
             planetController.OnSpawnedInitialization += OnSpawnedInitialization;
@@ -90,7 +88,8 @@ namespace JigiJumper.Component
         public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             Init(data);
-            _speed = _spawnProbabilities.GetOscillationSpeed();
+            var spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
+            _speed = spawnProbabilities.GetOscillationSpeed();
             InitialOscillattion();
         }
 

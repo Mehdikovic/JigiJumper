@@ -13,7 +13,7 @@ namespace JigiJumper.Component
 
         private GameManager _gameManager;
         private SpawnProbabilities _spawnProbabiliteis;
-        
+
         private float _rotationSpeed;
         private float _storedRotationSpeed;
         private float _timer;
@@ -25,7 +25,7 @@ namespace JigiJumper.Component
         private void Awake()
         {
             _gameManager = GameManager.Instance;
-            _spawnProbabiliteis = _gameManager.GetSpawnProbabilities();
+           
             PlanetController planetController = GetComponent<PlanetController>();
 
             planetController.OnHoldingForJump += OnHoldForJumping;
@@ -76,6 +76,8 @@ namespace JigiJumper.Component
         public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             _isFirstPlanet = false;
+            _spawnProbabiliteis = _gameManager.GetSpawnProbabilities();
+            
             _timer = _spawnProbabiliteis.GetSelfDestructionTimer();
             _rotationSpeed = _spawnProbabiliteis.GetRotationSpeed();
         }
@@ -83,6 +85,7 @@ namespace JigiJumper.Component
         public void OnJumperEnter()
         {
             if (_isFirstPlanet) {
+                _spawnProbabiliteis = _gameManager.GetSpawnProbabilities();
                 _rotationSpeed = _spawnProbabiliteis.GetRotationSpeed();
                 _storedRotationSpeed = _rotationSpeed;
                 return; 

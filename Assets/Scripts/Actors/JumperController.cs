@@ -1,5 +1,7 @@
 ﻿using System;
 using Cinemachine;
+using JigiJumper.Data;
+using JigiJumper.Managers;
 using UnityEngine;
 
 
@@ -8,13 +10,14 @@ namespace JigiJumper.Actors
     public class JumperController : MonoBehaviour
     {
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
-        [SerializeField] private float _speed = 10f; // todo read from level based data
 
+        private float _holdingPassedTime = 0f;
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
-        private float _holdingPassedTime = 0f;
+
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
+
 
         private void Update()
         {
@@ -27,7 +30,8 @@ namespace JigiJumper.Actors
             }
             else
             {
-                transform.Translate(Vector2.up * (Time.deltaTime * _speed));
+                float speed = GameManager.Instance.GetSpawnProbabilities().GetJumperSpeed();
+                transform.Translate(Vector2.up * (Time.deltaTime * speed));
             }
         }
 

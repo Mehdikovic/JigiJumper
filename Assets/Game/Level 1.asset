@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1a0521a52636743862b63de1891a0d, type: 3}
   m_Name: Level 1
   m_EditorClassIdentifier: 
+  _jumperSpeed: []
+  _defaultJumperSpeed: 10
   _types: []
   _defaultType: 0
   _oscillationSpeed: []

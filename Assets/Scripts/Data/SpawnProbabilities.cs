@@ -7,6 +7,11 @@ namespace JigiJumper.Data
     [CreateAssetMenu(fileName = "Probability Data", menuName = "Data/SpawnProbability")]
     public class SpawnProbabilities : ScriptableObject
     {
+        // todo needs compelete refactoring of components and mothods to seperate them from each other
+        [Header("Jumper Controller")]
+        [SerializeField] private ValueProbability[] _jumperSpeed = null;
+        [SerializeField] private float _defaultJumperSpeed = 10f;
+        
         [Header("Planet Controller")]
         [SerializeField] private PlanetTypeProbability[] _types = null;
         [SerializeField] private PlanetType _defaultType = PlanetType.Large;
@@ -22,6 +27,27 @@ namespace JigiJumper.Data
         [SerializeField] private DestructionState _defaultState = DestructionState.None;
         [SerializeField] private ValueProbability[] _selfDestructionTimer = null;
         [SerializeField] private float _defaultSelfDestructionTimer = 0f;
+
+
+        public float GetJumperSpeed()
+        {
+            if (_jumperSpeed == null || _jumperSpeed.Length == 0) { return _defaultJumperSpeed; }
+
+            int random = Random.Range(1, 101);
+            int aggregation = 0;
+
+            for (int i = 0; i < _jumperSpeed.Length; ++i)
+            {
+                var speedProbability = _jumperSpeed[i];
+                aggregation += speedProbability.probability;
+                if (random <= aggregation)
+                {
+                    return speedProbability.value;
+                }
+            }
+
+            return _defaultJumperSpeed;
+        }
 
         public PlanetType GetPlanetType()
         {

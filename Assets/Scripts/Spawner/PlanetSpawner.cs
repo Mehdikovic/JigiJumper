@@ -13,13 +13,11 @@ namespace JigiJumper.Spawner
         PlanetController _currentPlanet;
         JumperController _jumper;
 
-        SimplePool _planetPool;
+        PoolSystem<PlanetController> _planetPool;
 
         private void Awake()
         {
-            _planetPool = new SimplePool();
-            _planetPool.Preload(_planetPrefab.gameObject, transform, 3);
-
+            _planetPool = new PoolSystem<PlanetController>(_planetPrefab);
             _currentPlanet = SpawnTheFirst();
             _jumper = GameManager.Instance.jumper;
         }
@@ -41,7 +39,7 @@ namespace JigiJumper.Spawner
             if (previousPlanet != null)
             {
                 previousPlanet.InvokeOnPlanetDespawned();
-                _planetPool.Despawn(previousPlanet.gameObject);
+                _planetPool.Despawn(previousPlanet);
             }
 
             _currentPlanet.InvokeOnJumperEnter();
@@ -50,13 +48,13 @@ namespace JigiJumper.Spawner
 
         private void SpawnNewPlanet()
         {
-            GameObject newPlanet = _planetPool.Spawn(_planetPrefab.gameObject, _currentPlanet.transform.position, Quaternion.identity, transform);
-            newPlanet.GetComponent<PlanetController>().InvokeOnComponentInitialization();
+            PlanetController newPlanet = _planetPool.Spawn(_currentPlanet.transform.position, Quaternion.identity, transform);
+            newPlanet.InvokeOnComponentInitialization();
         }
 
         private PlanetController SpawnTheFirst()
         {
-            return _planetPool.Spawn(_planetPrefab.gameObject, Vector3.zero, Quaternion.identity, transform).GetComponent<PlanetController>();
+            return _planetPool.Spawn(Vector3.zero, Quaternion.identity, transform);
         }
     }
 }

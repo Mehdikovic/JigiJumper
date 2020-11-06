@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planetData: {fileID: 11400000, guid: 964754baa0dcb174f8a926f7829e86e6, type: 2}
   _pivot: {fileID: 676186244}
+  _spriteRenderer: {fileID: 113138695131851331}
 --- !u!114 &6680666158047256350
 MonoBehaviour:
   m_ObjectHideFlags: 0

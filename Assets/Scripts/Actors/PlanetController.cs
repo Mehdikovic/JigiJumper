@@ -43,7 +43,7 @@ namespace JigiJumper.Actors
         public void InvokeOnComponentInitialization()
         {
             //todo get info from probablility
-            var spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
+            var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
             PlanetDataStructure data = _planetData.GetPlanetData(spawnProbabilities.GetPlanetType());
             
             SetCircuitRadius(data.curcuitPosY);

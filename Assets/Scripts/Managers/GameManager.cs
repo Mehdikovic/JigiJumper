@@ -12,7 +12,7 @@ namespace JigiJumper.Managers
         private const int LEVEL_DETR = 5;
         #region Singleton
         static GameManager _instance;
-        public static GameManager Instance => GetInstance();
+        public static GameManager instance => GetInstance();
         static GameManager GetInstance()
         {
             if (_instance == null)

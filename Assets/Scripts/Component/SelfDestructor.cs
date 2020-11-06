@@ -24,7 +24,7 @@ namespace JigiJumper.Component
 
         private void Awake()
         {
-            _gameManager = GameManager.Instance;
+            _gameManager = GameManager.instance;
            
             PlanetController planetController = GetComponent<PlanetController>();
 

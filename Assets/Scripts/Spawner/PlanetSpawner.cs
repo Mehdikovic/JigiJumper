@@ -19,7 +19,7 @@ namespace JigiJumper.Spawner
         {
             _planetPool = new PoolSystem<PlanetController>(_planetPrefab);
             _currentPlanet = SpawnTheFirst();
-            _jumper = GameManager.Instance.jumper;
+            _jumper = GameManager.instance.jumper;
         }
 
         private void OnEnable()

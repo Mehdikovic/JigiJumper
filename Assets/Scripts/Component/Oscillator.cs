@@ -88,7 +88,7 @@ namespace JigiJumper.Component
         public void OnSpawnedInitialization(PlanetDataStructure data)
         {
             Init(data);
-            var spawnProbabilities = GameManager.Instance.GetSpawnProbabilities();
+            var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
             _speed = spawnProbabilities.GetOscillationSpeed();
             InitialOscillattion();
         }

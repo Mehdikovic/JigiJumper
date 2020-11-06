@@ -32,7 +32,7 @@ namespace JigiJumper.Actors
             }
             else
             {
-                float speed = GameManager.Instance.GetSpawnProbabilities().GetJumperSpeed();
+                float speed = GameManager.instance.GetSpawnProbabilities().GetJumperSpeed();
                 transform.Translate(Vector2.up * (Time.deltaTime * speed));
             }
         }

@@ -13,7 +13,7 @@ namespace JigiJumper.Spawner
         
         void Awake()
         {
-            GameManager.Instance.jumper.OnPlanetReached += OnPlanetReached;
+            GameManager.instance.jumper.OnPlanetReached += OnPlanetReached;
             _pool = new PoolSystem<ParticleDestroyer>(_particlePrefab);
         }
 

@@ -18,8 +18,8 @@ namespace JigiJumper.UI
         {
             _textPro.text = "1";
 
-            GameManager.Instance.OnLevelChanged += OnLevelChanged;
-            GameManager.Instance.jumper.OnPlanetReached += OnPlanetReached;
+            GameManager.instance.OnLevelChanged += OnLevelChanged;
+            GameManager.instance.jumper.OnPlanetReached += OnPlanetReached;
             
         }
 

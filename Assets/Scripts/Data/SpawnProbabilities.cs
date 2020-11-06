@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace JigiJumper.Data
@@ -7,7 +6,6 @@ namespace JigiJumper.Data
     [CreateAssetMenu(fileName = "Probability Data", menuName = "Data/SpawnProbability")]
     public class SpawnProbabilities : ScriptableObject
     {
-        // todo needs compelete refactoring of components and mothods to seperate them from each other
         [Header("Jumper Controller")]
         [SerializeField] private ValueProbability[] _jumperSpeed = null;
         [SerializeField] private float _defaultJumperSpeed = 10f;
@@ -28,25 +26,25 @@ namespace JigiJumper.Data
         [SerializeField] private ValueProbability[] _selfDestructionTimer = null;
         [SerializeField] private float _defaultSelfDestructionTimer = 0f;
 
-
         public float GetJumperSpeed()
         {
-            if (_jumperSpeed == null || _jumperSpeed.Length == 0) { return _defaultJumperSpeed; }
+            return GetValue(_jumperSpeed, _defaultJumperSpeed);
+        }
+        
+        public float GetOscillationSpeed()
+        {
+            return GetValue(_oscillationSpeed, _defaultOscillaionSpeed);
+        }
 
-            int random = Random.Range(1, 101);
-            int aggregation = 0;
+        public float GetSelfDestructionTimer()
+        {
+            return GetValue(_selfDestructionTimer, _defaultSelfDestructionTimer);
+        }
 
-            for (int i = 0; i < _jumperSpeed.Length; ++i)
-            {
-                var speedProbability = _jumperSpeed[i];
-                aggregation += speedProbability.probability;
-                if (random <= aggregation)
-                {
-                    return speedProbability.value;
-                }
-            }
-
-            return _defaultJumperSpeed;
+        public float GetRotationSpeed()
+        {
+            int direction = Random.Range(0, 9) % 2 == 0 ? 1 : -1;
+            return GetValue(_rotationSpeed, _defaultRotationSpeed * direction);
         }
 
         public PlanetType GetPlanetType()
@@ -67,68 +65,6 @@ namespace JigiJumper.Data
             }
 
             return _defaultType;
-        }
-        
-        public float GetOscillationSpeed()
-        {
-            if (_oscillationSpeed == null || _oscillationSpeed.Length == 0) { return _defaultOscillaionSpeed; }
-
-            int random = Random.Range(1, 101);
-            int aggregation = 0;
-
-            for (int i = 0; i < _oscillationSpeed.Length; ++i)
-            {
-                var speedProbability = _oscillationSpeed[i];
-                aggregation += speedProbability.probability;
-                if (random <= aggregation)
-                {
-                    return speedProbability.value;
-                }
-            }
-
-            return _defaultOscillaionSpeed;
-        }
-
-        public float GetSelfDestructionTimer()
-        {
-            if (_selfDestructionTimer == null || _selfDestructionTimer.Length == 0) { return _defaultSelfDestructionTimer; }
-
-            int random = Random.Range(1, 101);
-            int aggregation = 0;
-
-            for (int i = 0; i < _selfDestructionTimer.Length; ++i)
-            {
-                var selfDestructor = _selfDestructionTimer[i];
-                aggregation += selfDestructor.probability;
-                if (random <= aggregation)
-                {
-                    return selfDestructor.value;
-                }
-            }
-
-            return _defaultSelfDestructionTimer;
-        }
-
-        public float GetRotationSpeed()
-        {
-            int direction = Random.Range(0, 9) % 2 == 0 ? 1 : -1;
-            
-            if (_rotationSpeed == null || _rotationSpeed.Length == 0) { return _defaultRotationSpeed * direction; }
-
-            int random = Random.Range(1, 101);
-            int aggregation = 0;
-
-            for (int i = 0; i < _rotationSpeed.Length; ++i)
-            {
-                var rotationSpeedProbability = _rotationSpeed[i];
-                aggregation += rotationSpeedProbability.probability;
-                if (random <= aggregation)
-                {
-                    return rotationSpeedProbability.value * direction;
-                }
-            }
-
-            return _defaultRotationSpeed * direction;
         }
 
         public DestructionState GetState()
@@ -151,6 +87,25 @@ namespace JigiJumper.Data
             return _defaultState;
         }
 
+        private float GetValue(ValueProbability[] valueList, float defalutValue)
+        {
+            if (valueList == null || valueList.Length == 0) { return defalutValue; }
+
+            int random = Random.Range(1, 101);
+            int aggregation = 0;
+
+            for (int i = 0; i < valueList.Length; ++i)
+            {
+                var valueProbability = valueList[i];
+                aggregation += valueProbability.probability;
+                if (random <= aggregation)
+                {
+                    return valueProbability.value;
+                }
+            }
+
+            return defalutValue;
+        }
 
         [System.Serializable]
         protected struct PlanetTypeProbability

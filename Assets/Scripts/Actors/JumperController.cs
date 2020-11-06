@@ -17,6 +17,8 @@ namespace JigiJumper.Actors
 
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
+        public event Action OnJump;
+        public event Action OnRestart;
 
 
         private void Update()
@@ -58,10 +60,10 @@ namespace JigiJumper.Actors
             if (Input.GetMouseButtonUp(0))
             {
                 _holdingPassedTime = 0f;
-
                 _currentPlanet.InvokeOnJumperExit();
                 _previousPlanet = _currentPlanet;
                 _currentPlanet = null;
+                OnJump?.Invoke();
             }
 
 
@@ -70,7 +72,8 @@ namespace JigiJumper.Actors
         private void Restart()
         {
             if (_currentPlanet != null || _previousPlanet == null) { return; }
-
+            OnRestart?.Invoke();
+            
             _previousPlanet.isVisited = false;
             PutJumperOnCircuit(_previousPlanet);
         }

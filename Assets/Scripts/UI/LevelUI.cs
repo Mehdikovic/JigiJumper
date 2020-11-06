@@ -7,7 +7,7 @@ namespace JigiJumper.UI
 {
     public class LevelUI : MonoBehaviour
     {
-        private const int REMAINING_PLANET = 3;
+        private const int REMAINING_PLANET = 2;
         
         [SerializeField] private GameObject[] _actives = null;
         [SerializeField] private TextMeshProUGUI _textPro = null;

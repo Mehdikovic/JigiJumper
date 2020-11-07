@@ -5,6 +5,7 @@ using JigiJumper.Utils;
 using JigiJumper.Data;
 using System;
 
+
 namespace JigiJumper.Managers
 {
     public enum RestartMode { Reallocate, Destruction }
@@ -45,7 +46,7 @@ namespace JigiJumper.Managers
             switch (mode)
             {
                 case RestartMode.Reallocate:
-                    print("Realocate restart called"); //todo delete this
+                    _jumper.ReallocateYourself();
                     break;
                 case RestartMode.Destruction:
                     print("Destruction restart called"); //todo delete this

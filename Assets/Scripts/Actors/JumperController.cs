@@ -12,14 +12,19 @@ namespace JigiJumper.Actors
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
 
         private float _holdingPassedTime = 0f;
+        private GameManager _gameManager;
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
-
+        private int _remainingLife = 4;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
         public event Action OnRestart;
 
+        private void Awake()
+        {
+            _gameManager = GameManager.instance;
+        }
 
         private void Update()
         {
@@ -32,7 +37,7 @@ namespace JigiJumper.Actors
             }
             else
             {
-                float speed = GameManager.instance.GetSpawnProbabilities().GetJumperSpeed();
+                float speed = _gameManager.GetSpawnProbabilities().GetJumperSpeed();
                 transform.Translate(Vector2.up * (Time.deltaTime * speed));
             }
         }
@@ -41,7 +46,7 @@ namespace JigiJumper.Actors
 
         private void HandleInput()
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R)) // todo debug purpose, delete it entirely
             {
                 Restart();
             }
@@ -65,8 +70,18 @@ namespace JigiJumper.Actors
                 _currentPlanet = null;
                 OnJump?.Invoke();
             }
+        }
 
+        public void ReallocateYourself()
+        {
+            if (_remainingLife <= 0)
+            {
+                _remainingLife = 0;
+                _gameManager.RequestToRestart(RestartMode.Destruction);
+            }
 
+            --_remainingLife;
+            Restart();
         }
 
         private void Restart()

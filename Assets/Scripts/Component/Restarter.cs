@@ -3,19 +3,21 @@ using JigiJumper.Managers;
 using UnityEngine;
 
 
-namespace JigiJumper.Manager
+namespace JigiJumper.Component
 {
-    public class RestartManager : MonoBehaviour
+    public class Restarter : MonoBehaviour
     {
         private const float RESTART_TIMER = 2f;
 
         private JumperController _jumper;
+        private GameManager _gameManager;
         private float _restartTimerChecker;
         private bool _isRestartCalled = true;
         
         private void Awake()
         {
-            _jumper = GetComponent<GameManager>().jumper;
+            _gameManager = GameManager.instance;
+            _jumper = GetComponent<JumperController>();
             _jumper.OnJump += OnJumperJump;
         }
 
@@ -35,7 +37,7 @@ namespace JigiJumper.Manager
 
         private void RequestToRestartTheGame()
         {
-            // todo show interactive ui to user for choosing an action
+            _gameManager.RequestToRestart(RestartMode.Reallocate);
         }
 
         private void OnJumperJump()

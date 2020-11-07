@@ -7,6 +7,8 @@ using System;
 
 namespace JigiJumper.Managers
 {
+    public enum RestartMode { Reallocate, Destruction }
+    
     public class GameManager : MonoBehaviour
     {
         private const int LEVEL_DETR = 5;
@@ -25,17 +27,30 @@ namespace JigiJumper.Managers
 
         [SerializeField] private SpawnProbabilities[] _spawnProbabilities = null;
 
-        LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>( () => FindObjectOfType<JumperController>());
+        LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>(() => FindObjectOfType<JumperController>());
         JumperController _jumper;
 
         private int _point = 0;
-       
+
         public event Action<int> OnLevelChanged;
-        
+
         private void Awake()
         {
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
+        }
+
+        public void RequestToRestart(RestartMode mode)
+        {
+            switch (mode)
+            {
+                case RestartMode.Reallocate:
+                    print("Realocate restart called"); //todo delete this
+                    break;
+                case RestartMode.Destruction:
+                    print("Destruction restart called"); //todo delete this
+                    break;
+            }
         }
 
         public JumperController jumper => _lazyJumper.value;
@@ -50,10 +65,10 @@ namespace JigiJumper.Managers
         {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
 
-            print("destroyed");
+            RequestToRestart(RestartMode.Destruction);
         }
 
-        private void OnPlanetReached(Actors.PlanetController arg1, Actors.PlanetController arg2)
+        private void OnPlanetReached(PlanetController arg1, PlanetController arg2)
         {
             ++_point;
 

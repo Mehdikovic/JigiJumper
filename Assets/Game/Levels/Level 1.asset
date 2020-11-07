@@ -21,6 +21,6 @@ MonoBehaviour:
   _rotationSpeed: []
   _defaultRotationSpeed: 50
   _state: []
-  _defaultState: 0
+  _defaultState: 1
   _selfDestructionTimer: []
-  _defaultSelfDestructionTimer: 20
+  _defaultSelfDestructionTimer: 5

@@ -1,8 +1,8 @@
 ﻿using System;
 using Cinemachine;
-using JigiJumper.Data;
 using JigiJumper.Managers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 
 namespace JigiJumper.Actors
@@ -15,7 +15,7 @@ namespace JigiJumper.Actors
         private GameManager _gameManager;
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
-        private int _remainingLife = 4;
+        private int _remainingLife = 2;
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
@@ -46,6 +46,8 @@ namespace JigiJumper.Actors
 
         private void HandleInput()
         {
+            if (EventSystem.current.IsPointerOverGameObject()) { return; }
+            
             if (Input.GetKeyDown(KeyCode.R)) // todo debug purpose, delete it entirely
             {
                 Restart();

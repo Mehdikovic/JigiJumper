@@ -24,6 +24,8 @@ namespace JigiJumper.Managers
             }
             return _instance;
         }
+
+        
         #endregion
 
         [SerializeField] private SpawnProbabilities[] _spawnProbabilities = null;
@@ -34,6 +36,7 @@ namespace JigiJumper.Managers
         private int _point = 0;
 
         public event Action<int> OnLevelChanged;
+        public event Action OnCompleteRestartRequest;
 
         private void Awake()
         {
@@ -49,7 +52,7 @@ namespace JigiJumper.Managers
                     _jumper.ReallocateYourself();
                     break;
                 case RestartMode.Destruction:
-                    print("Destruction restart called"); //todo delete this
+                    OnCompleteRestartRequest?.Invoke();
                     break;
             }
         }

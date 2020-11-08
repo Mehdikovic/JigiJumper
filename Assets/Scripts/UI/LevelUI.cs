@@ -20,7 +20,13 @@ namespace JigiJumper.UI
 
             GameManager.instance.OnLevelChanged += OnLevelChanged;
             GameManager.instance.jumper.OnPlanetReached += OnPlanetReached;
+            GameManager.instance.OnCompleteRestartRequest += OnCompleteRestartRequest;
             
+        }
+
+        private void OnCompleteRestartRequest()
+        {
+            SetActiveOfGameObjects(false);
         }
 
         private void OnPlanetReached(Actors.PlanetController arg1, Actors.PlanetController arg2)

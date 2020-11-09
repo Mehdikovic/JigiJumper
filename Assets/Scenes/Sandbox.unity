@@ -1655,6 +1655,26 @@ PrefabInstance:
       propertyPath: _cinemachine
       value: 
       objectReference: {fileID: 26268157}
+    - target: {fileID: 1236071664, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0.09241867
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236071664, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236071664, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: m_Time
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236071664, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.2838158
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236071664, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 0.044616167
+      objectReference: {fileID: 0}
     - target: {fileID: 5656339767696157777, guid: 4ddfdba9d94b74144ad3eb35658c1e9c,
         type: 3}
       propertyPath: m_Name

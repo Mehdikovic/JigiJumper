@@ -23,12 +23,7 @@ namespace JigiJumper.Spawner
             for (int i = 0; i < qty; ++i)
             {
                 components[i] = Spawn(Vector3.zero, Quaternion.identity, parent);
-            }
-
-            // Now despawn them all.
-            for (int i = 0; i < qty; ++i)
-            {
-                Despawn(components[i]);
+                Despawn(components[i]); // despawn them right now
             }
         }
 

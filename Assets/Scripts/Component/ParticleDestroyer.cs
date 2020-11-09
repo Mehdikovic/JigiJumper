@@ -1,5 +1,4 @@
 ﻿using JigiJumper.Spawner;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -33,6 +32,7 @@ namespace JigiJumper.Component
                 if (_particle.isStopped)
                 {
                     pool.Despawn(this);
+                    yield break;
                 }
                 yield return null;
             }

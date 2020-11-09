@@ -8,16 +8,21 @@ namespace JigiJumper.Component
     public class TrailController : MonoBehaviour
     {
         private TrailRenderer _trail;
-
-        private Coroutine _activation;
-        WaitForSeconds _waitForOneSeconds;
+        private JumperController _jumper;
 
         private void Awake()
         {
-            _waitForOneSeconds = new WaitForSeconds(1f);
             _trail = GetComponent<TrailRenderer>();
-            GetComponent<JumperController>().OnRestart += OnRestartDemand;
-            GetComponent<JumperController>().OnPlanetReached += OnPlanetReached;
+            _jumper = GetComponent<JumperController>();
+            
+            _jumper.OnRestart += OnRestartDemand;
+            _jumper.OnPlanetReached += OnPlanetReached;
+            _jumper.OnJump += OnJumperJump;
+        }
+
+        private void OnJumperJump()
+        {
+            _trail.enabled = true;
         }
 
         private void OnPlanetReached(PlanetController arg1, PlanetController arg2)
@@ -28,20 +33,6 @@ namespace JigiJumper.Component
         private void OnRestartDemand()
         {
             _trail.enabled = false;
-
-            if (_activation != null)
-            {
-                StopCoroutine(_activation);
-                _activation = null;
-            }
-
-            _activation = StartCoroutine(Active());
-        }
-
-        IEnumerator Active()
-        {
-            yield return _waitForOneSeconds;
-            _trail.enabled = true;
         }
     }
 }

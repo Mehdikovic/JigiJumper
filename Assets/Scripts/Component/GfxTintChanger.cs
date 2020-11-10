@@ -1,8 +1,9 @@
-﻿using JigiJumper.Actors;
-using JigiJumper.Data;
-using JigiJumper.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+
+using JigiJumper.Utils;
+using JigiJumper.Actors;
+using JigiJumper.Spawner;
 
 
 namespace JigiJumper.Component
@@ -12,25 +13,23 @@ namespace JigiJumper.Component
     {
         private const int MAX_RANGE = 1000000;
         
-        [SerializeField] SpriteRenderer _spriteRenderer = null;
         [SerializeField] Color[] _colors = new Color[2];
 
         private Queue<Color> _colorQueue = null;
         private int _seed;
-        private PlanetController _planetController;
-
+        private PlanetSpawner _planetSpawner;
+        
         private void Awake()
         {
             _seed = Random.Range(0, MAX_RANGE);
             _colorQueue = new Queue<Color>(Utility.Shuffle(_colors, _seed));
-            _planetController = GetComponent<PlanetController>();
-
-            _planetController.OnSpawnedInitialization += ChangeColor;
+            
+            _planetSpawner = GetComponent<PlanetSpawner>();
+            _planetSpawner.OnNewPalnetSpawned += OnNewPalnetSpawned;
         }
 
-        void ChangeColor(PlanetDataStructure data)
+        private void OnNewPalnetSpawned(PlanetController planetController)
         {
-           
             Color color;
             if (_colorQueue.Count > 0)
             {
@@ -42,8 +41,7 @@ namespace JigiJumper.Component
                 color = _colorQueue.Dequeue();
             }
 
-            _spriteRenderer.color = color;
+            planetController.SetSpriteColor(color);
         }
-
     }
 }

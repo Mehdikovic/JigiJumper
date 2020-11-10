@@ -31,10 +31,9 @@ namespace JigiJumper.Actors
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
 
 
-        public Color GetSpriteTint()
-        {
-            return _spriteRenderer.color;
-        }
+        public Color GetSpriteTint() => _spriteRenderer.color;
+
+        public void SetSpriteColor(Color color) => _spriteRenderer.color = color;
 
         public Transform GetPivot() => _pivot;
 

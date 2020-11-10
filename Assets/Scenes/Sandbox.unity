@@ -199,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168246215}
   - component: {fileID: 168246216}
+  - component: {fileID: 168246217}
   m_Layer: 0
   m_Name: PlanetSpawer
   m_TagString: Untagged
@@ -233,6 +234,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planetPrefab: {fileID: 1638439117, guid: 609c96cb494929345842ab74d987a38d, type: 3}
+--- !u!114 &168246217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168246214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e339dc4c780d643b33b3828356e60b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colors:
+  - {r: 0.58591396, g: 0.9716981, b: 0.087086126, a: 1}
+  - {r: 0.08627448, g: 0.972549, b: 0.6932478, a: 1}
+  - {r: 0.972549, g: 0.7598889, b: 0.08627448, a: 1}
+  - {r: 0.9811321, g: 0.21751513, b: 0.24869189, a: 1}
+  - {r: 0.9622642, g: 0.19517623, b: 0.46085876, a: 1}
+  - {r: 0.34709862, g: 0.7497035, b: 0.9811321, a: 1}
+  - {r: 0.61128724, g: 0.15263437, b: 0.9245283, a: 1}
+  - {r: 0, g: 0.5566038, b: 0.41440156, a: 1}
+  - {r: 1, g: 0.95126635, b: 0.033018887, a: 1}
+  - {r: 0.8301887, g: 0.31768173, b: 0, a: 1}
 --- !u!1 &327335999
 GameObject:
   m_ObjectHideFlags: 0

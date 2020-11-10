@@ -2,7 +2,7 @@
 
 using JigiJumper.Managers;
 using JigiJumper.Actors;
-
+using System;
 
 namespace JigiJumper.Spawner
 {
@@ -14,6 +14,8 @@ namespace JigiJumper.Spawner
         JumperController _jumper;
 
         PoolSystem<PlanetController> _planetPool;
+
+        public event Action<PlanetController> OnNewPalnetSpawned;
 
         private void Awake()
         {
@@ -50,6 +52,7 @@ namespace JigiJumper.Spawner
         {
             PlanetController newPlanet = _planetPool.Spawn(_currentPlanet.transform.position, Quaternion.identity, transform);
             newPlanet.InvokeOnComponentInitialization();
+            OnNewPalnetSpawned?.Invoke(newPlanet);
         }
 
         private PlanetController SpawnTheFirst()

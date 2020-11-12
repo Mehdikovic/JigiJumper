@@ -372,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particlePrefab: {fileID: -6849941718639747282, guid: 69f66276b2432af499497c7a154b7343,
     type: 3}
+  _planetSpawner: {fileID: 168246216}
 --- !u!1 &460156455
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &460156456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1077,7 +1078,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1292750318
 RectTransform:
   m_ObjectHideFlags: 0

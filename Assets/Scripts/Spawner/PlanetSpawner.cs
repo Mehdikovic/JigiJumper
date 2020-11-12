@@ -16,6 +16,7 @@ namespace JigiJumper.Spawner
         PoolSystem<PlanetController> _planetPool;
 
         public event Action<PlanetController> OnNewPalnetSpawned;
+        public event Action<PlanetController> OnOldPlanetDespawned;
 
         private void Awake()
         {
@@ -34,14 +35,15 @@ namespace JigiJumper.Spawner
             _jumper.OnPlanetReached -= OnPlanetReached;
         }
 
-        private void OnPlanetReached(PlanetController previousPlanet, PlanetController newPlanet)
+        private void OnPlanetReached(PlanetController oldPlanet, PlanetController newPlanet)
         {
             _currentPlanet = newPlanet;
-
-            if (previousPlanet != null)
+            
+            if (oldPlanet != null)
             {
-                previousPlanet.InvokeOnPlanetDespawned();
-                _planetPool.Despawn(previousPlanet);
+                oldPlanet.InvokeOnPlanetDespawned();
+                OnOldPlanetDespawned?.Invoke(oldPlanet);
+                _planetPool.Despawn(oldPlanet);
             }
 
             _currentPlanet.InvokeOnJumperEnter();

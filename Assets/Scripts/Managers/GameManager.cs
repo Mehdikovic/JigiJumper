@@ -13,6 +13,7 @@ namespace JigiJumper.Managers
     public class GameManager : MonoBehaviour
     {
         private const int LEVEL_DETR = 5;
+        
         #region Singleton
         static GameManager _instance;
         public static GameManager instance => GetInstance();
@@ -24,8 +25,6 @@ namespace JigiJumper.Managers
             }
             return _instance;
         }
-
-        
         #endregion
 
         [SerializeField] private SpawnProbabilities[] _spawnProbabilities = null;
@@ -58,6 +57,7 @@ namespace JigiJumper.Managers
         }
 
         public JumperController jumper => _lazyJumper.value;
+        public int currentLevel => GetLevel();
 
         public SpawnProbabilities GetSpawnProbabilities()
         {

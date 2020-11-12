@@ -43,6 +43,7 @@ namespace JigiJumper.Actors
         }
 
         public GameObject currentPlanetGameObject => (_currentPlanet != null) ? _currentPlanet.gameObject : null;
+        public int remainingLife => _remainingLife;
 
         private void HandleInput()
         {
@@ -50,7 +51,7 @@ namespace JigiJumper.Actors
             
             if (Input.GetKeyDown(KeyCode.R)) // todo debug purpose, delete it entirely
             {
-                Restart();
+                ReallocateYourself();
             }
 
             if (_currentPlanet == null) { return; }
@@ -76,13 +77,14 @@ namespace JigiJumper.Actors
 
         public void ReallocateYourself()
         {
+            --_remainingLife;
+            
             if (_remainingLife <= 0)
             {
-                _remainingLife = 0;
+                _remainingLife = 1;
                 _gameManager.RequestToRestart(RestartMode.Destruction);
             }
-
-            --_remainingLife;
+            
             Restart();
         }
 

@@ -235,7 +235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 198d72b902f744f1782e556c1aaced54, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 080ce9f038d80da45bc525ace07e3396, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -255,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3034425235390806201}
   m_Layer: 0
-  m_Name: UI
+  m_Name: InGameLevelUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e8750dbfc75fb48f78495a60b50d42cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c0f3f4a542ece147873d14b7f4b7999, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

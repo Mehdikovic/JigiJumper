@@ -38,7 +38,7 @@ namespace JigiJumper.Managers
         public event Action OnCompleteRestartRequest;
 
         private void Awake()
-        {
+        {   
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
         }

@@ -9,7 +9,6 @@ namespace JigiJumper.UI
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject _container = null;
-        [SerializeField] private GoogleRewardAdManager _adManager = null;
 
         [Header("Buttons")]
         [SerializeField] private Button _btnShowAd = null;
@@ -18,13 +17,6 @@ namespace JigiJumper.UI
 
         private void Awake()
         {
-            _adManager.UserWatchedTheAd += () =>
-            {
-                GameManager.instance.RequestToRestart(RestartMode.Reallocate);
-                _container.SetActive(false);
-                //todo -> add reward to jumper
-            };
-
             InitialUIComponents();
 
             _container.SetActive(false);
@@ -45,7 +37,7 @@ namespace JigiJumper.UI
 
             _btnShowAd.onClick.AddListener(() =>
             {
-                _adManager.UserChoseToWatchAd();
+                GameManager.instance.RequestToRestart(RestartMode.Reallocate);
             });
 
             _btnHome.onClick.AddListener(() =>

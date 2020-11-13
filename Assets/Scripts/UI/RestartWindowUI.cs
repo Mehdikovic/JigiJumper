@@ -3,12 +3,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 namespace JigiJumper.UI
 {
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject _container = null;
-        [SerializeField] private GoogleAdManager _adManager = null;
+        [SerializeField] private GoogleRewardAdManager _adManager = null;
 
         [Header("Buttons")]
         [SerializeField] private Button _btnShowAd = null;
@@ -22,7 +23,6 @@ namespace JigiJumper.UI
                 GameManager.instance.RequestToRestart(RestartMode.Reallocate);
                 _container.SetActive(false);
                 //todo -> add reward to jumper
-                print("called from restart manager after watching ad");
             };
 
             InitialUIComponents();

@@ -13,15 +13,19 @@ namespace JigiJumper.Ads
 
         WaitForSeconds _wait;
 
-        void Awake()
+        void Start()
         {
             _wait = new WaitForSeconds(0.5f);
-            Advertisement.Initialize(gameId, testMode);
             StartCoroutine(ShowBannerWhenInitialized());
         }
 
         IEnumerator ShowBannerWhenInitialized()
         {
+            yield return _wait;
+            yield return _wait;
+            
+            Advertisement.Initialize(gameId, testMode);
+            
             while (!Advertisement.isInitialized)
             {
                 yield return _wait;

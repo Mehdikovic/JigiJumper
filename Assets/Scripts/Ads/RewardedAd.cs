@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 
+
 namespace JigiJumper.Ads
 {
     public class RewardedAd : MonoBehaviour, IUnityAdsListener

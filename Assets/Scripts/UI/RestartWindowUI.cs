@@ -1,4 +1,5 @@
-﻿using JigiJumper.Managers;
+﻿using JigiJumper.Ads;
+using JigiJumper.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace JigiJumper.UI
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject _container = null;
-        [SerializeField] private InitializeAdsScript _ads = null;
+        [SerializeField] private RewardedAd _ads = null;
 
         [Header("Buttons")]
         [SerializeField] private Button _btnShowAd = null;
@@ -18,7 +19,6 @@ namespace JigiJumper.UI
 
         private void Awake()
         {
-            #if TEST
             _ads.OnUnityAdsFinish += (result) =>
             {
                 if (result == UnityEngine.Advertisements.ShowResult.Finished)
@@ -27,7 +27,6 @@ namespace JigiJumper.UI
                     _container.SetActive(false);
                 }
             };
-            #endif
 
             InitialUIComponents();
 
@@ -50,9 +49,7 @@ namespace JigiJumper.UI
 
             _btnShowAd.onClick.AddListener(() =>
             {
-                #if TEST
                 _ads.ShowRewardedVideo();
-                #endif
             });
 
             _btnHome.onClick.AddListener(() =>

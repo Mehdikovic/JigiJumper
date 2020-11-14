@@ -9,6 +9,7 @@ namespace JigiJumper.UI
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject _container = null;
+        [SerializeField] private InitializeAdsScript _ads = null;
 
         [Header("Buttons")]
         [SerializeField] private Button _btnShowAd = null;
@@ -17,7 +18,19 @@ namespace JigiJumper.UI
 
         private void Awake()
         {
+            #if TEST
+            _ads.OnUnityAdsFinish += (result) =>
+            {
+                if (result == UnityEngine.Advertisements.ShowResult.Finished)
+                {
+                    GameManager.instance.RequestToRestart(RestartMode.Reallocate);
+                    _container.SetActive(false);
+                }
+            };
+            #endif
+
             InitialUIComponents();
+
 
             _container.SetActive(false);
             GameManager.instance.OnCompleteRestartRequest += OnCompleteRestartRequest;
@@ -37,7 +50,9 @@ namespace JigiJumper.UI
 
             _btnShowAd.onClick.AddListener(() =>
             {
-                GameManager.instance.RequestToRestart(RestartMode.Reallocate);
+                #if TEST
+                _ads.ShowRewardedVideo();
+                #endif
             });
 
             _btnHome.onClick.AddListener(() =>

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planetsData:
   - type: 0
-    radius: 3
+    radius: 2.5
     curcuitPosY: 0.6
     xRange: {x: -0.75, y: 0.75}
     yRange: {x: 5, y: 5.5}

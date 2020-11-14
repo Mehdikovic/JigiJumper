@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d830f9bb12b9407478c383c465b7c847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 3034425235792570846}
-  _adManager: {fileID: 0}
+  _container: {fileID: 3034425235792570845}
+  _ads: {fileID: 0}
   _btnShowAd: {fileID: 3034425236091002268}
   _btnHome: {fileID: 3034425234944586944}
   _btnRestart: {fileID: 3034425235642312793}

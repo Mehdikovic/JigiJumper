@@ -1,5 +1,7 @@
-﻿using JigiJumper.Ads;
+﻿using DG.Tweening;
+using JigiJumper.Ads;
 using JigiJumper.Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +11,7 @@ namespace JigiJumper.UI
 {
     public class RestartWindowUI : MonoBehaviour
     {
-        [SerializeField] private GameObject _container = null;
+        [SerializeField] private RectTransform _container = null;
         
         [Header("Reward-Ad")]
         [SerializeField] private RewardedAd _ads = null;
@@ -26,20 +28,29 @@ namespace JigiJumper.UI
                 if (result == UnityEngine.Advertisements.ShowResult.Finished)
                 {
                     GameManager.instance.RequestToRestart(RestartMode.Reallocate);
-                    _container.SetActive(false);
+                    _container.gameObject.SetActive(false);
                 }
             };
 
             InitialUIComponents();
 
 
-            _container.SetActive(false);
+            _container.gameObject.SetActive(false);
             GameManager.instance.OnCompleteRestartRequest += OnCompleteRestartRequest;
         }
 
         private void OnCompleteRestartRequest()
         {
-            _container.SetActive(true);
+            _container.gameObject.SetActive(true);
+            _container.localScale = new Vector3(0, 0, 1);
+            
+            _container
+                .DOScaleX(1.3f, .3f)
+                .onComplete = () => _container.DOScaleX(1f, .1f);
+
+            _container
+                .DOScaleY(1.3f, .3f)
+                .onComplete = () => _container.DOScaleY(1f, .1f);
         }
 
         private void InitialUIComponents()

@@ -43,6 +43,11 @@ namespace JigiJumper.Managers
             _jumper.OnPlanetReached += OnPlanetReached;
         }
 
+        private void OnDestroy()
+        {
+            _instance = null;
+        }
+
         public void RequestToRestart(RestartMode mode)
         {
             switch (mode)

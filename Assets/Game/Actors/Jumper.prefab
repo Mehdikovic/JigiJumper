@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 2889173675233418143}
   - component: {fileID: 705266658}
   - component: {fileID: 1236071669}
+  - component: {fileID: 603292334}
   m_Layer: 8
   m_Name: Jumper
   m_TagString: Untagged
@@ -235,6 +236,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a22dd1dfb7b7604b81b83e962d1f064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &603292334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656339767696157777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac44fb7143d94e74e8cc96f1a68c7fb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
 --- !u!1 &7040422626550964102
 GameObject:
   m_ObjectHideFlags: 0

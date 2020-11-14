@@ -10,6 +10,8 @@ namespace JigiJumper.UI
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private GameObject _container = null;
+        
+        [Header("Reward-Ad")]
         [SerializeField] private RewardedAd _ads = null;
 
         [Header("Buttons")]

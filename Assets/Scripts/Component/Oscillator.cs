@@ -16,9 +16,11 @@ namespace JigiJumper.Component
 
         float _originalX;
         Coroutine _oscillator;
+        Transform _transform;
 
         private void Awake()
         {
+            _transform = transform;
             PlanetController planetController = GetComponent<PlanetController>();
 
             planetController.OnSpawnedInitialization += OnSpawnedInitialization;
@@ -28,17 +30,17 @@ namespace JigiJumper.Component
         void Init(PlanetDataStructure data)
         {
             _data = data;
-            _originalX = transform.position.x;
-            transform.localScale = new Vector3(data.radius, data.radius, 1f);
+            _originalX = _transform.position.x;
+            _transform.localScale = new Vector3(data.radius, data.radius, 1f);
 
             _lerpValue = Random.value;
 
             float yPos = Random.Range(data.yRange.x, data.yRange.y);
             float xPos = Mathf.Lerp(data.xRange.x, data.xRange.y, _lerpValue);
-            float newYPos = transform.position.y + yPos;
+            float newYPos = _transform.position.y + yPos;
             float newXPos = _originalX + xPos;
 
-            transform.position = new Vector2(newXPos, newYPos);
+            _transform.position = new Vector2(newXPos, newYPos);
         }
 
         void StopOscillattion()
@@ -77,9 +79,9 @@ namespace JigiJumper.Component
                 float xPos = Mathf.Lerp(_data.xRange.x, _data.xRange.y, _lerpValue);
 
                 float newXPos = _originalX + xPos;
-                float newYPos = transform.position.y;
+                float newYPos = _transform.position.y;
 
-                transform.position = new Vector2(newXPos, newYPos);
+                _transform.position = new Vector2(newXPos, newYPos);
 
                 yield return null;
             }

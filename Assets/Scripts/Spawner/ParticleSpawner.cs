@@ -11,8 +11,11 @@ namespace JigiJumper.Spawner
 
         PoolSystem<ParticleDestroyer> _pool;
 
+        Transform _transform;
+
         void Awake()
         {
+            _transform = transform;
             _pool = new PoolSystem<ParticleDestroyer>(_particlePrefab);
         }
 
@@ -28,7 +31,7 @@ namespace JigiJumper.Spawner
 
         private void OnOldPlanetDespawned(Actors.PlanetController oldPlanet)
         {
-            var activeParticle = _pool.Spawn(oldPlanet.transform.position, Quaternion.identity, transform);
+            var activeParticle = _pool.Spawn(oldPlanet.transform.position, Quaternion.identity, _transform);
             activeParticle.SetColor(oldPlanet.GetSpriteTint());
             activeParticle.RequestToDespawnToPool(_pool);
         }

@@ -18,8 +18,12 @@ namespace JigiJumper.Spawner
         public event Action<PlanetController> OnNewPalnetSpawned;
         public event Action<PlanetController> OnOldPlanetDespawned;
 
+        Transform _transform;
+
         private void Awake()
         {
+            _transform = transform;
+
             _planetPool = new PoolSystem<PlanetController>(_planetPrefab);
             _currentPlanet = SpawnTheFirst();
             _jumper = GameManager.instance.jumper;
@@ -52,7 +56,7 @@ namespace JigiJumper.Spawner
 
         private void SpawnNewPlanet()
         {
-            PlanetController newPlanet = _planetPool.Spawn(_currentPlanet.transform.position, Quaternion.identity, transform);
+            PlanetController newPlanet = _planetPool.Spawn(_currentPlanet.transform.position, Quaternion.identity, _transform);
             newPlanet.InvokeOnComponentInitialization();
             OnNewPalnetSpawned?.Invoke(newPlanet);
         }

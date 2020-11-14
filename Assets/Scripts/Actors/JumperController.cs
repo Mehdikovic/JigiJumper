@@ -21,8 +21,12 @@ namespace JigiJumper.Actors
         public event Action OnJump;
         public event Action OnRestart;
 
+        private Transform _transform;
+
         private void Awake()
         {
+            _transform = transform;
+
             _gameManager = GameManager.instance;
         }
 
@@ -32,13 +36,13 @@ namespace JigiJumper.Actors
 
             if (_currentPlanet != null)
             {
-                transform.position = _currentPlanet.GetPivotCircuit().position;
-                transform.rotation = _currentPlanet.GetPivotCircuit().rotation;
+                _transform.position = _currentPlanet.GetPivotCircuit().position;
+                _transform.rotation = _currentPlanet.GetPivotCircuit().rotation;
             }
             else
             {
                 float speed = _gameManager.GetSpawnProbabilities().GetJumperSpeed();
-                transform.Translate(Vector2.up * (Time.deltaTime * speed));
+                _transform.Translate(Vector2.up * (Time.deltaTime * speed));
             }
         }
 
@@ -112,7 +116,7 @@ namespace JigiJumper.Actors
             _currentPlanet = planetController;
 
             Transform pivot = planetController.GetPivot();
-            float angle = Vector2.SignedAngle(pivot.transform.up, -transform.up);
+            float angle = Vector2.SignedAngle(pivot.transform.up, -_transform.up);
             pivot.localRotation *= Quaternion.Euler(Vector3.forward * angle);
 
             _cinemachine.Follow = planetController.transform;

@@ -27,10 +27,10 @@ namespace JigiJumper.Ads
             {
                 Advertisement.Show(myPlacementId);
             }
-            else
-            {
+            //else
+            //{
                 //Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
-            }
+            //}
         }
 
         // Implement IUnityAdsListener interface methods:

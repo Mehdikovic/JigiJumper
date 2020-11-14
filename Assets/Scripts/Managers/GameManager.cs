@@ -83,7 +83,7 @@ namespace JigiJumper.Managers
 
         private int GetLevel()
         {
-            return Mathf.Clamp(_point / LEVEL_DETR + 1, 1, 999);
+            return Mathf.Clamp((_point / LEVEL_DETR) + 1, 1, 999);
         }
     }
 }

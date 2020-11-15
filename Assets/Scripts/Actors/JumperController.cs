@@ -116,7 +116,7 @@ namespace JigiJumper.Actors
             _currentPlanet = planetController;
 
             Transform pivot = planetController.GetPivot();
-            float angle = Vector2.SignedAngle(pivot.transform.up, -_transform.up);
+            float angle = Vector2.SignedAngle(pivot.transform.up, _transform.position - pivot.position);
             pivot.localRotation *= Quaternion.Euler(Vector3.forward * angle);
 
             _cinemachine.Follow = planetController.transform;

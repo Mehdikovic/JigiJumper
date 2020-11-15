@@ -15,7 +15,7 @@ MonoBehaviour:
   _jumperSpeed: []
   _defaultJumperSpeed: 10
   _types: []
-  _defaultType: 0
+  _defaultType: 1
   _oscillationSpeed: []
   _defaultOscillaionSpeed: 0
   _rotationSpeed: []

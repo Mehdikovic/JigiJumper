@@ -22,14 +22,14 @@ namespace JigiJumper.Component
             switch (newPlanet.PlanetType)
             {
                 case Data.PlanetType.Large:
+                case Data.PlanetType.Medium:
                     _transform.localScale = new Vector3(.5f, .5f, 1);
+                    break;
+                case Data.PlanetType.Small:
+                    _transform.localScale = new Vector3(.4f, .4f, 1);
                     break;
                 case Data.PlanetType.Tiny:
                     _transform.localScale = new Vector3(.25f, .25f, 1);
-                    break;
-                case Data.PlanetType.Medium:
-                case Data.PlanetType.Small:
-                    _transform.localScale = new Vector3(.4f, .4f, 1);
                     break;
             }
 

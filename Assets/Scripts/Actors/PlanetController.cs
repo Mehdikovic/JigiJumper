@@ -15,6 +15,7 @@ namespace JigiJumper.Actors
         private Transform _circuit;
         private bool _isVisited = false;
         private bool _isOnHoldForJumping = false;
+        private PlanetType _planetType = PlanetType.Large;
 
         public event Action<PlanetDataStructure> OnSpawnedInitialization;
         public event Action OnJumperEnter;
@@ -33,6 +34,8 @@ namespace JigiJumper.Actors
 
         public Color GetSpriteTint() => _spriteRenderer.color;
 
+        public PlanetType PlanetType => _planetType;
+
         public void SetSpriteColor(Color color) => _spriteRenderer.color = color;
 
         public Transform GetPivot() => _pivot;
@@ -42,8 +45,9 @@ namespace JigiJumper.Actors
         public void InvokeOnComponentInitialization()
         {
             var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
-            PlanetDataStructure data = _planetData.GetPlanetData(spawnProbabilities.GetPlanetType());
-            
+            _planetType = spawnProbabilities.GetPlanetType();
+            PlanetDataStructure data = _planetData.GetPlanetData(_planetType);
+
             SetCircuitRadius(data.curcuitPosY);
             OnSpawnedInitialization?.Invoke(data);
         }
@@ -69,7 +73,7 @@ namespace JigiJumper.Actors
         {
             if (_isOnHoldForJumping) { return; }
             _isOnHoldForJumping = true;
-            
+
             OnHoldingForJump?.Invoke();
         }
 

@@ -7,7 +7,7 @@ namespace JigiJumper.Component
 {
     public class Restarter : MonoBehaviour
     {
-        private const float RESTART_TIMER = 2f;
+        private const float RESTART_TIMER = 1.5f;
 
         private JumperController _jumper;
         private GameManager _gameManager;

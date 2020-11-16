@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using JigiJumper.Ads;
 using JigiJumper.Managers;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,7 @@ namespace JigiJumper.UI
     public class RestartWindowUI : MonoBehaviour
     {
         [SerializeField] private RectTransform _container = null;
-        
+
         [Header("Reward-Ad")]
         [SerializeField] private RewardedAd _ads = null;
 
@@ -27,8 +28,14 @@ namespace JigiJumper.UI
             {
                 if (result == UnityEngine.Advertisements.ShowResult.Finished)
                 {
-                    // todo -> add random life added currently is 3
-                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, 3);
+                    byte lifeAdded = 0;
+                    if (GameManager.instance.currentLevel > 5)
+                    {
+                        int lifes = UnityEngine.Random.Range(1, 6);
+                        lifeAdded = Convert.ToByte(lifes);
+                    }
+                    
+                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, lifeAdded);
                     _container.gameObject.SetActive(false);
                 }
             };
@@ -44,7 +51,7 @@ namespace JigiJumper.UI
         {
             _container.gameObject.SetActive(true);
             _container.localScale = new Vector3(0, 0, 1);
-            
+
             _container
                 .DOScaleX(1.3f, .3f)
                 .onComplete = () => _container.DOScaleX(1f, .1f);

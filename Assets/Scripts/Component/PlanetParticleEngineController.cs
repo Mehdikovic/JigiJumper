@@ -16,7 +16,7 @@ namespace JigiJumper.Component
             _jumper.OnRestart += OnJumperRestart;
         }
 
-        private void OnJumperRestart()
+        private void OnJumperRestart(int remainingLife)
         {
             _particleInstance.Stop();
         }

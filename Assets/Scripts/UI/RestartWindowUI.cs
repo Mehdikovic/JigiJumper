@@ -27,7 +27,8 @@ namespace JigiJumper.UI
             {
                 if (result == UnityEngine.Advertisements.ShowResult.Finished)
                 {
-                    GameManager.instance.RequestToRestart(RestartMode.Reallocate);
+                    // todo -> add random life added currently is 3
+                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, 3);
                     _container.gameObject.SetActive(false);
                 }
             };

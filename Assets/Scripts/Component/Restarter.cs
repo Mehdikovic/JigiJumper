@@ -37,7 +37,7 @@ namespace JigiJumper.Component
 
         private void RequestToRestartTheGame()
         {
-            _gameManager.RequestToRestart(RestartMode.Reallocate);
+            _gameManager.RequestToRestart(RestartMode.Reallocate, 0);
         }
 
         private void OnJumperJump()

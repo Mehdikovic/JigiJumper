@@ -19,14 +19,13 @@ namespace JigiJumper.Actors
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
-        public event Action OnRestart;
+        public event Action<int> OnRestart;
 
         private Transform _transform;
 
         private void Awake()
         {
             _transform = transform;
-
             _gameManager = GameManager.instance;
         }
 
@@ -53,11 +52,6 @@ namespace JigiJumper.Actors
         {
             if (EventSystem.current.IsPointerOverGameObject()) { return; }
             
-            if (Input.GetKeyDown(KeyCode.R)) // todo debug purpose, delete it entirely
-            {
-                ReallocateYourself();
-            }
-
             if (_currentPlanet == null) { return; }
 
             if (Input.GetMouseButton(0))
@@ -79,14 +73,15 @@ namespace JigiJumper.Actors
             }
         }
 
-        public void ReallocateYourself()
+        public void ReallocateYourself(byte addedLife)
         {
+            _remainingLife += addedLife;
             --_remainingLife;
             
             if (_remainingLife <= 0)
             {
                 _remainingLife = 1;
-                _gameManager.RequestToRestart(RestartMode.Destruction);
+                _gameManager.RequestToRestart(RestartMode.Destruction, 0);
             }
             
             Restart();
@@ -94,9 +89,7 @@ namespace JigiJumper.Actors
 
         private void Restart()
         {
-            if (_currentPlanet != null || _previousPlanet == null) { return; }
-            OnRestart?.Invoke();
-            
+            OnRestart?.Invoke(_remainingLife);
             _previousPlanet.isVisited = false;
             PutJumperOnCircuit(_previousPlanet);
         }

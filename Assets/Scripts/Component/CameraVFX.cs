@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using JigiJumper.Actors;
+using System.Collections;
 using UnityEngine;
-
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace JigiJumper.Component
 {
@@ -13,11 +15,17 @@ namespace JigiJumper.Component
 
         [SerializeField] private Camera _camera = null;
         
+        [SerializeField] private JumperController _jumper = null;
+        
+        [Header("POST PROCESSING PROFILE")]
+        [SerializeField] private VolumeProfile _volume = null;
+
+
         [Header("Color HSV")]
         [SerializeField] private int HSV_s = 43;
         [SerializeField] private int HSV_v = 30;
         
-        [Header("Time between change")]
+        [Header("Time Between Changes")]
         [SerializeField] private float _timer = 0.05f;
 
         WaitForSeconds _wait;
@@ -26,6 +34,24 @@ namespace JigiJumper.Component
         {
             _wait = new WaitForSeconds(_timer);
             StartCoroutine(ChangeColor());
+
+            if (!_volume.TryGet(out ColorAdjustments colorAdjustment)) { return; }
+            
+            VolumeParameter<float> parameter = new VolumeParameter<float>();
+            
+            _jumper.OnRestart += (remainingLife) =>
+            {
+                if (remainingLife == 1)
+                {
+                    parameter.value = -100;
+                    colorAdjustment.saturation.SetValue(parameter);
+                }
+                else
+                {
+                    parameter.value = 100;
+                    colorAdjustment.saturation.SetValue(parameter);
+                }
+            };
         }
 
         IEnumerator ChangeColor()

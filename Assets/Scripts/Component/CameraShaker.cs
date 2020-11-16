@@ -16,7 +16,7 @@ namespace JigiJumper.Component
         {
             _noise = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             
-            GetComponent<JumperController>().OnRestart += () =>
+            GetComponent<JumperController>().OnRestart += (remianingLife) =>
             {
                 StartCoroutine(ShakeTheCamera());
             };

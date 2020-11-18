@@ -51,7 +51,7 @@ namespace JigiJumper.Actors
         private void HandleInput()
         {
             if (EventSystem.current.IsPointerOverGameObject()) { return; }
-            
+
             if (_currentPlanet == null) { return; }
 
             if (Input.GetMouseButton(0))
@@ -75,15 +75,16 @@ namespace JigiJumper.Actors
 
         public void ReallocateYourself(byte addedLife)
         {
-            _remainingLife += addedLife;
+            _remainingLife = Mathf.Clamp(_remainingLife + addedLife, 0, 10);
+
             --_remainingLife;
-            
+
             if (_remainingLife <= 0)
             {
                 _remainingLife = 1;
                 _gameManager.RequestToRestart(RestartMode.Destruction);
             }
-            
+
             Restart();
         }
 

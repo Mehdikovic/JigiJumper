@@ -31,52 +31,6 @@ namespace JigiJumper.UI
             GameManager.instance.OnLevelChanged += OnLevelChanged;
         }
 
-        private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result)
-        {
-            ActiveAllButtons(true);
-            switch (result)
-            {
-                case UnityEngine.Advertisements.ShowResult.Failed:
-                case UnityEngine.Advertisements.ShowResult.Skipped:
-                    break;
-                case UnityEngine.Advertisements.ShowResult.Finished:
-                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateRandomLife());
-                    _container.gameObject.SetActive(false);
-                    break;
-            }
-        }
-
-        private byte GenerateRandomLife()
-        {
-            byte lifeAdded = 0;
-            if (GameManager.instance.currentLevel > 3)
-            {
-                int lifes = UnityEngine.Random.Range(1, 6);
-                lifeAdded = Convert.ToByte(lifes);
-            }
-            return lifeAdded;
-        }
-
-        private void OnLevelChanged(int newLevel)
-        {
-            if (newLevel > 20)
-                _remainingAds = 5;
-            else if (newLevel > 16)
-                _remainingAds = 4;
-            else if (newLevel > 10)
-                _remainingAds = 3;
-            else if (newLevel > 3)
-                _remainingAds = 1;
-        }
-
-        private void OnCompleteRestartRequest()
-        {
-            _container.gameObject.SetActive(true);
-            _container.localScale = new Vector3(0, 0, 1);
-
-            Utils.DoTweenUtility.DoShowWindow(_container);
-        }
-
         private void InitialUIComponents()
         {
             _btnRestart.onClick.AddListener(() =>
@@ -105,6 +59,52 @@ namespace JigiJumper.UI
                 _remainingAds = 0;
                 _popup.ShowPopup(() => ActiveAllButtons(true));
             }
+        }
+
+        private void OnCompleteRestartRequest()
+        {
+            _container.gameObject.SetActive(true);
+            _container.localScale = new Vector3(0, 0, 1);
+
+            Utils.DoTweenUtility.DoShowWindow(_container);
+        }
+
+        private void OnLevelChanged(int newLevel)
+        {
+            if (newLevel > 20)
+                _remainingAds = 5;
+            else if (newLevel > 16)
+                _remainingAds = 4;
+            else if (newLevel > 10)
+                _remainingAds = 3;
+            else if (newLevel > 3)
+                _remainingAds = 1;
+        }
+
+        private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result)
+        {
+            ActiveAllButtons(true);
+            switch (result)
+            {
+                case UnityEngine.Advertisements.ShowResult.Failed:
+                case UnityEngine.Advertisements.ShowResult.Skipped:
+                    break;
+                case UnityEngine.Advertisements.ShowResult.Finished:
+                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateRandomLife());
+                    _container.gameObject.SetActive(false);
+                    break;
+            }
+        }
+
+        private byte GenerateRandomLife()
+        {
+            byte lifeAdded = 0;
+            if (GameManager.instance.currentLevel > 3)
+            {
+                int lifes = UnityEngine.Random.Range(1, 6);
+                lifeAdded = Convert.ToByte(lifes);
+            }
+            return lifeAdded;
         }
 
         private void ActiveAllButtons(bool activate)

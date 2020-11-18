@@ -11,17 +11,18 @@ namespace JigiJumper.Ads
         [SerializeField] string myPlacementId = "rewardedVideo";
         [SerializeField] bool testMode = true;
 
-        public event Action<ShowResult> OnUnityAdsFinish;
-
-        // Initialize the Ads listener and service:
+        private Action<ShowResult> _onAdsFinishCallback;
+        
         void Awake()
         {
             Advertisement.AddListener(this);
             Advertisement.Initialize(gameId, testMode);
         }
 
-        public void ShowRewardedVideo()
+        public void ShowRewardedVideo(Action<ShowResult> onAdsFinish)
         {
+            _onAdsFinishCallback = onAdsFinish;
+            
             // Check if UnityAds ready before calling Show method:
             if (Advertisement.IsReady(myPlacementId))
             {
@@ -36,7 +37,7 @@ namespace JigiJumper.Ads
         // Implement IUnityAdsListener interface methods:
         void IUnityAdsListener.OnUnityAdsDidFinish(string placementId, ShowResult showResult)
         {
-            OnUnityAdsFinish?.Invoke(showResult);
+            _onAdsFinishCallback?.Invoke(showResult);
         }
 
         void IUnityAdsListener.OnUnityAdsReady(string placementId)

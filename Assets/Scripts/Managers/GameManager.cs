@@ -48,6 +48,11 @@ namespace JigiJumper.Managers
             _instance = null;
         }
 
+        public void RequestToRestart(RestartMode mode)
+        {
+            RequestToRestart(mode, 0);
+        }
+
         public void RequestToRestart(RestartMode mode, byte addedLife)
         {
             switch (mode)
@@ -74,7 +79,7 @@ namespace JigiJumper.Managers
         {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
 
-            RequestToRestart(RestartMode.Destruction, 0);
+            RequestToRestart(RestartMode.Destruction);
         }
 
         private void OnPlanetReached(PlanetController arg1, PlanetController arg2)

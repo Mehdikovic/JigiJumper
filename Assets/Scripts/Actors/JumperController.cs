@@ -81,7 +81,7 @@ namespace JigiJumper.Actors
             if (_remainingLife <= 0)
             {
                 _remainingLife = 1;
-                _gameManager.RequestToRestart(RestartMode.Destruction, 0);
+                _gameManager.RequestToRestart(RestartMode.Destruction);
             }
             
             Restart();

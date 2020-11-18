@@ -13,7 +13,7 @@ namespace JigiJumper.UI
         [SerializeField] private RectTransform _container = null;
         [SerializeField] private PopupUI _popup = null;
 
-        [Header("Reward-Ad")]
+        [Header("Reward-Ads")]
         [SerializeField] private RewardedAd _ads = null;
 
         [Header("Buttons")]
@@ -48,11 +48,18 @@ namespace JigiJumper.UI
 
         private void OnBtnShowAd()
         {
-            ActiveAllButtons(false);
+            ActiveAllButtons(false); // remember to re-enable them again!
+            
             if (_remainingAds > 0)
             {
-                _ads.ShowRewardedVideo(OnUnityAdsFinishCallback);
-                --_remainingAds;
+                _ads.ShowRewardedVideo(
+                    onAdsFinish: (result) =>
+                    {
+                        ActiveAllButtons(true);
+                        OnUnityAdsFinishCallback(result);
+                    },
+                    onAdsError: (error) => ActiveAllButtons(true)
+                );
             }
             else
             {
@@ -83,13 +90,13 @@ namespace JigiJumper.UI
 
         private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result)
         {
-            ActiveAllButtons(true);
             switch (result)
             {
                 case UnityEngine.Advertisements.ShowResult.Failed:
                 case UnityEngine.Advertisements.ShowResult.Skipped:
                     break;
                 case UnityEngine.Advertisements.ShowResult.Finished:
+                    --_remainingAds;
                     GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateRandomLife());
                     _container.gameObject.SetActive(false);
                     break;

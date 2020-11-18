@@ -12,25 +12,41 @@ namespace JigiJumper.Ads
         [SerializeField] bool testMode = true;
 
         private Action<ShowResult> _onAdsFinishCallback;
-        
+        private Action _onAdsStart;
+        private Action _onAdsReady;
+        private Action<string> _onAdsError;
+
         void Awake()
         {
             Advertisement.AddListener(this);
             Advertisement.Initialize(gameId, testMode);
         }
 
-        public void ShowRewardedVideo(Action<ShowResult> onAdsFinish)
+        public void ShowRewardedVideo(
+            Action<ShowResult> onAdsFinish,
+            Action onAdsStart = null,
+            Action onAdsReady = null,
+            Action<string> onAdsError = null
+        )
         {
             _onAdsFinishCallback = onAdsFinish;
-            
-            // Check if UnityAds ready before calling Show method:
+            _onAdsStart = onAdsStart;
+            _onAdsReady = onAdsReady;
+            _onAdsError = onAdsError;
+
+            if (!Advertisement.isInitialized)
+            {
+                _onAdsError?.Invoke("Ads didn't initialized");
+                return;
+            }
+
             if (Advertisement.IsReady(myPlacementId))
             {
                 Advertisement.Show(myPlacementId);
             }
             //else
             //{
-                //Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
+            //Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
             //}
         }
 
@@ -42,24 +58,22 @@ namespace JigiJumper.Ads
 
         void IUnityAdsListener.OnUnityAdsReady(string placementId)
         {
-            // If the ready Placement is rewarded, show the ad:
             if (placementId == myPlacementId)
             {
-                // Optional actions to take when the placement becomes ready(For example, enable the rewarded ads button)
+                _onAdsReady?.Invoke();
             }
         }
 
         void IUnityAdsListener.OnUnityAdsDidError(string message)
         {
-            // Log the error.
+            _onAdsError?.Invoke(message);
         }
 
         void IUnityAdsListener.OnUnityAdsDidStart(string placementId)
         {
-            // Optional actions to take when the end-users triggers an ad.
+            _onAdsStart?.Invoke();
         }
 
-        // When the object that subscribes to ad events is destroyed, remove the listener:
         public void OnDestroy()
         {
             Advertisement.RemoveListener(this);

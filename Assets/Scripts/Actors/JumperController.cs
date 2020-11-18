@@ -91,6 +91,12 @@ namespace JigiJumper.Actors
         private void Restart()
         {
             OnRestart?.Invoke(_remainingLife);
+            if (_currentPlanet != null)
+            {
+                _currentPlanet.InvokeOnJumperPersistOnCurrentPlanetAfterRestart();
+                return;
+            }
+
             _previousPlanet.isVisited = false;
             PutJumperOnCircuit(_previousPlanet);
         }

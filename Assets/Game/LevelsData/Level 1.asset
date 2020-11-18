@@ -23,4 +23,4 @@ MonoBehaviour:
   _state: []
   _defaultState: 1
   _selfDestructionTimer: []
-  _defaultSelfDestructionTimer: 10
+  _defaultSelfDestructionTimer: 4

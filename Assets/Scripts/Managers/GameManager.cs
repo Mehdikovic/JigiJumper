@@ -78,7 +78,6 @@ namespace JigiJumper.Managers
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)
         {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
-
             RequestToRestart(RestartMode.Destruction);
         }
 

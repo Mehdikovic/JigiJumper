@@ -22,6 +22,7 @@ namespace JigiJumper.Actors
         public event Action OnJumperExit;
         public event Action OnPlanetDespawned;
         public event Action OnHoldingForJump;
+        public event Action OnJumperPersistOnPlanetAfterRestart;
 
 
         private void Awake()
@@ -80,6 +81,11 @@ namespace JigiJumper.Actors
         private void SetCircuitRadius(float curcuitPosY)
         {
             _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
+        }
+
+        public void InvokeOnJumperPersistOnCurrentPlanetAfterRestart()
+        {
+            OnJumperPersistOnPlanetAfterRestart?.Invoke();
         }
     }
 }

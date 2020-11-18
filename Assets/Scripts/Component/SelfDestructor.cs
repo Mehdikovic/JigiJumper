@@ -25,7 +25,7 @@ namespace JigiJumper.Component
         private void Awake()
         {
             _gameManager = GameManager.instance;
-           
+
             PlanetController planetController = GetComponent<PlanetController>();
 
             planetController.OnHoldingForJump += OnHoldForJumping;
@@ -33,6 +33,12 @@ namespace JigiJumper.Component
             planetController.OnSpawnedInitialization += OnSpawnedInitialization;
             planetController.OnJumperEnter += OnJumperEnter;
             planetController.OnJumperExit += OnJumperExit;
+
+            planetController.OnJumperPersistOnPlanetAfterRestart += () =>
+            {
+                _isActivated = false;
+                _rotationSpeed = _storedRotationSpeed;
+            };
         }
 
         private void OnHoldForJumping()
@@ -104,7 +110,6 @@ namespace JigiJumper.Component
         public void OnJumperExit()
         {
             _isActivated = false;
-
             _rotationSpeed = _storedRotationSpeed; // because of restart system we need to store previous value of rotation
         }
     }

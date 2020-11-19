@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnProbabilities:
-  - {fileID: 11400000, guid: f68435364c9e0454da72681997b8f5a1, type: 2}
+  - {fileID: 11400000, guid: 572724a983cee9246a35f9b9737823ba, type: 2}

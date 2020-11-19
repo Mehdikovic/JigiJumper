@@ -9,11 +9,11 @@ using System;
 namespace JigiJumper.Managers
 {
     public enum RestartMode { Reallocate, Destruction }
-    
+
     public class GameManager : MonoBehaviour
     {
-        private const int LEVEL_DETR = 5;
-        
+        private const int LEVEL_DETR = 5; // todo
+
         #region Singleton
         static GameManager _instance;
         public static GameManager instance => GetInstance();
@@ -38,14 +38,19 @@ namespace JigiJumper.Managers
         public event Action OnCompleteRestartRequest;
 
         private void Awake()
-        {   
+        {
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else if (_instance != this)
+            {
+                Destroy(_instance.gameObject);
+                _instance = this;
+            }
+
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
-        }
-
-        private void OnDestroy()
-        {
-            _instance = null;
         }
 
         public void RequestToRestart(RestartMode mode)
@@ -78,6 +83,7 @@ namespace JigiJumper.Managers
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)
         {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
+            // todo -> make animations
             RequestToRestart(RestartMode.Destruction);
         }
 

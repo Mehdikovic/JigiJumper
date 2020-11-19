@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592e051a8e3fc3c41a9774ff24d1f7f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInputSuspend: 0
   _cinemachine: {fileID: 0}
 --- !u!114 &1236071669
 MonoBehaviour:
@@ -265,6 +266,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
+  _jumper: {fileID: 705266658}
+  _volume: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
   HSV_s: 43
   HSV_v: 30
   _timer: 0.05

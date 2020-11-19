@@ -29,7 +29,7 @@ MonoBehaviour:
     xRange: {x: -1.7, y: 1.7}
     yRange: {x: 4.75, y: 6}
   - type: 3
-    radius: 0.5
-    curcuitPosY: 0.9
+    radius: 0.7
+    curcuitPosY: 0.8
     xRange: {x: -2, y: 2}
     yRange: {x: 4, y: 5}

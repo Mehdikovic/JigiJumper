@@ -9,6 +9,7 @@ namespace JigiJumper.Actors
 {
     public class JumperController : MonoBehaviour
     {
+        public bool isInputSuspend = false;
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
 
         private float _holdingPassedTime = 0f;
@@ -16,6 +17,7 @@ namespace JigiJumper.Actors
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
         private int _remainingLife = 2;
+        
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
@@ -50,7 +52,7 @@ namespace JigiJumper.Actors
 
         private void HandleInput()
         {
-            if (EventSystem.current.IsPointerOverGameObject()) { return; }
+            if (isInputSuspend || EventSystem.current.IsPointerOverGameObject()) { return; }
 
             if (_currentPlanet == null) { return; }
 
@@ -77,7 +79,7 @@ namespace JigiJumper.Actors
         {
             _remainingLife = Mathf.Clamp(_remainingLife + addedLife, 0, 10);
 
-            --_remainingLife;
+            //--_remainingLife; //todo - delete this!
 
             if (_remainingLife <= 0)
             {

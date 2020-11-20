@@ -34,20 +34,13 @@ namespace JigiJumper.Ads
             _onAdsReady = onAdsReady;
             _onAdsError = onAdsError;
 
-            if (!Advertisement.isInitialized)
+            if (!Advertisement.isInitialized || !Advertisement.IsReady())
             {
                 _onAdsError?.Invoke("Ads didn't initialized");
                 return;
             }
 
-            if (Advertisement.IsReady(myPlacementId))
-            {
-                Advertisement.Show(myPlacementId);
-            }
-            //else
-            //{
-            //Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
-            //}
+            Advertisement.Show(myPlacementId);
         }
 
         // Implement IUnityAdsListener interface methods:

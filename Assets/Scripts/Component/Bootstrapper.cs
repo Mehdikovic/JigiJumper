@@ -7,12 +7,13 @@ namespace JigiJumper.Component
 {
     public class Bootstrapper : MonoBehaviour
     {
+        [SerializeField] SceneManagement _sceneManagement = null;
         [SerializeField] string gameId = "3872205"; // todo read from so
         [SerializeField] bool testMode = true;
         
         IEnumerator Start()
         {
-            FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(2.5f, 1);
+            _sceneManagement.LoadSceneAsyncAfter(2.5f, 1);
             
             int counter = 0;
             var wait = new WaitForSeconds(.2f);

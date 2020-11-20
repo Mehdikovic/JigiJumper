@@ -19,12 +19,14 @@ namespace JigiJumper.Managers
 
         IEnumerator LoadScene(float after, int sceneIndex)
         {
+            var co = StartCoroutine(AnimateText(.3f));
+            
             if (after != 0f)
             {
                 yield return new WaitForSeconds(after);
             }
             _canvas.SetActive(true);
-            var co = StartCoroutine(AnimateText(.3f));
+            
             yield return SceneManager.LoadSceneAsync(sceneIndex);
             _canvas.SetActive(false);
             StopCoroutine(co);

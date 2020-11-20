@@ -10,23 +10,13 @@ namespace JigiJumper.Managers
 {
     public enum RestartMode { Reallocate, Destruction }
 
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonBehavior<GameManager>
     {
         private const int LEVEL_DETR = 5; // todo
+        [Header("Settings")]
+        [SerializeField] private SettingData _setting = null;
 
-        #region Singleton
-        static GameManager _instance;
-        public static GameManager instance => GetInstance();
-        static GameManager GetInstance()
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<GameManager>();
-            }
-            return _instance;
-        }
-        #endregion
-
+        [Header("SpawnData")]
         [SerializeField] private SpawnProbabilities[] _spawnProbabilities = null;
 
         LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>(() => FindObjectOfType<JumperController>());
@@ -37,18 +27,10 @@ namespace JigiJumper.Managers
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (_instance == null)
-            {
-                _instance = this;
-            }
-            else if (_instance != this)
-            {
-                Destroy(_instance.gameObject);
-                _instance = this;
-            }
-
+            base.Awake();
+            
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
         }
@@ -76,13 +58,15 @@ namespace JigiJumper.Managers
 
         public SpawnProbabilities GetSpawnProbabilities()
         {
-            int validIndex = Mathf.Clamp(GetLevel() - 1, 0, _spawnProbabilities.Length - 1);
+            int calculatedLevel = (GetLevel() - 1) + (int)_setting.levelType;
+            int validIndex = Mathf.Clamp(calculatedLevel, 0, _spawnProbabilities.Length - 1);
             return _spawnProbabilities[validIndex];
         }
 
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject)
         {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
+
             // todo -> make animations
             RequestToRestart(RestartMode.Destruction);
         }

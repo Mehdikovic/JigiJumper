@@ -35,12 +35,14 @@ namespace JigiJumper.UI
         {
             _btnRestart.onClick.AddListener(() =>
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                ActiveAllButtons(false);
+                FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, SceneManager.GetActiveScene().buildIndex);
             });
 
             _btnHome.onClick.AddListener(() =>
             {
-                // todo -> go to home scene
+                ActiveAllButtons(false);
+                FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 1);
             });
 
             _btnShowAd.onClick.AddListener(OnBtnShowAd);
@@ -70,9 +72,6 @@ namespace JigiJumper.UI
 
         private void OnCompleteRestartRequest()
         {
-            _container.gameObject.SetActive(true);
-            _container.localScale = new Vector3(0, 0, 1);
-
             Utils.DoTweenUtility.DoShowWindow(_container);
         }
 
@@ -105,13 +104,7 @@ namespace JigiJumper.UI
 
         private byte GenerateRandomLife()
         {
-            byte lifeAdded = 0;
-            if (GameManager.instance.currentLevel > 3)
-            {
-                int lifes = UnityEngine.Random.Range(1, 6);
-                lifeAdded = Convert.ToByte(lifes);
-            }
-            return lifeAdded;
+            return Convert.ToByte(Mathf.Clamp(GameManager.instance.currentLevel / 4, 0, 5));
         }
 
         private void ActiveAllButtons(bool activate)

@@ -79,7 +79,7 @@ namespace JigiJumper.Actors
         {
             _remainingLife = Mathf.Clamp(_remainingLife + addedLife, 0, 10);
 
-            //--_remainingLife; //todo - delete this!
+            --_remainingLife;
 
             if (_remainingLife <= 0)
             {

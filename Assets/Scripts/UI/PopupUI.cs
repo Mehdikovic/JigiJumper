@@ -33,9 +33,6 @@ namespace JigiJumper.UI
         public void ShowPopup(Action onPopupClosed)
         {
             _onPopupClosedCallback = onPopupClosed;
-            _container.gameObject.SetActive(true);
-            _container.localScale = new Vector3(0, 0, 1);
-
             Utils.DoTweenUtility.DoShowWindow(_container);
         }
     }

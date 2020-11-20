@@ -15,14 +15,13 @@ namespace JigiJumper.Ads
 
         void Start()
         {
-            _wait = new WaitForSeconds(0.5f);
+            _wait = new WaitForSeconds(.5f);
             StartCoroutine(ShowBannerWhenInitialized());
         }
 
         IEnumerator ShowBannerWhenInitialized()
         {
-            yield return _wait;
-            yield return _wait;
+            //yield return _wait;
             
             Advertisement.Initialize(gameId, testMode);
             
@@ -30,6 +29,7 @@ namespace JigiJumper.Ads
             {
                 yield return _wait;
             }
+            print("Called");
             Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
             Advertisement.Banner.Show(placementId);
         }

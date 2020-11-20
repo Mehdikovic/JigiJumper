@@ -8,20 +8,26 @@ namespace JigiJumper.UI
 {
     public abstract class WindowUI : MonoBehaviour
     {
-        
+
         [SerializeField] protected RectTransform _selfRect = null;
         [Header("Settings")]
         [SerializeField] protected SettingData _setting = null;
-        
+
         public IEnumerable<Behaviour> GetUIBehaviors() => _behaviorUIs;
         public RectTransform GetRect() => _selfRect;
 
         protected Behaviour[] _behaviorUIs;
 
+        protected virtual void BeginToHide() { }
+        protected virtual void EndOfHide() { }
+
+        protected virtual void BeginToShow() { }
+        protected virtual void EndOfShow() { }
+
         static public void SetActivation(bool active, IEnumerable<Behaviour> behaviors)
         {
             if (behaviors == null) return;
-            
+
             foreach (var behavoir in behaviors)
             {
                 behavoir.enabled = active;
@@ -30,6 +36,7 @@ namespace JigiJumper.UI
 
         static public void TransitionToWindow(WindowUI from, WindowUI to)
         {
+            from.BeginToHide();
             SetActivation(false, from.GetUIBehaviors());
 
             RectTransform fromRect = from.GetRect();
@@ -38,13 +45,14 @@ namespace JigiJumper.UI
             Utils.DoTweenUtility.DoHideWindow(fromRect,
                 onComplete: () =>
                 {
-                    fromRect.localScale = new Vector3(0, 0, 1);
-                    fromRect.gameObject.SetActive(false);
-
-                    toRect.gameObject.SetActive(true);
-                    toRect.localScale = new Vector3(0, 0, 1);
+                    from.EndOfHide();
+                    to.BeginToShow();
                     Utils.DoTweenUtility.DoShowWindow(toRect,
-                        onComplete: () => SetActivation(true, to.GetUIBehaviors()));
+                        onComplete: () =>
+                        {
+                            SetActivation(true, to.GetUIBehaviors());
+                            to.EndOfShow();
+                        });
                 });
         }
     }

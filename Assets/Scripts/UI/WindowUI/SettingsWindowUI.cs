@@ -11,6 +11,7 @@ namespace JigiJumper.UI
 
         [SerializeField] private Button _btnBack = null;
         [SerializeField] private Toggle _toggle = null;
+        [SerializeField] private Image _toggleImage = null;
 
         private void Awake()
         {
@@ -27,11 +28,15 @@ namespace JigiJumper.UI
                 _toggle
             };
 
-            _toggle.isOn = _setting.showBanner;
-
             _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));
-            _toggle.onValueChanged.AddListener((value) => _setting.showBanner = value);
-        }
+            _toggle.onValueChanged.AddListener((value) =>
+            {
+                _setting.showBanner = value;
+                _toggleImage.enabled = value;
+            });
 
+            _toggle.isOn = _setting.showBanner;
+            _toggleImage.enabled = _toggle.isOn;
+        }
     }
 }

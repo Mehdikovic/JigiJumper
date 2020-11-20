@@ -21,15 +21,12 @@ namespace JigiJumper.Ads
 
         IEnumerator ShowBannerWhenInitialized()
         {
-            //yield return _wait;
-            
             Advertisement.Initialize(gameId, testMode);
             
             while (!Advertisement.isInitialized)
             {
-                yield return _wait;
+                yield return null;
             }
-            print("Called");
             Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
             Advertisement.Banner.Show(placementId);
         }

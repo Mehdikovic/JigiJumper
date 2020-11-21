@@ -21,6 +21,7 @@ namespace JigiJumper.Spawner
         void SpawnGameObject()
         {
             var go = Instantiate(_persistantGameObjectPrefab, Vector3.zero, Quaternion.identity);
+            go.name = _persistantGameObjectPrefab.name;
             DontDestroyOnLoad(go);
         }
     }

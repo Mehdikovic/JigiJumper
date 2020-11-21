@@ -43,14 +43,12 @@ namespace JigiJumper.UI
             {
                 _setting.music = value;
                 _audioMixer.SetFloat(MUSIC_VOLUME, value);
-                print("called");
             });
 
             _inGameSoundSlider.onValueChanged.AddListener((value) =>
             {
                 _setting.inGameSound = value;
                 _audioMixer.SetFloat(IN_GAME_VOLUME, value);
-                print("called");
             });
 
             _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));

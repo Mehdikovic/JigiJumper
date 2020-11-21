@@ -57,7 +57,7 @@ namespace JigiJumper.UI
 
         private void OnBtnRecordClicked()
         {
-            //todo
+            //todo record list
         }
 
         private void OnBtnSettingsClicked()

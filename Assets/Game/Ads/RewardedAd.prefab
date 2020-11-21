@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65834c1dd83f9041aa0967419c5fecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameId: 3872205
+  _settings: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
   myPlacementId: rewardedVideo
-  testMode: 1

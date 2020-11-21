@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c13c189aff8d34fba7fa5282f7349b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameId: 3872205
+  _settings: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
   placementId: bannerPlacement
-  testMode: 1

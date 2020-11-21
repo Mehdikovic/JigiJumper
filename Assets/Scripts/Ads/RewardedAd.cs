@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JigiJumper.Data;
+using System;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -7,9 +8,8 @@ namespace JigiJumper.Ads
 {
     public class RewardedAd : MonoBehaviour, IUnityAdsListener
     {
-        [SerializeField] string gameId = "3872205";
+        [SerializeField] private SettingData _settings = null;
         [SerializeField] string myPlacementId = "rewardedVideo";
-        [SerializeField] bool testMode = true;
 
         private Action<ShowResult> _onAdsFinishCallback;
         private Action _onAdsStart;
@@ -19,7 +19,7 @@ namespace JigiJumper.Ads
         void Awake()
         {
             Advertisement.AddListener(this);
-            Advertisement.Initialize(gameId, testMode);
+            Advertisement.Initialize(_settings.gameId, _settings.testMode);
         }
 
         public void ShowRewardedVideo(

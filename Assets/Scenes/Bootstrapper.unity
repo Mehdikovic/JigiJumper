@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -165,8 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneManagement: {fileID: 1412091154}
-  gameId: 3872205
-  testMode: 1
+  _settings: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
 --- !u!1 &798409948
 GameObject:
   m_ObjectHideFlags: 0

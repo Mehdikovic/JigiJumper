@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JigiJumper.Data;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -7,16 +8,16 @@ namespace JigiJumper.Ads
 {
     public class BannerAd : MonoBehaviour
     {
-        
-        [SerializeField] string gameId = "3872205";
-        [SerializeField] bool testMode = true;
+
+        [SerializeField] private SettingData _settings = null;
         [SerializeField] string placementId = "bannerPlacement";
+
 
         WaitForSeconds _wait;
 
         IEnumerator Start()
         {
-            Advertisement.Initialize(gameId, testMode);
+            Advertisement.Initialize(_settings.gameId, _settings.testMode);
             _wait = new WaitForSeconds(0.5f);
             yield return ShowBannerWhenInitialized();
         }

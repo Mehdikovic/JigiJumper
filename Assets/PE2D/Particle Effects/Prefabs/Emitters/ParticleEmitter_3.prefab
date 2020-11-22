@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &134112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473950}
+  m_Layer: 0
+  m_Name: ParticleEmitter_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134112}
+  m_LocalRotation: {x: 0, y: 0, z: -0.92387956, w: 0.3826833}
+  m_LocalPosition: {x: -2.72, y: 2.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 475050}
+  - {fileID: 413696}
+  - {fileID: 408070}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &150782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413696}
+  - component: {fileID: 11421782}
+  m_Layer: 0
+  m_Name: Emitter_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &413696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150782}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 473950}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11421782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c588dc7caee485381c73b58f53f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenProjectileRelease: 0
+  initialScale: {x: 2, y: 1}
+  particlesEnabled: 1
+  duration: 90
+  velocityDampener: 0.94
+  lengthMultiplier: 10
+  wrapAround: 0
+  randomColour: 0
+  particleColour: {r: 0.865398, g: 0.89705884, b: 0.32320502, a: 0}
+  clampMinLength: 0
+  minLength: 0
+  clampMaxLength: 0
+  maxLength: 0
+  removeWhenVelocityReachesThreshold: 0
+  customVelocityThreshold: 0
+  removeWhenAlphaReachesThreshold: 0
+  customAlphaThreshold: 0
+--- !u!1 &155418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 408070}
+  - component: {fileID: 11435656}
+  - component: {fileID: 9570210}
+  m_Layer: 0
+  m_Name: Emitter_3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &408070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155418}
+  m_LocalRotation: {x: 0, y: 0, z: 0.21656805, w: 0.9762676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 473950}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11435656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c588dc7caee485381c73b58f53f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenProjectileRelease: 0
+  initialScale: {x: 2, y: 1}
+  particlesEnabled: 1
+  duration: 90
+  velocityDampener: 0.94
+  lengthMultiplier: 10
+  wrapAround: 0
+  randomColour: 0
+  particleColour: {r: 0.8161765, g: 0.24605319, b: 0.24605319, a: 1}
+  clampMinLength: 0
+  minLength: 0
+  clampMaxLength: 0
+  maxLength: 0
+  removeWhenVelocityReachesThreshold: 0
+  customVelocityThreshold: 0
+  removeWhenAlphaReachesThreshold: 0
+  customAlphaThreshold: 0
+--- !u!95 &9570210
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155418}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44cabbb66140d45029a4140b978ca22d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &173482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475050}
+  - component: {fileID: 11413594}
+  - component: {fileID: 9565090}
+  m_Layer: 0
+  m_Name: Emitter_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173482}
+  m_LocalRotation: {x: 0, y: 0, z: 0.21643963, w: 0.976296}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 473950}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &11413594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c588dc7caee485381c73b58f53f286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenProjectileRelease: 0
+  initialScale: {x: 2, y: 1}
+  particlesEnabled: 1
+  duration: 90
+  velocityDampener: 0.94
+  lengthMultiplier: 10
+  wrapAround: 0
+  randomColour: 0
+  particleColour: {r: 0.8161765, g: 0.24605319, b: 0.24605319, a: 1}
+  clampMinLength: 0
+  minLength: 0
+  clampMaxLength: 0
+  maxLength: 0
+  removeWhenVelocityReachesThreshold: 0
+  customVelocityThreshold: 0
+  removeWhenAlphaReachesThreshold: 0
+  customAlphaThreshold: 0
+--- !u!95 &9565090
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173482}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 788ea3272d3b54b1d80c913e000bdcef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

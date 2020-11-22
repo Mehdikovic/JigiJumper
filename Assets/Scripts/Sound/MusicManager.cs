@@ -22,12 +22,11 @@ namespace JigiJumper.Sound
             DontDestroyOnLoad(gameObject);
 
             _audioSource = GetComponent<AudioSource>();
-            _wait = new WaitForSeconds(.5f);
+            _wait = new WaitForSeconds(1f);
             _audioSource.loop = true;
-            _audioSource.time = 8f;
+            _audioSource.time = 15f;
 
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
-
         }
 
         private void OnActiveSceneChanged(Scene prev, Scene next)
@@ -37,9 +36,10 @@ namespace JigiJumper.Sound
             if (_playerCo != null)
             {
                 StopCoroutine(_playerCo);
-                _audioSource.DOFade(0, .3f)
+                _audioSource.DOFade(0, .6f)
                     .onComplete = () =>
                     {
+                        _audioSource.Stop();
                         _playerCo = StartCoroutine(PlayBgMusic());
                     };
             }
@@ -52,10 +52,21 @@ namespace JigiJumper.Sound
 
         IEnumerator PlayBgMusic()
         {
-            yield return _wait;
+            yield return _wait; // lets allow mixer to be set by SettingsWindowUI
             _audioSource.Play();
             _audioSource.volume = 0;
-            _audioSource.DOFade(1, 2f);
+            _audioSource.DOFade(1, 3f);
+
+            while (_audioSource.isPlaying)
+            {
+                float passedTimePercent = _audioSource.time / _audioSource.clip.length;
+                if (passedTimePercent <= .95f)
+                {
+                    //Do Play next music
+                }
+
+                yield return _wait;
+            }
         }
     }
 }

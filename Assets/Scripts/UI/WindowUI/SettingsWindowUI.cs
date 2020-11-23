@@ -16,6 +16,7 @@ namespace JigiJumper.UI
         [Header("AudioMixer")]
         [SerializeField] private AudioMixer _audioMixer = null;
 
+        [Header("UI Behavoirs")]
         [SerializeField] private Slider _musicSlider = null;
         [SerializeField] private Slider _inGameSoundSlider = null;
         [SerializeField] private Toggle _toggle = null;

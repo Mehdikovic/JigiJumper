@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0184f6edd6eb84a47bbdb34723b39017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedOffset: 0.01
-  lengthMultiplier: 40
+  speedOffset: 0.015
+  lengthMultiplier: 100
   numToSpawn: 150
   wrapAround: 0
 --- !u!1 &413015288 stripped
@@ -298,6 +298,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 172848, guid: 62195c471d63e44979406f3701849c04, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 401786, guid: 62195c471d63e44979406f3701849c04, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -344,6 +348,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 177268, guid: 61abdf7c996bd45f3a5dcc12664319f2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 194918, guid: 61abdf7c996bd45f3a5dcc12664319f2, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -701,6 +709,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 140616, guid: 2ec64de70257b405b9ca2a4527e8c96a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 451482, guid: 2ec64de70257b405b9ca2a4527e8c96a, type: 3}
       propertyPath: m_RootOrder
       value: 1

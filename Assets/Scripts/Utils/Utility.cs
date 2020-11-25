@@ -3,7 +3,7 @@
 
 namespace JigiJumper.Utils
 {
-    public class Utility
+    public static class Utility
     {
         static public T[] Shuffle<T>(T[] array, int seed)
         {
@@ -38,6 +38,11 @@ namespace JigiJumper.Utils
                     camera.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
 
             return new Vector2(spawnX, spawnY);
+        }
+
+        static public Vector3 ToVector3(this Vector2 vec2, float z = 0)
+        {
+            return new Vector3(vec2.x, vec2.y, z);
         }
     }
 }

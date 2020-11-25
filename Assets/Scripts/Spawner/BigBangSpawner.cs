@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+using static JigiJumper.Utils.Utility;
 
 namespace JigiJumper.Spawner
 {
@@ -13,18 +14,12 @@ namespace JigiJumper.Spawner
 
         IEnumerator Start()
         {
+            Camera camera = Camera.main;
             yield return new WaitForSeconds(1.5f);
 
             while (true)
             {
-                float spawnY = Random.Range(
-                    Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).y,
-                    Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
-                float spawnX = Random.Range(
-                    Camera.main.ScreenToWorldPoint(new Vector2(0, 0)).x,
-                    Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
-
-                SpawnExplosion(new Vector2(spawnX, spawnY));
+                SpawnExplosion(GetRandomPosOnScreen(camera));
                 yield return new WaitForSeconds(Random.Range(0.3f, 2));
             }
         }

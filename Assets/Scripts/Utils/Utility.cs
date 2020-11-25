@@ -27,5 +27,17 @@ namespace JigiJumper.Utils
         {
             return 4 * (-Mathf.Pow(percent, 2) + percent);
         }
+
+        static public Vector2 GetRandomPosOnScreen(Camera camera)
+        {
+            float spawnY = Random.Range(
+                    camera.ScreenToWorldPoint(new Vector2(0, 0)).y,
+                    camera.ScreenToWorldPoint(new Vector2(0, Screen.height)).y);
+            float spawnX = Random.Range(
+                    camera.ScreenToWorldPoint(new Vector2(0, 0)).x,
+                    camera.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x);
+
+            return new Vector2(spawnX, spawnY);
+        }
     }
 }

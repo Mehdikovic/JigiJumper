@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Test
-  m_Shader: {fileID: -6465566751694194690, guid: 9cf6d78457139a34ca66e6ebdf8846ec,
+  m_Name: PlanetCircle
+  m_Shader: {fileID: -6465566751694194690, guid: 3e60ce0ab2b9e95408ba555a6f02cb1c,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -25,7 +25,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Fade: 1
+    - _Fade: 0.66
     - _Scale: 40
     m_Colors:
-    - Color_7A0CCA10: {r: 3.9032872, g: 4.98897, b: 0.23264626, a: 0}
+    - Color_7A0CCA10: {r: 0.8603976, g: 0.8603976, b: 0.8603976, a: 0}

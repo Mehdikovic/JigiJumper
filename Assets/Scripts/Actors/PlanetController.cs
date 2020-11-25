@@ -10,7 +10,8 @@ namespace JigiJumper.Actors
     {
         [SerializeField] PlanetData _planetData = null;
         [SerializeField] private Transform _pivot = null;
-        [SerializeField] private SpriteRenderer _spriteRenderer = null;
+        [SerializeField] private SpriteRenderer _circleSpriteRenderer = null;
+        [SerializeField] private SpriteRenderer _selfSpriteRenderer = null;
 
         private Transform _circuit;
         private bool _isVisited = false;
@@ -33,11 +34,15 @@ namespace JigiJumper.Actors
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
 
 
-        public Color GetSpriteTint() => _spriteRenderer.color;
+        public Color GetSpriteTint() => _circleSpriteRenderer.color;
 
         public PlanetType PlanetType => _planetType;
 
-        public void SetSpriteColor(Color color) => _spriteRenderer.color = color;
+        public void SetSpriteColor(Color color)
+        {
+            _circleSpriteRenderer.color = color;
+            _selfSpriteRenderer.color = color;
+        }
 
         public Transform GetPivot() => _pivot;
 

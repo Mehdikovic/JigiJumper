@@ -19,7 +19,7 @@ MonoBehaviour:
   _oscillationSpeed: []
   _defaultOscillaionSpeed: 0
   _rotationSpeed: []
-  _defaultRotationSpeed: 40
+  _defaultRotationSpeed: 80
   _state: []
   _defaultState: 0
   _selfDestructionTimer: []

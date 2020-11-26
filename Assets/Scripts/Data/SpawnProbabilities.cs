@@ -9,7 +9,7 @@ namespace JigiJumper.Data
         [Header("Jumper Controller")]
         [SerializeField] private ValueProbability[] _jumperSpeed = null;
         [SerializeField] private float _defaultJumperSpeed = 10f;
-        
+
         [Header("Planet Controller")]
         [SerializeField] private PlanetTypeProbability[] _types = null;
         [SerializeField] private PlanetType _defaultType = PlanetType.Large;
@@ -30,7 +30,7 @@ namespace JigiJumper.Data
         {
             return GetValue(_jumperSpeed, _defaultJumperSpeed);
         }
-        
+
         public float GetOscillationSpeed()
         {
             return GetValue(_oscillationSpeed, _defaultOscillaionSpeed);
@@ -108,21 +108,21 @@ namespace JigiJumper.Data
         }
 
         [System.Serializable]
-        protected struct PlanetTypeProbability
+        public struct PlanetTypeProbability
         {
             public PlanetType type;
             public int probability;
         }
 
         [System.Serializable]
-        protected struct ValueProbability
+        public struct ValueProbability
         {
             public float value;
             public int probability;
         }
 
         [System.Serializable]
-        protected struct StateProbability
+        public struct StateProbability
         {
             public DestructionState state;
             public int probability;

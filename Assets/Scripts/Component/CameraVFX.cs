@@ -1,10 +1,12 @@
 ﻿using DG.Tweening;
 using JigiJumper.Actors;
+using JigiJumper.Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-
+using JigiJumper.Utils;
+using System;
 
 namespace JigiJumper.Component
 {
@@ -31,55 +33,14 @@ namespace JigiJumper.Component
         [SerializeField] private float _timer = 0.05f;
 
         WaitForSeconds _wait;
-        ColorAdjustments _colorAdjustment;
-        VolumeParameter<float> _parameter;
-        Tweener _fadeGray = null;
-        Tweener _fadeColorful = null;
 
         void Awake()
         {
             _wait = new WaitForSeconds(_timer);
             StartCoroutine(ChangeColor());
 
-            if (!_volume.TryGet(out ColorAdjustments colorAdjustment)) { return; }
-            _colorAdjustment = colorAdjustment;
-            _parameter = new VolumeParameter<float>();
-
-            OnJumperRestart(_jumper.remainingLife);
-            _jumper.OnRestart += OnJumperRestart;
-        }
-
-        void OnJumperRestart(int remainingLife)
-        {
-            if (remainingLife == 1)
-            {
-                if (_fadeColorful != null && _fadeColorful.IsActive()) { _fadeColorful.Kill(); }
-                
-                _fadeGray = DOTween.To(
-                    (value) =>
-                    {
-                        _parameter.value = value;
-                        _colorAdjustment.saturation.SetValue(_parameter);
-                    },
-                    _parameter.value,
-                    -100,
-                    1.5f
-                );
-            }
-            else
-            {
-                if (_fadeGray != null && _fadeGray.IsActive()) { _fadeGray.Kill(); }
-                _fadeColorful = DOTween.To(
-                    (value) =>
-                    {
-                        _parameter.value = value;
-                        _colorAdjustment.saturation.SetValue(_parameter);
-                    },
-                    _parameter.value,
-                    100,
-                    1.5f
-                );
-            }
+            SettingTheColorAdjusment();
+            SettingVignette();
         }
 
         IEnumerator ChangeColor()
@@ -110,6 +71,91 @@ namespace JigiJumper.Component
                     ++H;
                 }
             }
+        }
+
+        private void SettingTheColorAdjusment()
+        {
+            if (!_volume.TryGet(out ColorAdjustments colorAdjustment)) { return; }
+
+            Tweener fadeGray = null;
+            Tweener fadeColorful = null;
+            VolumeParameter<float> colorAdjustParam = new VolumeParameter<float>();
+
+            Action<int> onRestartDel = (remainingLife) =>
+            {
+                if (remainingLife == 1)
+                {
+                    if (fadeColorful != null && fadeColorful.IsActive()) { fadeColorful.Kill(); }
+
+                    fadeGray = DOTween.To(
+                        (value) =>
+                        {
+                            colorAdjustParam.value = value;
+                            colorAdjustment.saturation.SetValue(colorAdjustParam);
+                        },
+                        colorAdjustParam.value,
+                        -100,
+                        1.5f
+                    );
+                }
+                else
+                {
+                    if (fadeGray != null && fadeGray.IsActive()) { fadeGray.Kill(); }
+                    fadeColorful = DOTween.To(
+                        (value) =>
+                        {
+                            colorAdjustParam.value = value;
+                            colorAdjustment.saturation.SetValue(colorAdjustParam);
+                        },
+                        colorAdjustParam.value,
+                        100,
+                        1.5f
+                    );
+                }
+            };
+
+            onRestartDel(_jumper.remainingLife);
+            _jumper.OnRestart += onRestartDel;
+        }
+        private void SettingVignette()
+        {
+            var gManager = GameManager.instance;
+            if (gManager.levelType != Data.LevelType.Hard) { return; }
+            if (!_volume.TryGet(out Vignette vignette)) { return; }
+
+            VolumeParameter<float> vignetteParam = new VolumeParameter<float>();
+
+            var seq = DOTween.Sequence().SetAutoKill(false);
+            seq.SetLoops(-1);
+
+            Action<int> onLevelChangedDel = (newLevel) =>
+            {
+                //todo -> vignette
+                //float remap = Utility.Map(newLevel, 1, 5, 0.14f, 1f);
+                //var seq1 = DOTween.To(
+                //    (value) =>
+                //    {
+                //        vignetteParam.value = value;
+                //        vignette.intensity.SetValue(vignetteParam);
+                //    },
+                //    vignetteParam.value,
+                //    remap,
+                //    1f
+                //);
+                //var seq2 = DOTween.To(
+                //     (value) =>
+                //     {
+                //         vignetteParam.value = value;
+                //         vignette.intensity.SetValue(vignetteParam);
+                //     },
+                //     vignetteParam.value,
+                //     0.14f,
+                //     1f
+                // );
+            };
+
+            onLevelChangedDel(gManager.currentLevel);
+            gManager.OnLevelChanged += onLevelChangedDel;
         }
     }
 }

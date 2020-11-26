@@ -35,6 +35,8 @@ namespace JigiJumper.Managers
             _jumper.OnPlanetReached += OnPlanetReached;
         }
 
+        public LevelType levelType => _setting.levelType;
+
         public void RequestToRestart(RestartMode mode)
         {
             RequestToRestart(mode, 0);

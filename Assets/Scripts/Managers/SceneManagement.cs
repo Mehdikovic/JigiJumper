@@ -8,6 +8,8 @@ namespace JigiJumper.Managers
 {
     public class SceneManagement : MonoBehaviour
     {
+        static readonly string[] STRING_ANIMATION = new string[] { "", ".", "..", "...", "...."};
+        
         [SerializeField] private GameObject _canvas = null;
         [SerializeField] private TextMeshProUGUI _text = null;
 
@@ -20,13 +22,13 @@ namespace JigiJumper.Managers
         IEnumerator LoadScene(float after, int sceneIndex)
         {
             var co = StartCoroutine(AnimateText(.3f));
-            
+
             if (after != 0f)
             {
                 yield return new WaitForSeconds(after);
             }
             _canvas.SetActive(true);
-            
+
             yield return SceneManager.LoadSceneAsync(sceneIndex);
             _canvas.SetActive(false);
             StopCoroutine(co);
@@ -35,21 +37,12 @@ namespace JigiJumper.Managers
         IEnumerator AnimateText(float duration)
         {
             var wait = new WaitForSeconds(duration);
-            string[] strings = new string[]
-            {
-                "",
-                ".",
-                "..",
-                "...",
-                "....",
-            };
-
             int index = 0;
 
             while (true)
             {
-                index = index % strings.Length;
-                _text.text = strings[index++];
+                index = index % STRING_ANIMATION.Length;
+                _text.text = STRING_ANIMATION[index++];
                 yield return wait;
             }
         }

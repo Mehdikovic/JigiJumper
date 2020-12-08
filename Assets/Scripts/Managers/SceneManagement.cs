@@ -41,7 +41,7 @@ namespace JigiJumper.Managers
 
             while (true)
             {
-                index = index % STRING_ANIMATION.Length;
+                index %= STRING_ANIMATION.Length;
                 _text.text = STRING_ANIMATION[index++];
                 yield return wait;
             }

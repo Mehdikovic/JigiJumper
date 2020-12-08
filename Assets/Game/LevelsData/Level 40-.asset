@@ -10,26 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da1a0521a52636743862b63de1891a0d, type: 3}
-  m_Name: Level 30-
+  m_Name: Level 40-
   m_EditorClassIdentifier: 
   _jumperSpeed: []
-  _defaultJumperSpeed: 20
+  _defaultJumperSpeed: 16
   _types: []
   _defaultType: 3
   _oscillationSpeed:
+  - value: 0.4
+    probability: 30
   - value: 0.6
-    probability: 50
+    probability: 30
   - value: 0.7
-    probability: 50
-  _defaultOscillaionSpeed: 0.7
-  _rotationSpeed:
-  - value: 200
-    probability: 30
-  - value: 220
     probability: 40
-  - value: 250
-    probability: 30
-  _defaultRotationSpeed: 200
+  _defaultOscillaionSpeed: 0.3
+  _rotationSpeed:
+  - value: 110
+    probability: 25
+  - value: 130
+    probability: 25
+  - value: 160
+    probability: 25
+  - value: 170
+    probability: 25
+  _defaultRotationSpeed: 110
   _state:
   - state: 1
     probability: 50
@@ -39,8 +43,8 @@ MonoBehaviour:
   _selfDestructionTimer:
   - value: 8
     probability: 30
-  - value: 5
+  - value: 6
     probability: 40
-  - value: 4
+  - value: 5
     probability: 30
-  _defaultSelfDestructionTimer: 5
+  _defaultSelfDestructionTimer: 6

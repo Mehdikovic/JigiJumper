@@ -16,7 +16,7 @@ namespace JigiJumper.Actors
         private GameManager _gameManager;
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
-        private int _remainingLife = 2;
+        private int _remainingLife = 4;
         
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;

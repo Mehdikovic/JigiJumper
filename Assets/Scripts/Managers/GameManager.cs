@@ -12,7 +12,7 @@ namespace JigiJumper.Managers
 
     public class GameManager : SingletonBehavior<GameManager>
     {
-        private const int LEVEL_DETR = 5; // todo
+        private const int LEVEL_DETR = 5;
         [Header("Settings")]
         [SerializeField] private SettingData _setting = null;
 

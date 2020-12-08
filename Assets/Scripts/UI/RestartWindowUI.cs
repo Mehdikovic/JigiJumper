@@ -83,8 +83,8 @@ namespace JigiJumper.UI
                 _remainingAds = 4;
             else if (newLevel > 10)
                 _remainingAds = 3;
-            else if (newLevel > 3)
-                _remainingAds = 1;
+            else if (newLevel > 2)
+                _remainingAds = 2;
         }
 
         private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result)
@@ -96,15 +96,15 @@ namespace JigiJumper.UI
                     break;
                 case UnityEngine.Advertisements.ShowResult.Finished:
                     --_remainingAds;
-                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateRandomLife());
+                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateLife());
                     _container.gameObject.SetActive(false);
                     break;
             }
         }
 
-        private byte GenerateRandomLife()
+        private byte GenerateLife()
         {
-            return Convert.ToByte(Mathf.Clamp(GameManager.instance.currentLevel / 4, 0, 5));
+            return Convert.ToByte(Mathf.Clamp(GameManager.instance.currentLevel / 4, 2, 5));
         }
 
         private void ActiveAllButtons(bool activate)

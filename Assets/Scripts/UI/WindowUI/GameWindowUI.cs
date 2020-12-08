@@ -1,6 +1,5 @@
 ﻿using JigiJumper.Data;
 using JigiJumper.Managers;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
@@ -50,7 +49,7 @@ namespace JigiJumper.UI
             _selfRect.gameObject.SetActive(false);
 
             _setting.levelType = type;
-            if (!_setting.showBanner)
+            if (!_setting.GetShowBannerOption())
                 Advertisement.Banner.Hide();
 
             FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 2);

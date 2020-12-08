@@ -1,5 +1,4 @@
 ﻿using JigiJumper.Managers;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,7 +56,11 @@ namespace JigiJumper.UI
 
         private void OnBtnRecordClicked()
         {
-            //todo record list
+            //todo -> making record window to show top 5 records
+            foreach (var record in Data.SettingData.LoadRecords())
+            {
+                Debug.Log(record.ToString());
+            }
         }
 
         private void OnBtnSettingsClicked()

@@ -42,13 +42,13 @@ namespace JigiJumper.UI
 
             _musicSlider.onValueChanged.AddListener((value) =>
             {
-                _setting.music = value;
+                _setting.SetMusicVol(value);
                 _audioMixer.SetFloat(MUSIC_VOLUME, value);
             });
 
             _inGameSoundSlider.onValueChanged.AddListener((value) =>
             {
-                _setting.inGameSound = value;
+                _setting.SetInGameSound(value);
                 _audioMixer.SetFloat(IN_GAME_VOLUME, value);
             });
 
@@ -56,14 +56,14 @@ namespace JigiJumper.UI
 
             _toggle.onValueChanged.AddListener((value) =>
             {
-                _setting.showBanner = value;
+                _setting.SetShowBannerOption(value);
                 _toggleImage.enabled = value;
             });
 
             // Setteing the configs
-            _musicSlider.value = _setting.music;
-            _inGameSoundSlider.value = _setting.inGameSound;
-            _toggle.isOn = _setting.showBanner;
+            _musicSlider.value = _setting.GetMusicVol();
+            _inGameSoundSlider.value = _setting.GetInGameSound();
+            _toggle.isOn = _setting.GetShowBannerOption();
             _toggleImage.enabled = _toggle.isOn;
         }
 

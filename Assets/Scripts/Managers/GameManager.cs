@@ -30,7 +30,7 @@ namespace JigiJumper.Managers
         protected override void Awake()
         {
             base.Awake();
-            
+
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
         }
@@ -53,6 +53,18 @@ namespace JigiJumper.Managers
                     OnCompleteRestartRequest?.Invoke();
                     break;
             }
+        }
+
+        public void SaveRecords()
+        {
+            SettingData.SaveRecords(
+                new RecordData
+                {
+                    allJumpsCount = _point,
+                    level = GetLevel(),
+                    levelType = _setting.levelType,
+                }
+            );
         }
 
         public JumperController jumper => _lazyJumper.value;

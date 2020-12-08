@@ -22,13 +22,15 @@ namespace JigiJumper.UI
         [SerializeField] private Button _btnRestart = null;
 
         private int _remainingAds = 2;
+        private GameManager _gameManager;
 
         private void Awake()
         {
+            _gameManager = GameManager.instance;
             InitialUIComponents();
             _container.gameObject.SetActive(false);
-            GameManager.instance.OnCompleteRestartRequest += OnCompleteRestartRequest;
-            GameManager.instance.OnLevelChanged += OnLevelChanged;
+            _gameManager.OnCompleteRestartRequest += OnCompleteRestartRequest;
+            _gameManager.OnLevelChanged += OnLevelChanged;
         }
 
         private void InitialUIComponents()
@@ -36,12 +38,14 @@ namespace JigiJumper.UI
             _btnRestart.onClick.AddListener(() =>
             {
                 ActiveAllButtons(false);
+                _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, SceneManager.GetActiveScene().buildIndex);
             });
 
             _btnHome.onClick.AddListener(() =>
             {
                 ActiveAllButtons(false);
+                _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 1);
             });
 

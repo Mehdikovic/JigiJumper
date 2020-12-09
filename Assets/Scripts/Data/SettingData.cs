@@ -33,11 +33,15 @@ namespace JigiJumper.Data
         }
     }
 
+
+#pragma warning disable 0414
+
     [CreateAssetMenu(fileName = "Settings", menuName = "Data/Settings")]
     public class SettingData : ScriptableObject
     {
         [Header("Ads Conf")]
-        [SerializeField] private string _gameId = "3872205";
+        [SerializeField] private string _gameId_ANDROID = "3872205";
+        [SerializeField] private string _gameId_IOS = "3872204";
         [SerializeField] private bool _testMode = true;
 
         [Header("Level Type")]
@@ -45,8 +49,18 @@ namespace JigiJumper.Data
 
         //[Header("Records")]
         //public List<RecordData> records = new List<RecordData>();
-
-        public string gameId => _gameId;
+        public string gameId
+        {
+            get
+            {
+#if UNITY_ANDROID
+                return _gameId_ANDROID;
+#endif
+#if UNITY_IOS
+                return _gameId_IOS;
+#endif
+            }
+        }
         public bool testMode => _testMode;
 
         public void SetMusicVol(float musicVol)

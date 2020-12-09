@@ -153,10 +153,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7882042280731290238, guid: 640322633fcc1204bbd70fd559a6eabf,
+    - target: {fileID: 5897329214385131316, guid: 640322633fcc1204bbd70fd559a6eabf,
         type: 3}
-      propertyPath: m_Name
-      value: Windows
+      propertyPath: m_VerticalScrollbarVisibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802334994160101321, guid: 640322633fcc1204bbd70fd559a6eabf,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7882042281575782608, guid: 640322633fcc1204bbd70fd559a6eabf,
         type: 3}

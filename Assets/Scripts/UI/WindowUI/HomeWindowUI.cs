@@ -9,6 +9,7 @@ namespace JigiJumper.UI
     {
         [Header("Windows")]
         [SerializeField] private WindowUI _gameWindow = null;
+        [SerializeField] private WindowUI _recordsWindow = null;
         [SerializeField] private WindowUI _settingsWindow = null;
 
         [Header("Home Window Buttons")]
@@ -56,11 +57,7 @@ namespace JigiJumper.UI
 
         private void OnBtnRecordClicked()
         {
-            //todo -> making record window to show top 5 records
-            foreach (var record in Data.SettingData.LoadRecords())
-            {
-                Debug.Log(record.ToString());
-            }
+            TransitionToWindow(this, _recordsWindow);
         }
 
         private void OnBtnSettingsClicked()

@@ -91,8 +91,9 @@ namespace JigiJumper.Data
             List<RecordData> oldRecords = LoadRecords();
             oldRecords.Add(newRecord);
             oldRecords = oldRecords
+                .OrderByDescending(record => record.levelType)
                 .OrderByDescending(record => record.allJumpsCount)
-                .Take(5)
+                .Take(20)
                 .ToList();
 
             using (var fs = System.IO.File.Open(GetRecordSavePath(), System.IO.FileMode.Create))

@@ -1,7 +1,6 @@
 ﻿using JigiJumper.Data;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 namespace JigiJumper.UI

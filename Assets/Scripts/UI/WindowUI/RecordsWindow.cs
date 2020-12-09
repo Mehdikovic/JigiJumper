@@ -42,7 +42,8 @@ namespace JigiJumper.UI
         protected override void BeginToShow()
         {
             var records = Data.SettingData.LoadRecords();
-            SetHeightOfRect(1);
+            SetHeightOfRect(0);
+            
             if (records.Count == 0) { return; }
 
             for (int i = 0; i < records.Count; i++)
@@ -50,7 +51,8 @@ namespace JigiJumper.UI
                 _recordsUi[i].gameObject.SetActive(true);
                 _recordsUi[i].SetData(i + 1, records[i]);
             }
-            SetHeightOfRect(201 * records.Count);
+            
+            SetHeightOfRect(200 * records.Count);
         }
 
         private void SetHeightOfRect(float value)

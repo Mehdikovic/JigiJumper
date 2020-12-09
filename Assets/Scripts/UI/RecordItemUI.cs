@@ -13,7 +13,7 @@ namespace JigiJumper.UI
 
         public void SetData(int index, RecordData data)
         {
-            _id.text = index.ToString();
+            _id.text = string.Format("[{0}]", index);
             _total.text = data.allJumpsCount.ToString();
             _difficulty.text = data.levelType.ToString();
             _level.text = data.level.ToString();

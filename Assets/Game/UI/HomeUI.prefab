@@ -4649,6 +4649,7 @@ MonoBehaviour:
   - {fileID: 1733184901050251898}
   - {fileID: 5790817804918836963}
   - {fileID: 4569381042770110204}
+  _viewport: {fileID: 6427495374905604078}
 --- !u!1 &7051872830830158850
 GameObject:
   m_ObjectHideFlags: 0

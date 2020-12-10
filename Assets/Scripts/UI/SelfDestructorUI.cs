@@ -5,49 +5,38 @@ using UnityEngine.UI;
 using JigiJumper.Component;
 
 
-namespace JigiJumper.UI
-{
-    public class SelfDestructorUi : MonoBehaviour
-    {
+namespace JigiJumper.UI {
+    public class SelfDestructorUi : MonoBehaviour {
         [SerializeField] private SelfDestructor _destructor = null;
         [SerializeField] private Text _textUI = null;
 
         private Coroutine _routine;
 
-        private void Awake()
-        {
+        private void Awake() {
             _textUI.text = string.Empty;
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             StopCoroutine();
             _routine = StartCoroutine(UpdateTimerUI());
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             StopCoroutine();
         }
 
-        IEnumerator UpdateTimerUI()
-        {
-            while (true)
-            {
-                if (_destructor.isActiveComponent)
-                {
+        IEnumerator UpdateTimerUI() {
+            while (true) {
+                if (_destructor.isActiveComponent) {
                     _textUI.text = string.Format("{0:0}", _destructor.timer);
-                }
-                else
-                {
+                } else {
                     _textUI.text = string.Empty;
                 }
                 yield return null;
             }
         }
 
-        void StopCoroutine()
-        {
+        void StopCoroutine() {
             if (_routine == null) { return; }
 
             StopCoroutine(_routine);

@@ -4,10 +4,8 @@ using System;
 using UnityEngine;
 
 
-namespace JigiJumper.Actors
-{
-    public class PlanetController : MonoBehaviour
-    {
+namespace JigiJumper.Actors {
+    public class PlanetController : MonoBehaviour {
         [SerializeField] PlanetData _planetData = null;
         [SerializeField] private Transform _pivot = null;
         [SerializeField] private SpriteRenderer _circleSpriteRenderer = null;
@@ -26,20 +24,17 @@ namespace JigiJumper.Actors
         public event Action OnJumperPersistOnPlanetAfterRestart;
 
 
-        private void Awake()
-        {
+        private void Awake() {
             _circuit = _pivot.GetChild(0);
         }
 
         public bool isVisited { get => _isVisited; set => _isVisited = value; }
 
-
         public Color GetSpriteTint() => _circleSpriteRenderer.color;
 
         public PlanetType PlanetType => _planetType;
 
-        public void SetSpriteColor(Color color)
-        {
+        public void SetSpriteColor(Color color) {
             _circleSpriteRenderer.color = color;
             _selfSpriteRenderer.color = color;
         }
@@ -48,8 +43,7 @@ namespace JigiJumper.Actors
 
         public Transform GetPivotCircuit() => _circuit;
 
-        public void InvokeOnComponentInitialization()
-        {
+        public void InvokeOnComponentInitialization() {
             var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
             _planetType = spawnProbabilities.GetPlanetType();
             PlanetDataStructure data = _planetData.GetPlanetData(_planetType);
@@ -58,38 +52,32 @@ namespace JigiJumper.Actors
             OnSpawnedInitialization?.Invoke(data);
         }
 
-        public void InvokeOnJumperEnter()
-        {
+        public void InvokeOnJumperEnter() {
             _isOnHoldForJumping = false;
             OnJumperEnter?.Invoke();
         }
 
-        public void InvokeOnJumperExit()
-        {
+        public void InvokeOnJumperExit() {
             OnJumperExit?.Invoke();
         }
 
-        public void InvokeOnPlanetDespawned()
-        {
+        public void InvokeOnPlanetDespawned() {
             _isVisited = false;
             OnPlanetDespawned?.Invoke();
         }
 
-        public void InvokeOnHoldingForJump()
-        {
+        public void InvokeOnHoldingForJump() {
             if (_isOnHoldForJumping) { return; }
             _isOnHoldForJumping = true;
 
             OnHoldingForJump?.Invoke();
         }
 
-        private void SetCircuitRadius(float curcuitPosY)
-        {
+        private void SetCircuitRadius(float curcuitPosY) {
             _circuit.localPosition = new Vector3(0, curcuitPosY, 0);
         }
 
-        public void InvokeOnJumperPersistOnCurrentPlanetAfterRestart()
-        {
+        public void InvokeOnJumperPersistOnCurrentPlanetAfterRestart() {
             OnJumperPersistOnPlanetAfterRestart?.Invoke();
         }
     }

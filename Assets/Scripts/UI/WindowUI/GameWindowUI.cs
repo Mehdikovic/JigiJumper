@@ -5,10 +5,8 @@ using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI
-{
-    public class GameWindowUi : WindowUi
-    {
+namespace JigiJumper.UI {
+    public class GameWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _homeWindow = null;
 
@@ -18,16 +16,14 @@ namespace JigiJumper.UI
         [SerializeField] private Button _btnHard = null;
         [SerializeField] private Button _btnBack = null;
 
-        private void Awake()
-        {
+        private void Awake() {
             InitialComponent();
 
             SetActivation(false, _uiBehaviors);
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent()
-        {
+        private void InitialComponent() {
             _uiBehaviors = new Behaviour[]
             {
                 _btnEasy,
@@ -43,8 +39,7 @@ namespace JigiJumper.UI
 
         }
 
-        private void LoadTheGame(LevelType type)
-        {
+        private void LoadTheGame(LevelType type) {
             SetActivation(false, _uiBehaviors);
             _selfRectWindow.gameObject.SetActive(false);
 

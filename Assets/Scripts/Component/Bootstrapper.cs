@@ -5,24 +5,20 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 
 
-namespace JigiJumper.Component
-{
-    public class Bootstrapper : MonoBehaviour
-    {
+namespace JigiJumper.Component {
+    public class Bootstrapper : MonoBehaviour {
         [SerializeField] SceneManagement _sceneManagement = null;
         [SerializeField] SettingData _settings = null;
-        
-        IEnumerator Start()
-        {
+
+        IEnumerator Start() {
             _sceneManagement.LoadSceneAsyncAfter(2.5f, 1);
-            
+
             int counter = 0;
             var wait = new WaitForSeconds(.2f);
-            
+
             Advertisement.Initialize(_settings.gameId, _settings.testMode);
-            
-            while (!Advertisement.isInitialized && counter < 10)
-            {
+
+            while (!Advertisement.isInitialized && counter < 10) {
                 ++counter;
                 yield return wait;
             }

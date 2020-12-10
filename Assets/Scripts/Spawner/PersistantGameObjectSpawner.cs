@@ -1,16 +1,13 @@
 ﻿using UnityEngine;
 
 
-namespace JigiJumper.Spawner
-{
-    public class PersistantGameObjectSpawner : MonoBehaviour
-    {
+namespace JigiJumper.Spawner {
+    public class PersistantGameObjectSpawner : MonoBehaviour {
         [SerializeField] private GameObject _persistantGameObjectPrefab = null;
 
         static private bool _isSpawned = false;
 
-        void Awake()
-        {
+        void Awake() {
             if (_isSpawned) { return; }
 
             _isSpawned = true;
@@ -18,8 +15,7 @@ namespace JigiJumper.Spawner
             SpawnGameObject();
         }
 
-        void SpawnGameObject()
-        {
+        void SpawnGameObject() {
             var go = Instantiate(_persistantGameObjectPrefab, Vector3.zero, Quaternion.identity);
             go.name = _persistantGameObjectPrefab.name;
             DontDestroyOnLoad(go);

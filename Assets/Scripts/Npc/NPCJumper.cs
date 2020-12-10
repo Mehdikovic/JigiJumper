@@ -2,40 +2,33 @@
 using UnityEngine;
 
 
-namespace JigiJumper.NPC
-{
-    public class NPCJumper : MonoBehaviour
-    {
+namespace JigiJumper.NPC {
+    public class NPCJumper : MonoBehaviour {
         private Transform _transform;
         private float _speed;
         private PoolSystem<NPCJumper> _pool;
         private float _timer = 0f;
 
-        void Awake()
-        {
+        void Awake() {
             _transform = transform;
         }
 
-        void Update()
-        {
+        void Update() {
             _transform.Translate(Vector2.up * (Time.deltaTime * _speed));
 
             _timer += Time.deltaTime;
 
-            if (_timer >= 7f)
-            {
+            if (_timer >= 7f) {
                 _timer = 0f;
                 _pool.Despawn(this);
             }
         }
 
-        public void Init(PoolSystem<NPCJumper> pool)
-        {
+        public void Init(PoolSystem<NPCJumper> pool) {
             _pool = pool;
         }
 
-        public void Rotate(Vector2 dir)
-        {
+        public void Rotate(Vector2 dir) {
             _timer = 0;
             _speed = Random.Range(4, 21);
             _transform.localRotation = Quaternion.identity;

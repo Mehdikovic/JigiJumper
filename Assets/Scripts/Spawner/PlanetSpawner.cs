@@ -4,10 +4,8 @@ using JigiJumper.Managers;
 using JigiJumper.Actors;
 using System;
 
-namespace JigiJumper.Spawner
-{
-    public class PlanetSpawner : MonoBehaviour
-    {
+namespace JigiJumper.Spawner {
+    public class PlanetSpawner : MonoBehaviour {
         [SerializeField] PlanetController _planetPrefab = null;
 
         PlanetController _currentPlanet;
@@ -20,8 +18,7 @@ namespace JigiJumper.Spawner
 
         Transform _transform;
 
-        private void Awake()
-        {
+        private void Awake() {
             _transform = transform;
 
             _planetPool = new PoolSystem<PlanetController>(_planetPrefab);
@@ -29,22 +26,18 @@ namespace JigiJumper.Spawner
             _jumper = GameManager.instance.jumper;
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             _jumper.OnPlanetReached += OnPlanetReached;
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             _jumper.OnPlanetReached -= OnPlanetReached;
         }
 
-        private void OnPlanetReached(PlanetController oldPlanet, PlanetController newPlanet)
-        {
+        private void OnPlanetReached(PlanetController oldPlanet, PlanetController newPlanet) {
             _currentPlanet = newPlanet;
-            
-            if (oldPlanet != null)
-            {
+
+            if (oldPlanet != null) {
                 oldPlanet.InvokeOnPlanetDespawned();
                 OnOldPlanetDespawned?.Invoke(oldPlanet);
                 _planetPool.Despawn(oldPlanet);
@@ -54,15 +47,13 @@ namespace JigiJumper.Spawner
             SpawnNewPlanet();
         }
 
-        private void SpawnNewPlanet()
-        {
+        private void SpawnNewPlanet() {
             PlanetController newPlanet = _planetPool.Spawn(_currentPlanet.transform.position, Quaternion.identity, _transform);
             newPlanet.InvokeOnComponentInitialization();
             OnNewPalnetSpawned?.Invoke(newPlanet);
         }
 
-        private PlanetController SpawnTheFirst()
-        {
+        private PlanetController SpawnTheFirst() {
             return _planetPool.Spawn(Vector3.zero, Quaternion.identity, transform);
         }
     }

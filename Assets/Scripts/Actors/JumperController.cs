@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-namespace JigiJumper.Actors
-{
-    public class JumperController : MonoBehaviour
-    {
+namespace JigiJumper.Actors {
+    public class JumperController : MonoBehaviour {
         public bool isInputSuspend = false;
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
 
@@ -17,7 +15,7 @@ namespace JigiJumper.Actors
         private PlanetController _currentPlanet;
         private PlanetController _previousPlanet;
         private int _remainingLife = 4;
-        
+
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
@@ -25,23 +23,18 @@ namespace JigiJumper.Actors
 
         private Transform _transform;
 
-        private void Awake()
-        {
+        private void Awake() {
             _transform = transform;
             _gameManager = GameManager.instance;
         }
 
-        private void Update()
-        {
+        private void Update() {
             HandleInput();
 
-            if (_currentPlanet != null)
-            {
+            if (_currentPlanet != null) {
                 _transform.position = _currentPlanet.GetPivotCircuit().position;
                 _transform.rotation = _currentPlanet.GetPivotCircuit().rotation;
-            }
-            else
-            {
+            } else {
                 float speed = _gameManager.GetSpawnProbabilities().GetJumperSpeed();
                 _transform.Translate(Vector2.up * (Time.deltaTime * speed));
             }
@@ -50,23 +43,19 @@ namespace JigiJumper.Actors
         public GameObject currentPlanetGameObject => (_currentPlanet != null) ? _currentPlanet.gameObject : null;
         public int remainingLife => _remainingLife;
 
-        private void HandleInput()
-        {
+        private void HandleInput() {
             if (isInputSuspend || EventSystem.current.IsPointerOverGameObject()) { return; }
 
             if (_currentPlanet == null) { return; }
 
-            if (Input.GetMouseButton(0))
-            {
+            if (Input.GetMouseButton(0)) {
                 _holdingPassedTime += Time.deltaTime;
-                if (_holdingPassedTime >= 1f)
-                {
+                if (_holdingPassedTime >= 1f) {
                     _currentPlanet.InvokeOnHoldingForJump();
                 }
             }
 
-            if (Input.GetMouseButtonUp(0))
-            {
+            if (Input.GetMouseButtonUp(0)) {
                 _holdingPassedTime = 0f;
                 _currentPlanet.InvokeOnJumperExit();
                 _previousPlanet = _currentPlanet;
@@ -75,14 +64,12 @@ namespace JigiJumper.Actors
             }
         }
 
-        public void ReallocateYourself(byte addedLife)
-        {
+        public void ReallocateYourself(byte addedLife) {
             _remainingLife = Mathf.Clamp(_remainingLife + addedLife, 0, 10);
 
             --_remainingLife;
 
-            if (_remainingLife <= 0)
-            {
+            if (_remainingLife <= 0) {
                 _remainingLife = 1;
                 _gameManager.RequestToRestart(RestartMode.Destruction);
             }
@@ -90,11 +77,9 @@ namespace JigiJumper.Actors
             Restart();
         }
 
-        private void Restart()
-        {
+        private void Restart() {
             OnRestart?.Invoke(_remainingLife);
-            if (_currentPlanet != null)
-            {
+            if (_currentPlanet != null) {
                 _currentPlanet.InvokeOnJumperPersistOnCurrentPlanetAfterRestart();
                 return;
             }
@@ -103,14 +88,12 @@ namespace JigiJumper.Actors
             PutJumperOnCircuit(_previousPlanet);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
+        private void OnTriggerEnter2D(Collider2D collision) {
             PlanetController planetController = collision.GetComponent<PlanetController>();
             PutJumperOnCircuit(planetController);
         }
 
-        private void PutJumperOnCircuit(PlanetController planetController)
-        {
+        private void PutJumperOnCircuit(PlanetController planetController) {
             if (planetController == null) { return; }
             if (planetController.isVisited) { return; }
 
@@ -123,8 +106,7 @@ namespace JigiJumper.Actors
 
             _cinemachine.Follow = planetController.transform;
 
-            if (_previousPlanet != planetController)
-            {
+            if (_previousPlanet != planetController) {
                 OnPlanetReached?.Invoke(_previousPlanet, planetController);
             }
         }

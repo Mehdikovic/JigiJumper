@@ -5,14 +5,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using JigiJumper.Utils;
 using System;
 
-namespace JigiJumper.Component
-{
 
-    public class CameraVFX : MonoBehaviour
-    {
+namespace JigiJumper.Component {
+    public class CameraVFX : MonoBehaviour {
         private const float HSV_S_MAX = 100f;
         private const float HSV_V_MAX = 100f;
         private const float HSV_H_MAX = 360f;
@@ -34,22 +31,19 @@ namespace JigiJumper.Component
 
         WaitForSeconds _wait;
 
-        void Awake()
-        {
+        void Awake() {
             _wait = new WaitForSeconds(_timer);
             StartCoroutine(ChangeColor());
 
             SettingTheColorAdjusment();
-            SettingVignette();
+            //SettingVignette(); todo -> vignette
         }
 
-        IEnumerator ChangeColor()
-        {
+        IEnumerator ChangeColor() {
             int H = 165;
             bool increase = true;
 
-            while (true)
-            {
+            while (true) {
                 H = increase ? ++H : --H;
 
                 _camera.backgroundColor = Color.HSVToRGB(
@@ -60,36 +54,29 @@ namespace JigiJumper.Component
 
                 yield return _wait;
 
-                if (H == 320)
-                {
+                if (H == 320) {
                     increase = false;
                     --H;
-                }
-                else if (H == 165)
-                {
+                } else if (H == 165) {
                     increase = true;
                     ++H;
                 }
             }
         }
 
-        private void SettingTheColorAdjusment()
-        {
+        private void SettingTheColorAdjusment() {
             if (!_volume.TryGet(out ColorAdjustments colorAdjustment)) { return; }
 
             Tweener fadeGray = null;
             Tweener fadeColorful = null;
             VolumeParameter<float> colorAdjustParam = new VolumeParameter<float>();
 
-            Action<int> onRestartDel = (remainingLife) =>
-            {
-                if (remainingLife == 1)
-                {
+            Action<int> onRestartDel = (remainingLife) => {
+                if (remainingLife == 1) {
                     if (fadeColorful != null && fadeColorful.IsActive()) { fadeColorful.Kill(); }
 
                     fadeGray = DOTween.To(
-                        (value) =>
-                        {
+                        (value) => {
                             colorAdjustParam.value = value;
                             colorAdjustment.saturation.SetValue(colorAdjustParam);
                         },
@@ -97,13 +84,10 @@ namespace JigiJumper.Component
                         -100,
                         1.5f
                     );
-                }
-                else
-                {
+                } else {
                     if (fadeGray != null && fadeGray.IsActive()) { fadeGray.Kill(); }
                     fadeColorful = DOTween.To(
-                        (value) =>
-                        {
+                        (value) => {
                             colorAdjustParam.value = value;
                             colorAdjustment.saturation.SetValue(colorAdjustParam);
                         },
@@ -117,8 +101,8 @@ namespace JigiJumper.Component
             onRestartDel(_jumper.remainingLife);
             _jumper.OnRestart += onRestartDel;
         }
-        private void SettingVignette()
-        {
+        
+        private void SettingVignette() {
             var gManager = GameManager.instance;
             if (gManager.levelType != Data.LevelType.Hard) { return; }
             if (!_volume.TryGet(out Vignette vignette)) { return; }
@@ -128,9 +112,7 @@ namespace JigiJumper.Component
             var seq = DOTween.Sequence().SetAutoKill(false);
             seq.SetLoops(-1);
 
-            Action<int> onLevelChangedDel = (newLevel) =>
-            {
-                //todo -> vignette
+            Action<int> onLevelChangedDel = (newLevel) => {
                 //float remap = Utility.Map(newLevel, 1, 5, 0.14f, 1f);
                 //var seq1 = DOTween.To(
                 //    (value) =>

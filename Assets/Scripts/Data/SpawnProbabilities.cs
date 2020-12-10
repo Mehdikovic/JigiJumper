@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
 
 
-namespace JigiJumper.Data
-{
+namespace JigiJumper.Data {
     [CreateAssetMenu(fileName = "Probability Data", menuName = "Data/SpawnProbability")]
-    public class SpawnProbabilities : ScriptableObject
-    {
+    public class SpawnProbabilities : ScriptableObject {
         [Header("Jumper Controller")]
         [SerializeField] private ValueProbability[] _jumperSpeed = null;
         [SerializeField] private float _defaultJumperSpeed = 10f;
@@ -26,40 +24,33 @@ namespace JigiJumper.Data
         [SerializeField] private ValueProbability[] _selfDestructionTimer = null;
         [SerializeField] private float _defaultSelfDestructionTimer = 0f;
 
-        public float GetJumperSpeed()
-        {
+        public float GetJumperSpeed() {
             return GetValue(_jumperSpeed, _defaultJumperSpeed);
         }
 
-        public float GetOscillationSpeed()
-        {
+        public float GetOscillationSpeed() {
             return GetValue(_oscillationSpeed, _defaultOscillaionSpeed);
         }
 
-        public float GetSelfDestructionTimer()
-        {
+        public float GetSelfDestructionTimer() {
             return GetValue(_selfDestructionTimer, _defaultSelfDestructionTimer);
         }
 
-        public float GetRotationSpeed()
-        {
+        public float GetRotationSpeed() {
             int direction = Random.Range(0, 9) % 2 == 0 ? 1 : -1;
             return GetValue(_rotationSpeed, _defaultRotationSpeed * direction);
         }
 
-        public PlanetType GetPlanetType()
-        {
+        public PlanetType GetPlanetType() {
             if (_types == null || _types.Length == 0) { return _defaultType; }
 
             int random = Random.Range(1, 101);
             int aggregation = 0;
 
-            for (int i = 0; i < _types.Length; ++i)
-            {
+            for (int i = 0; i < _types.Length; ++i) {
                 var typeProbability = _types[i];
                 aggregation += typeProbability.probability;
-                if (random <= aggregation)
-                {
+                if (random <= aggregation) {
                     return typeProbability.type;
                 }
             }
@@ -67,19 +58,16 @@ namespace JigiJumper.Data
             return _defaultType;
         }
 
-        public DestructionState GetState()
-        {
+        public DestructionState GetState() {
             if (_state == null || _state.Length == 0) { return _defaultState; }
 
             int random = Random.Range(1, 101);
             int aggregation = 0;
 
-            for (int i = 0; i < _state.Length; ++i)
-            {
+            for (int i = 0; i < _state.Length; ++i) {
                 var stateProbability = _state[i];
                 aggregation += stateProbability.probability;
-                if (random <= aggregation)
-                {
+                if (random <= aggregation) {
                     return stateProbability.state;
                 }
             }
@@ -87,19 +75,16 @@ namespace JigiJumper.Data
             return _defaultState;
         }
 
-        private float GetValue(ValueProbability[] valueList, float defalutValue)
-        {
+        private float GetValue(ValueProbability[] valueList, float defalutValue) {
             if (valueList == null || valueList.Length == 0) { return defalutValue; }
 
             int random = Random.Range(1, 101);
             int aggregation = 0;
 
-            for (int i = 0; i < valueList.Length; ++i)
-            {
+            for (int i = 0; i < valueList.Length; ++i) {
                 var valueProbability = valueList[i];
                 aggregation += valueProbability.probability;
-                if (random <= aggregation)
-                {
+                if (random <= aggregation) {
                     return valueProbability.value;
                 }
             }
@@ -108,22 +93,19 @@ namespace JigiJumper.Data
         }
 
         [System.Serializable]
-        public struct PlanetTypeProbability
-        {
+        public struct PlanetTypeProbability {
             public PlanetType type;
             public int probability;
         }
 
         [System.Serializable]
-        public struct ValueProbability
-        {
+        public struct ValueProbability {
             public float value;
             public int probability;
         }
 
         [System.Serializable]
-        public struct StateProbability
-        {
+        public struct StateProbability {
             public DestructionState state;
             public int probability;
         }

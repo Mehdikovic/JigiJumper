@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using DG.Tweening;
 
-namespace JigiJumper.Utils
-{
-    public static class DoTweenUtility
-    {
-        public static void DoShowWindow(RectTransform container, TweenCallback onComplete = null)
-        {
+namespace JigiJumper.Utils {
+    public static class DoTweenUtility {
+        public static void DoShowWindow(RectTransform container, TweenCallback onComplete = null) {
             container.gameObject.SetActive(true);
             container.localScale = new Vector3(0, 0, 1);
 
@@ -20,8 +17,7 @@ namespace JigiJumper.Utils
                 .onComplete = () => onComplete?.Invoke();
         }
 
-        public static void DoHideWindow(RectTransform container, TweenCallback onComplete = null)
-        {
+        public static void DoHideWindow(RectTransform container, TweenCallback onComplete = null) {
             container.localScale = new Vector3(1, 1, 1);
 
             container
@@ -31,8 +27,7 @@ namespace JigiJumper.Utils
             container
                 .DOScaleY(1.2f, .1f)
                 .onComplete = () => container.DOScaleY(0f, .3f)
-                .onComplete = () =>
-                {
+                .onComplete = () => {
                     onComplete?.Invoke();
                     container.localScale = new Vector3(0, 0, 1);
                     container.gameObject.SetActive(false);

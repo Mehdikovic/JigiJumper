@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI
-{
-    public class MainGameWindowUi : WindowUi
-    {
+namespace JigiJumper.UI {
+    public class MainGameWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _settingsWindow = null;
         [SerializeField] private PopupUi _popup = null;
@@ -33,8 +31,7 @@ namespace JigiJumper.UI
         private GameManager _gameManager;
         private bool _isActivatingSettingWindow = false;
 
-        private void Awake()
-        {
+        private void Awake() {
             _gameManager = GameManager.instance;
             InitialUIComponents();
             _selfRectWindow.gameObject.SetActive(false);
@@ -42,8 +39,7 @@ namespace JigiJumper.UI
             _gameManager.OnLevelChanged += OnLevelChanged;
         }
 
-        public void ActivateSettingMenuWindow()
-        {
+        public void ActivateSettingMenuWindow() {
             if (_isActivatingSettingWindow) { return; }
 
             _isActivatingSettingWindow = true;
@@ -51,8 +47,7 @@ namespace JigiJumper.UI
             Utils.DoTweenUtility.DoShowWindow(_selfRectWindow, () => _isActivatingSettingWindow = false);
         }
 
-        private void InitialUIComponents()
-        {
+        private void InitialUIComponents() {
             _uiBehaviors = new Behaviour[]
             {
                 _btnShowAd,
@@ -62,28 +57,24 @@ namespace JigiJumper.UI
                 _btnClose,
             };
 
-            _btnShowSettings.onClick.AddListener(() =>
-            {
+            _btnShowSettings.onClick.AddListener(() => {
                 SetActivation(false, _uiBehaviors);
                 Utils.DoTweenUtility.DoShowWindow(_settingsWindow.GetRectWindow(), () => SetActivation(true, _uiBehaviors));
             });
 
-            _btnRestart.onClick.AddListener(() =>
-            {
+            _btnRestart.onClick.AddListener(() => {
                 SetActivation(false, _uiBehaviors);
                 _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, SceneManager.GetActiveScene().buildIndex);
             });
 
-            _btnHome.onClick.AddListener(() =>
-            {
+            _btnHome.onClick.AddListener(() => {
                 SetActivation(false, _uiBehaviors);
                 _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 1);
             });
 
-            _btnClose.onClick.AddListener(() =>
-            {
+            _btnClose.onClick.AddListener(() => {
                 SetActivation(false, _uiBehaviors);
                 Utils.DoTweenUtility.DoHideWindow(_selfRectWindow, () => SetActivation(true, _uiBehaviors));
             });
@@ -91,36 +82,29 @@ namespace JigiJumper.UI
             _btnShowAd.onClick.AddListener(OnBtnShowAd);
         }
 
-        private void OnBtnShowAd()
-        {
+        private void OnBtnShowAd() {
             SetActivation(false, _uiBehaviors); // remember to re-enable them again!
 
-            if (_remainingAds > 0)
-            {
+            if (_remainingAds > 0) {
                 _ads.ShowRewardedVideo(
-                    onAdsFinish: (result) =>
-                    {
+                    onAdsFinish: (result) => {
                         SetActivation(true, _uiBehaviors);
                         OnUnityAdsFinishCallback(result);
                     },
                     onAdsError: (error) => SetActivation(true, _uiBehaviors)
                 );
-            }
-            else
-            {
+            } else {
                 _remainingAds = 0;
                 _popup.ShowPopup(() => SetActivation(true, _uiBehaviors));
             }
         }
 
-        private void OnCompleteRestartRequest()
-        {
+        private void OnCompleteRestartRequest() {
             ActiveSettingsWindow(false);
             Utils.DoTweenUtility.DoShowWindow(_selfRectWindow);
         }
 
-        private void OnLevelChanged(int newLevel)
-        {
+        private void OnLevelChanged(int newLevel) {
             if (newLevel > 20)
                 _remainingAds = 5;
             else if (newLevel > 16)
@@ -131,10 +115,8 @@ namespace JigiJumper.UI
                 _remainingAds = 2;
         }
 
-        private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result)
-        {
-            switch (result)
-            {
+        private void OnUnityAdsFinishCallback(UnityEngine.Advertisements.ShowResult result) {
+            switch (result) {
                 case UnityEngine.Advertisements.ShowResult.Failed:
                 case UnityEngine.Advertisements.ShowResult.Skipped:
                     break;
@@ -146,13 +128,11 @@ namespace JigiJumper.UI
             }
         }
 
-        private byte GenerateLife()
-        {
+        private byte GenerateLife() {
             return Convert.ToByte(Mathf.Clamp(GameManager.instance.currentLevel / 4, 2, 5));
         }
 
-        private void ActiveSettingsWindow(bool active)
-        {
+        private void ActiveSettingsWindow(bool active) {
             _settingsItem.SetActive(active);
             _closeItem.SetActive(active);
             _btnClose.enabled = active;

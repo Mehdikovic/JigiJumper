@@ -2,14 +2,12 @@
 using UnityEngine;
 
 
-namespace JigiJumper.Data
-{
+namespace JigiJumper.Data {
     public enum PlanetType { Large, Medium, Small, Tiny }
     public enum DestructionState { None, OnEnterDestruction, OnHoldDestruction }
 
     [System.Serializable]
-    public class PlanetDataStructure
-    {
+    public class PlanetDataStructure {
         public PlanetType type;
         public float radius;
         public float curcuitPosY;
@@ -18,31 +16,25 @@ namespace JigiJumper.Data
     }
 
     [CreateAssetMenu(fileName = "Planet Data", menuName = "Data/Planet")]
-    public class PlanetData : ScriptableObject, ISerializationCallbackReceiver
-    {
+    public class PlanetData : ScriptableObject, ISerializationCallbackReceiver {
         [SerializeField] private PlanetDataStructure[] _planetsData = null;
         Dictionary<PlanetType, PlanetDataStructure> _dataMap;
 
-        public PlanetDataStructure GetPlanetData(PlanetType type)
-        {
+        public PlanetDataStructure GetPlanetData(PlanetType type) {
             return _dataMap[type];
         }
 
-        public void OnBeforeSerialize()
-        {
+        public void OnBeforeSerialize() {
         }
 
-        public void OnAfterDeserialize()
-        {
-            if (_dataMap == null)
-            {
+        public void OnAfterDeserialize() {
+            if (_dataMap == null) {
                 _dataMap = new Dictionary<PlanetType, PlanetDataStructure>();
             }
 
             _dataMap.Clear();
 
-            for (int i = 0; i < _planetsData.Length; ++i)
-            {
+            for (int i = 0; i < _planetsData.Length; ++i) {
                 _dataMap.Add(_planetsData[i].type, _planetsData[i]);
             }
         }

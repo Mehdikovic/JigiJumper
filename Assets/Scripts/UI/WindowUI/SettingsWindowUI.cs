@@ -3,10 +3,8 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI
-{
-    public class SettingsWindowUi : WindowUi
-    {
+namespace JigiJumper.UI {
+    public class SettingsWindowUi : WindowUi {
         private const string MUSIC_VOLUME = "MusicVolume";
         private const string IN_GAME_VOLUME = "InGameVolume";
 
@@ -23,15 +21,13 @@ namespace JigiJumper.UI
         [SerializeField] private Button _btnBack = null;
         [SerializeField] private Image _toggleImage = null;
 
-        private void Awake()
-        {
+        private void Awake() {
             InitialComponent();
 
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent()
-        {
+        private void InitialComponent() {
             _uiBehaviors = new Behaviour[]
             {
                 _musicSlider,
@@ -40,34 +36,27 @@ namespace JigiJumper.UI
                 _btnBack,
             };
 
-            _musicSlider.onValueChanged.AddListener((value) =>
-            {
+            _musicSlider.onValueChanged.AddListener((value) => {
                 _setting.SetMusicVol(value);
                 _audioMixer.SetFloat(MUSIC_VOLUME, value);
             });
 
-            _inGameSoundSlider.onValueChanged.AddListener((value) =>
-            {
+            _inGameSoundSlider.onValueChanged.AddListener((value) => {
                 _setting.SetInGameSound(value);
                 _audioMixer.SetFloat(IN_GAME_VOLUME, value);
             });
 
-            _btnBack.onClick.AddListener(() =>
-            {
-                if (_homeWindow == null)
-                {
+            _btnBack.onClick.AddListener(() => {
+                if (_homeWindow == null) {
                     SetActivation(false, _uiBehaviors);
                     Utils.DoTweenUtility.DoHideWindow(_selfRectWindow, () => SetActivation(true, _uiBehaviors));
-                }
-                else
-                {
+                } else {
                     TransitionToWindow(this, _homeWindow);
                 }
             });
 
 
-            _toggle.onValueChanged.AddListener((value) =>
-            {
+            _toggle.onValueChanged.AddListener((value) => {
                 _setting.SetShowBannerOption(value);
                 _toggleImage.enabled = value;
             });

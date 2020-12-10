@@ -3,10 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI
-{
-    public class HomeWindowUi : WindowUi
-    {
+namespace JigiJumper.UI {
+    public class HomeWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _gameWindow = null;
         [SerializeField] private WindowUi _recordsWindow = null;
@@ -18,24 +16,20 @@ namespace JigiJumper.UI
         [SerializeField] private Button _btnSettings = null;
         [SerializeField] private Button _btnQuit = null;
 
-
-        private void Awake()
-        {
+        private void Awake() {
             InitialComponent();
 
             SetActivation(false, _uiBehaviors);
             _selfRectWindow.gameObject.SetActive(false);
 
-            GameManager.instance.jumper.OnPlanetReached += (Actors.PlanetController arg1, Actors.PlanetController arg2) =>
-            {
+            GameManager.instance.jumper.OnPlanetReached += (Actors.PlanetController arg1, Actors.PlanetController arg2) => {
                 Utils.DoTweenUtility.DoShowWindow(_selfRectWindow,
                     onComplete: () => SetActivation(true, _uiBehaviors)
                 );
             };
         }
 
-        private void InitialComponent()
-        {
+        private void InitialComponent() {
             _uiBehaviors = new Behaviour[]
             {
                 _btnStart,
@@ -50,25 +44,20 @@ namespace JigiJumper.UI
             _btnQuit.onClick.AddListener(OnBtnQuitClicked);
         }
 
-        private void OnBtnStartClicked()
-        {
+        private void OnBtnStartClicked() {
             TransitionToWindow(this, _gameWindow);
         }
 
-        private void OnBtnRecordClicked()
-        {
+        private void OnBtnRecordClicked() {
             TransitionToWindow(this, _recordsWindow);
         }
 
-        private void OnBtnSettingsClicked()
-        {
+        private void OnBtnSettingsClicked() {
             TransitionToWindow(this, _settingsWindow);
         }
 
-        private void OnBtnQuitClicked()
-        {
+        private void OnBtnQuitClicked() {
             Application.Quit();
         }
-
     }
 }

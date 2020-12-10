@@ -4,10 +4,8 @@ using UnityEngine;
 
 using static JigiJumper.Utils.Utility;
 
-namespace JigiJumper.Spawner
-{
-    public class ParticleSpawner : MonoBehaviour
-    {
+namespace JigiJumper.Spawner {
+    public class ParticleSpawner : MonoBehaviour {
         [SerializeField] ParticleDestroyer _particlePrefab = null;
         [SerializeField] PlanetSpawner _planetSpawner = null;
 
@@ -15,19 +13,16 @@ namespace JigiJumper.Spawner
 
         Transform _transform;
 
-        void Awake()
-        {
+        void Awake() {
             _transform = transform;
             _pool = new PoolSystem<ParticleDestroyer>(_particlePrefab);
         }
 
-        private IEnumerator Start()
-        {
+        private IEnumerator Start() {
             var camera = Camera.main;
             yield return new WaitForSeconds(2f);
 
-            while (true)
-            {
+            while (true) {
                 float scale = (0.1f) * Random.Range(1f, 4f);
                 SpawnParticle(
                     GetRandomPosOnScreen(camera),
@@ -37,23 +32,19 @@ namespace JigiJumper.Spawner
             }
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() {
             _planetSpawner.OnOldPlanetDespawned += OnOldPlanetDespawned;
         }
 
-        private void OnDisable()
-        {
+        private void OnDisable() {
             _planetSpawner.OnOldPlanetDespawned -= OnOldPlanetDespawned;
         }
 
-        private void OnOldPlanetDespawned(Actors.PlanetController oldPlanet)
-        {
+        private void OnOldPlanetDespawned(Actors.PlanetController oldPlanet) {
             SpawnParticle(oldPlanet.transform.position, Vector3.one, oldPlanet.GetSpriteTint());
         }
 
-        private void SpawnParticle(Vector3 position, Vector3 scale, Color color)
-        {
+        private void SpawnParticle(Vector3 position, Vector3 scale, Color color) {
             var activeParticle = _pool.Spawn(position, Quaternion.identity, _transform);
             activeParticle.transform.localScale = scale;
             activeParticle.SetColor(color);

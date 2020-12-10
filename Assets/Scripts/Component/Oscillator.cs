@@ -6,10 +6,8 @@ using JigiJumper.Actors;
 using JigiJumper.Managers;
 
 
-namespace JigiJumper.Component
-{
-    public class Oscillator : MonoBehaviour
-    {
+namespace JigiJumper.Component {
+    public class Oscillator : MonoBehaviour {
         float _speed = 0f;
         float _lerpValue = 0f;
         PlanetDataStructure _data;
@@ -18,8 +16,7 @@ namespace JigiJumper.Component
         Coroutine _oscillator;
         Transform _transform;
 
-        private void Awake()
-        {
+        private void Awake() {
             _transform = transform;
             PlanetController planetController = GetComponent<PlanetController>();
 
@@ -27,8 +24,7 @@ namespace JigiJumper.Component
             planetController.OnJumperEnter += OnJumperEnter;
         }
 
-        void Init(PlanetDataStructure data)
-        {
+        void Init(PlanetDataStructure data) {
             _data = data;
             _originalX = _transform.position.x;
             _transform.localScale = new Vector3(data.radius, data.radius, 1f);
@@ -43,34 +39,28 @@ namespace JigiJumper.Component
             _transform.position = new Vector2(newXPos, newYPos);
         }
 
-        void StopOscillattion()
-        {
+        void StopOscillattion() {
             if (_oscillator == null) { return; }
             StopCoroutine(_oscillator);
             _oscillator = null;
         }
 
-        void InitialOscillattion()
-        {
+        void InitialOscillattion() {
             _oscillator = StartCoroutine(Tick());
         }
 
-        IEnumerator Tick()
-        {
+        IEnumerator Tick() {
             int direction = 1;
-            while (true)
-            {
+            while (true) {
                 _lerpValue += Time.deltaTime * direction * _speed;
 
-                if (_lerpValue >= 1f)
-                {
+                if (_lerpValue >= 1f) {
                     direction *= -1;
                     _lerpValue = 1f;
                     yield return null;
                 }
 
-                if (_lerpValue <= 0f)
-                {
+                if (_lerpValue <= 0f) {
                     direction *= -1;
                     _lerpValue = 0f;
                     yield return null;
@@ -87,16 +77,14 @@ namespace JigiJumper.Component
             }
         }
 
-        public void OnSpawnedInitialization(PlanetDataStructure data)
-        {
+        public void OnSpawnedInitialization(PlanetDataStructure data) {
             Init(data);
             var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
             _speed = spawnProbabilities.GetOscillationSpeed();
             InitialOscillattion();
         }
 
-        public void OnJumperEnter()
-        {
+        public void OnJumperEnter() {
             StopOscillattion();
         }
     }

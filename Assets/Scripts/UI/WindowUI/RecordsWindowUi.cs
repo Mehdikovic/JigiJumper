@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace JigiJumper.UI
-{
-    public class RecordsWindowUi : WindowUi
-    {
+namespace JigiJumper.UI {
+    public class RecordsWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _homeWindow = null;
 
@@ -19,14 +16,12 @@ namespace JigiJumper.UI
         [Header("Viewport")]
         [SerializeField] private RectTransform _viewport = null;
 
-        private void Awake()
-        {
+        private void Awake() {
             InitialComponent();
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent()
-        {
+        private void InitialComponent() {
             _uiBehaviors = new Behaviour[]
             {
                 _btnBack,
@@ -38,44 +33,36 @@ namespace JigiJumper.UI
             _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));
         }
 
-
-        protected override void BeginToShow()
-        {
+        protected override void BeginToShow() {
             var records = Data.SettingData.LoadRecords();
             SetHeightOfRect(0);
-            
+
             if (records.Count == 0) { return; }
 
-            for (int i = 0; i < records.Count; i++)
-            {
+            for (int i = 0; i < records.Count; i++) {
                 _recordsUi[i].gameObject.SetActive(true);
                 _recordsUi[i].SetData(i + 1, records[i]);
             }
-            
+
             SetHeightOfRect(200 * records.Count);
         }
 
-        private void SetHeightOfRect(float value)
-        {
+        private void SetHeightOfRect(float value) {
             var rect = _viewport.sizeDelta;
             rect.y = value;
             _viewport.sizeDelta = rect;
         }
 
-        protected override void EndOfShow()
-        {
+        protected override void EndOfShow() {
             _scrollbar.value = 1;
         }
 
-        protected override void EndOfHide()
-        {
+        protected override void EndOfHide() {
             DeactiveAllRecordUiItems();
         }
 
-        private void DeactiveAllRecordUiItems()
-        {
-            foreach (var ui in _recordsUi)
-            {
+        private void DeactiveAllRecordUiItems() {
+            foreach (var ui in _recordsUi) {
                 ui.gameObject.SetActive(false);
             }
 

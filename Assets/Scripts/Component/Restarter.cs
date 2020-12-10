@@ -3,45 +3,38 @@ using JigiJumper.Managers;
 using UnityEngine;
 
 
-namespace JigiJumper.Component
-{
-    public class Restarter : MonoBehaviour
-    {
+namespace JigiJumper.Component {
+    public class Restarter : MonoBehaviour {
         private const float RESTART_TIMER = 1.5f;
 
         private JumperController _jumper;
         private GameManager _gameManager;
         private float _restartTimerChecker;
         private bool _isRestartCalled = true;
-        
-        private void Awake()
-        {
+
+        private void Awake() {
             _gameManager = GameManager.instance;
             _jumper = GetComponent<JumperController>();
             _jumper.OnJump += OnJumperJump;
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (_jumper.currentPlanetGameObject != null) { return; }
             if (_isRestartCalled) { return; }
 
             _restartTimerChecker += Time.deltaTime;
 
-            if (_restartTimerChecker >= RESTART_TIMER)
-            {
+            if (_restartTimerChecker >= RESTART_TIMER) {
                 _isRestartCalled = true;
                 RequestToRestartTheGame();
             }
         }
 
-        private void RequestToRestartTheGame()
-        {
+        private void RequestToRestartTheGame() {
             _gameManager.RequestToRestart(RestartMode.Reallocate);
         }
 
-        private void OnJumperJump()
-        {
+        private void OnJumperJump() {
             _restartTimerChecker = 0;
             _isRestartCalled = false;
         }

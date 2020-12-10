@@ -4,37 +4,30 @@ using System.Collections;
 
 using static JigiJumper.Utils.Utility;
 
-namespace JigiJumper.Spawner
-{
-    public class NPCJumperSpanwer : MonoBehaviour
-    {
+namespace JigiJumper.Spawner {
+    public class NPCJumperSpanwer : MonoBehaviour {
         [SerializeField] private NPCJumper _npcJumperPrefab = null;
-
 
         Camera _camera;
         PoolSystem<NPCJumper> _pool;
         Transform _transform;
 
-        private void Awake()
-        {
+        private void Awake() {
             _camera = Camera.main;
             _pool = new PoolSystem<NPCJumper>(_npcJumperPrefab);
             _transform = transform;
         }
 
-        private IEnumerator Start()
-        {
+        private IEnumerator Start() {
             yield return new WaitForSeconds(2);
 
-            while (true)
-            {
+            while (true) {
                 SpawnTheJumper();
                 yield return new WaitForSeconds(Random.Range(.3f, 4f));
             }
         }
 
-        private void SpawnTheJumper()
-        {
+        private void SpawnTheJumper() {
             Vector2 start = GetRandomPosOnScreen(_camera);
             Vector2 end = GetRandomPosOnScreen(_camera);
 

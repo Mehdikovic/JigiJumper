@@ -22,13 +22,13 @@ namespace JigiJumper.UI
         {
             InitialComponent();
 
-            SetActivation(false, _behaviorUIs);
-            _selfRect.gameObject.SetActive(false);
+            SetActivation(false, _uiBehaviors);
+            _selfRectWindow.gameObject.SetActive(false);
         }
 
         private void InitialComponent()
         {
-            _behaviorUIs = new Behaviour[]
+            _uiBehaviors = new Behaviour[]
             {
                 _btnEasy,
                 _btnNormal,
@@ -45,8 +45,8 @@ namespace JigiJumper.UI
 
         private void LoadTheGame(LevelType type)
         {
-            SetActivation(false, _behaviorUIs);
-            _selfRect.gameObject.SetActive(false);
+            SetActivation(false, _uiBehaviors);
+            _selfRectWindow.gameObject.SetActive(false);
 
             _setting.levelType = type;
             if (!_setting.GetShowBannerOption())

@@ -27,12 +27,12 @@ namespace JigiJumper.UI
         {
             InitialComponent();
 
-            _selfRect.gameObject.SetActive(false);
+            _selfRectWindow.gameObject.SetActive(false);
         }
 
         private void InitialComponent()
         {
-            _behaviorUIs = new Behaviour[]
+            _uiBehaviors = new Behaviour[]
             {
                 _musicSlider,
                 _inGameSoundSlider,
@@ -56,8 +56,8 @@ namespace JigiJumper.UI
             {
                 if (_homeWindow == null)
                 {
-                    SetActivation(false, _behaviorUIs);
-                    Utils.DoTweenUtility.DoHideWindow(_selfRect, () => SetActivation(true, _behaviorUIs));
+                    SetActivation(false, _uiBehaviors);
+                    Utils.DoTweenUtility.DoHideWindow(_selfRectWindow, () => SetActivation(true, _uiBehaviors));
                 }
                 else
                 {

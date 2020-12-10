@@ -8,19 +8,22 @@ namespace JigiJumper.UI
     public abstract class WindowUi : MonoBehaviour
     {
 
-        [SerializeField] protected RectTransform _selfRect = null;
+        [SerializeField] protected RectTransform _selfRectWindow = null;
         [Header("Settings")]
         [SerializeField] protected SettingData _setting = null;
 
-        public IEnumerable<Behaviour> GetUIBehaviors() => _behaviorUIs;
-        public RectTransform GetRect() => _selfRect;
+        public IEnumerable<Behaviour> GetUiBehaviors() => _uiBehaviors;
+        
+        public RectTransform GetRectWindow() => _selfRectWindow;
 
-        protected Behaviour[] _behaviorUIs;
+        protected Behaviour[] _uiBehaviors;
 
         protected virtual void BeginToHide() { }
+        
         protected virtual void EndOfHide() { }
 
         protected virtual void BeginToShow() { }
+        
         protected virtual void EndOfShow() { }
 
         static public void SetActivation(bool active, IEnumerable<Behaviour> behaviors)
@@ -36,10 +39,10 @@ namespace JigiJumper.UI
         static public void TransitionToWindow(WindowUi from, WindowUi to)
         {
             from.BeginToHide();
-            SetActivation(false, from.GetUIBehaviors());
+            SetActivation(false, from.GetUiBehaviors());
 
-            RectTransform fromRect = from.GetRect();
-            RectTransform toRect = to.GetRect();
+            RectTransform fromRect = from.GetRectWindow();
+            RectTransform toRect = to.GetRectWindow();
 
             Utils.DoTweenUtility.DoHideWindow(fromRect,
                 onComplete: () =>
@@ -49,10 +52,11 @@ namespace JigiJumper.UI
                     Utils.DoTweenUtility.DoShowWindow(toRect,
                         onComplete: () =>
                         {
-                            SetActivation(true, to.GetUIBehaviors());
+                            SetActivation(true, to.GetUiBehaviors());
                             to.EndOfShow();
                         });
-                });
+                }
+            );
         }
     }
 }

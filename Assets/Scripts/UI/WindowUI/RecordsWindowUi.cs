@@ -22,12 +22,12 @@ namespace JigiJumper.UI
         private void Awake()
         {
             InitialComponent();
-            _selfRect.gameObject.SetActive(false);
+            _selfRectWindow.gameObject.SetActive(false);
         }
 
         private void InitialComponent()
         {
-            _behaviorUIs = new Behaviour[]
+            _uiBehaviors = new Behaviour[]
             {
                 _btnBack,
                 _scrollbar,

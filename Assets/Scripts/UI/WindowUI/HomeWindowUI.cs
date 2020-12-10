@@ -23,20 +23,20 @@ namespace JigiJumper.UI
         {
             InitialComponent();
 
-            SetActivation(false, _behaviorUIs);
-            _selfRect.gameObject.SetActive(false);
+            SetActivation(false, _uiBehaviors);
+            _selfRectWindow.gameObject.SetActive(false);
 
             GameManager.instance.jumper.OnPlanetReached += (Actors.PlanetController arg1, Actors.PlanetController arg2) =>
             {
-                Utils.DoTweenUtility.DoShowWindow(_selfRect,
-                    onComplete: () => SetActivation(true, _behaviorUIs)
+                Utils.DoTweenUtility.DoShowWindow(_selfRectWindow,
+                    onComplete: () => SetActivation(true, _uiBehaviors)
                 );
             };
         }
 
         private void InitialComponent()
         {
-            _behaviorUIs = new Behaviour[]
+            _uiBehaviors = new Behaviour[]
             {
                 _btnStart,
                 _btnRecords,

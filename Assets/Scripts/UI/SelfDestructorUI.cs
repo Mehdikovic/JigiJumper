@@ -7,7 +7,7 @@ using JigiJumper.Component;
 
 namespace JigiJumper.UI
 {
-    public class SelfDestructorUI : MonoBehaviour
+    public class SelfDestructorUi : MonoBehaviour
     {
         [SerializeField] private SelfDestructor _destructor = null;
         [SerializeField] private Text _textUI = null;

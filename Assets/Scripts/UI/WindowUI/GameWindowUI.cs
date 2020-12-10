@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 namespace JigiJumper.UI
 {
-    public class GameWindowUI : WindowUI
+    public class GameWindowUi : WindowUi
     {
         [Header("Windows")]
-        [SerializeField] private WindowUI _homeWindow = null;
+        [SerializeField] private WindowUi _homeWindow = null;
 
         [Header("Game Mode Window Buttons")]
         [SerializeField] private Button _btnEasy = null;

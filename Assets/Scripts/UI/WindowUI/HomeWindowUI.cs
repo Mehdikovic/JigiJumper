@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 namespace JigiJumper.UI
 {
-    public class HomeWindowUI : WindowUI
+    public class HomeWindowUi : WindowUi
     {
         [Header("Windows")]
-        [SerializeField] private WindowUI _gameWindow = null;
-        [SerializeField] private WindowUI _recordsWindow = null;
-        [SerializeField] private WindowUI _settingsWindow = null;
+        [SerializeField] private WindowUi _gameWindow = null;
+        [SerializeField] private WindowUi _recordsWindow = null;
+        [SerializeField] private WindowUi _settingsWindow = null;
 
         [Header("Home Window Buttons")]
         [SerializeField] private Button _btnStart = null;

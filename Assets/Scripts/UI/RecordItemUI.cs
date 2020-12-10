@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JigiJumper.UI
 {
-    public class RecordItemUI : MonoBehaviour
+    public class RecordItemUi : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _id = null;
         [SerializeField] private TextMeshProUGUI _total = null;
@@ -13,7 +13,7 @@ namespace JigiJumper.UI
 
         public void SetData(int index, RecordData data)
         {
-            _id.text = string.Format("[{0}]", index);
+            _id.text = string.Format("#{0}", index);
             _total.text = data.allJumpsCount.ToString();
             _difficulty.text = data.levelType.ToString();
             _level.text = data.level.ToString();

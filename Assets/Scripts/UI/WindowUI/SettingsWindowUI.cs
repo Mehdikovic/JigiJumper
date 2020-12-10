@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 namespace JigiJumper.UI
 {
-    public class SettingsWindowUI : WindowUI
+    public class SettingsWindowUi : WindowUi
     {
         private const string MUSIC_VOLUME = "MusicVolume";
         private const string IN_GAME_VOLUME = "InGameVolume";
 
         [Header("Windows")]
-        [SerializeField] private WindowUI _homeWindow = null;
+        [SerializeField] private WindowUi _homeWindow = null;
 
         [Header("AudioMixer")]
         [SerializeField] private AudioMixer _audioMixer = null;
@@ -52,7 +52,19 @@ namespace JigiJumper.UI
                 _audioMixer.SetFloat(IN_GAME_VOLUME, value);
             });
 
-            _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));
+            _btnBack.onClick.AddListener(() =>
+            {
+                if (_homeWindow == null)
+                {
+                    SetActivation(false, _behaviorUIs);
+                    Utils.DoTweenUtility.DoHideWindow(_selfRect, () => SetActivation(true, _behaviorUIs));
+                }
+                else
+                {
+                    TransitionToWindow(this, _homeWindow);
+                }
+            });
+
 
             _toggle.onValueChanged.AddListener((value) =>
             {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace JigiJumper.UI
 {
-    public abstract class WindowUI : MonoBehaviour
+    public abstract class WindowUi : MonoBehaviour
     {
 
         [SerializeField] protected RectTransform _selfRect = null;
@@ -33,7 +33,7 @@ namespace JigiJumper.UI
             }
         }
 
-        static public void TransitionToWindow(WindowUI from, WindowUI to)
+        static public void TransitionToWindow(WindowUi from, WindowUi to)
         {
             from.BeginToHide();
             SetActivation(false, from.GetUIBehaviors());

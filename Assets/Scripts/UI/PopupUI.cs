@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace JigiJumper.UI
 {
-    public class PopupUI : MonoBehaviour
+    public class PopupUi : MonoBehaviour
     {
         [SerializeField] private RectTransform _container = null;
         [SerializeField] private Button _btnBack = null;

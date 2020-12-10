@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace JigiJumper.UI
 {
-    public class StatusBarUI : MonoBehaviour
+    public class StatusBarUi : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI _txtLevel = null;
         [SerializeField] private TextMeshProUGUI _txtLife = null;

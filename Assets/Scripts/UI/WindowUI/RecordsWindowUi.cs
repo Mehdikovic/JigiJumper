@@ -4,17 +4,17 @@ using UnityEngine.UI;
 
 namespace JigiJumper.UI
 {
-    public class RecordsWindow : WindowUI
+    public class RecordsWindowUi : WindowUi
     {
         [Header("Windows")]
-        [SerializeField] private WindowUI _homeWindow = null;
+        [SerializeField] private WindowUi _homeWindow = null;
 
         [Header("Ui Behavoirs")]
         [SerializeField] private Button _btnBack = null;
         [SerializeField] private Scrollbar _scrollbar = null;
 
         [Header("RecrodItemUi")]
-        [SerializeField] private RecordItemUI[] _recordsUi = null;
+        [SerializeField] private RecordItemUi[] _recordsUi = null;
 
         [Header("Viewport")]
         [SerializeField] private RectTransform _viewport = null;

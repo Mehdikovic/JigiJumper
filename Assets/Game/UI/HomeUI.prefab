@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bc08a7133a19747960c1a61d6b107c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfRect: {fileID: 6909823343590576760}
+  _selfRectWindow: {fileID: 6909823343590576760}
   _setting: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
   _gameWindow: {fileID: 2620864373143941431}
   _recordsWindow: {fileID: 5213207785905491810}
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f5b3ea3dd03e44085c2307c6eb525d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfRect: {fileID: 7882042282096195705}
+  _selfRectWindow: {fileID: 7882042282096195705}
   _setting: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
   _homeWindow: {fileID: 2932746698482078756}
   _btnEasy: {fileID: 6909823343812490292}
@@ -3598,7 +3598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949d6c472d2540d4fb0cc673d69b5f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selfRect: {fileID: 2846932771601025767}
+  _selfRectWindow: {fileID: 2846932771601025767}
   _setting: {fileID: 11400000, guid: e6000779402263d40a667a0b4b67ce66, type: 2}
   _homeWindow: {fileID: 2932746698482078756}
   _btnBack: {fileID: 958981672877848466}
@@ -4053,7 +4053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7882042281575782611}
   m_Layer: 0
-  m_Name: HomeUI
+  m_Name: HomeUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8646,6 +8646,11 @@ PrefabInstance:
       propertyPath: _toggleImage
       value: 
       objectReference: {fileID: 5517559995890194941}
+    - target: {fileID: 5275744693968878195, guid: c5f4dab0120517a40aa19cf95d5f01c3,
+        type: 3}
+      propertyPath: _selfRectWindow
+      value: 
+      objectReference: {fileID: 1463675358604944046}
     - target: {fileID: 6332596181678863733, guid: c5f4dab0120517a40aa19cf95d5f01c3,
         type: 3}
       propertyPath: m_Name

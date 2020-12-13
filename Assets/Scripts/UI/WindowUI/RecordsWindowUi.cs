@@ -44,7 +44,7 @@ namespace JigiJumper.UI {
                 _recordsUi[i].SetData(i + 1, records[i]);
             }
 
-            SetHeightOfRect(200 * records.Count);
+            SetHeightOfRect(150 * records.Count + 1);
         }
 
         private void SetHeightOfRect(float value) {

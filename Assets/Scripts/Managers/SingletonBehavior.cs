@@ -2,7 +2,7 @@
 
 
 namespace JigiJumper.Managers {
-    public class SingletonBehavior<T> : MonoBehaviour where T : MonoBehaviour {
+    public abstract class SingletonBehavior<T> : MonoBehaviour where T : MonoBehaviour {
         protected static T _instance;
 
         public static T instance {
@@ -20,7 +20,7 @@ namespace JigiJumper.Managers {
             }
         }
 
-        protected virtual void Awake() {
+        void Awake() {
             var monoInstance = GetComponent<T>();
 
             if (_instance == null) {
@@ -29,6 +29,8 @@ namespace JigiJumper.Managers {
                 Destroy(_instance.gameObject);
                 _instance = monoInstance;
             }
+            OnAwake();
         }
+        protected virtual void OnAwake() { }
     }
 }

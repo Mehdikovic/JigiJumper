@@ -25,9 +25,7 @@ namespace JigiJumper.Managers {
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
 
-        protected override void Awake() {
-            base.Awake();
-
+        protected override void OnAwake() {
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
         }

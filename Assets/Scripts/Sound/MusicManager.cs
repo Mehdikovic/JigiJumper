@@ -3,12 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using JigiJumper.Data;
+using JigiJumper.Managers;
 
 namespace JigiJumper.Sound {
-    [RequireComponent(typeof(AudioSource))]
-    public class MusicManager : MonoBehaviour {
-        static bool _isInit = false;
 
+    public class MusicManager : PersistentBehavior {
         [SerializeField] BgMusicData[] _bgMusics = null;
 
         private AudioSource _audioSource = null;
@@ -16,12 +15,7 @@ namespace JigiJumper.Sound {
         private int _lastSceneIndex = -1;
         private int _currentSceneIndex = -1;
 
-        void Awake() {
-            if (_isInit) { Destroy(gameObject); }
-            _isInit = true;
-            
-            DontDestroyOnLoad(gameObject);
-
+        protected override void OnAwake() {
             _audioSource = GetComponent<AudioSource>();
         }
 
@@ -55,7 +49,7 @@ namespace JigiJumper.Sound {
             _audioSource.volume = 0;
             _audioSource.Play();
             _audioSource.DOFade(1, 3f);
-            
+
             yield return new WaitForSeconds(clipData.GetWaitTime());
             RequestToPlayBgMusic();
         }
@@ -63,7 +57,7 @@ namespace JigiJumper.Sound {
         private void RequestToPlayBgMusic() {
             if (_bgMusics == null || _bgMusics.Length == 0) { return; }
             if (_bgMusics.Length <= _currentSceneIndex) { return; } // there is no music clip here
-            
+
             if (_bgMusics[_currentSceneIndex].HasMusic()) {
                 PlayMusic(_bgMusics[_currentSceneIndex].Next());
             }

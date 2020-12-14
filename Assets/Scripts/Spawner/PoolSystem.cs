@@ -13,6 +13,14 @@ namespace JigiJumper.Spawner {
             inactive = new Stack<T>(5);
         }
 
+        public PoolSystem(T prefab, T[] instances) {
+            this.prefab = prefab;
+            inactive = new Stack<T>(instances.Length);
+            for (int i = 0; i < instances.Length; ++i) {
+                Despawn(instances[i]);
+            }
+        }
+
         public void Preload(Transform parent, int qty) {
             T[] components = new T[qty];
 

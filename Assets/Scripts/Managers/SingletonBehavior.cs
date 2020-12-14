@@ -20,7 +20,7 @@ namespace JigiJumper.Managers {
             }
         }
 
-        void Awake() {
+        protected void Awake() {
             var monoInstance = GetComponent<T>();
 
             if (_instance == null) {

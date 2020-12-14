@@ -134,6 +134,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &92356170
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 705266660}
+    m_Modifications:
+    - target: {fileID: 4183944687701043739, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: _jumper
+      value: 
+      objectReference: {fileID: 5656339768334118833}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187763975689623146, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6353910709567668917, guid: ecd264d81c208e14a8bcbba9a1db2059,
+        type: 3}
+      propertyPath: m_Name
+      value: JumperImpactSfx
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ecd264d81c208e14a8bcbba9a1db2059, type: 3}
 --- !u!114 &168246216 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7374458447550567074, guid: f051dd6b42c05ee41b00cbffd24f17d1,

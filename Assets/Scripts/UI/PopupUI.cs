@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class PopupUi : MonoBehaviour {
         [SerializeField] private RectTransform _container = null;
         [SerializeField] private Button _btnBack = null;
@@ -12,7 +12,7 @@ namespace JigiJumper.UI {
         private void Awake() {
             _btnBack.onClick.AddListener(() => {
                 _btnBack.enabled = false;
-                Utils.DoTweenUtility.DoHideWindow(
+                Ui.DoHideWindow(
                     _container,
                     () => {
                         _btnBack.enabled = true;
@@ -27,7 +27,7 @@ namespace JigiJumper.UI {
 
         public void ShowPopup(Action onPopupClosed) {
             _onPopupClosedCallback = onPopupClosed;
-            Utils.DoTweenUtility.DoShowWindow(_container);
+            Ui.DoShowWindow(_container);
         }
     }
 }

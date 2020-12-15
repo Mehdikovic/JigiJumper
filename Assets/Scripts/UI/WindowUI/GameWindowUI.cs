@@ -5,7 +5,7 @@ using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class GameWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _homeWindow = null;
@@ -16,38 +16,38 @@ namespace JigiJumper.UI {
         [SerializeField] private Button _btnHard = null;
         [SerializeField] private Button _btnBack = null;
 
-        private void Awake() {
+        protected override void OnAwake() {
             InitialComponent();
 
-            SetActivation(false, _uiBehaviors);
+            SetBehaviorActivation(false);
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent() {
-            _uiBehaviors = new Behaviour[]
-            {
+        protected override Behaviour[] Behaviors() {
+            return new Behaviour[] {
                 _btnEasy,
                 _btnNormal,
                 _btnHard,
                 _btnBack,
             };
+        }
 
+        private void InitialComponent() {
             _btnEasy.onClick.AddListener(() => LoadTheGame(LevelType.Easy));
             _btnNormal.onClick.AddListener(() => LoadTheGame(LevelType.Normal));
             _btnHard.onClick.AddListener(() => LoadTheGame(LevelType.Hard));
-            _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));
-
+            _btnBack.onClick.AddListener(() => Ui.TransitionTo(this, _homeWindow));
         }
 
         private void LoadTheGame(LevelType type) {
-            SetActivation(false, _uiBehaviors);
+            SetBehaviorActivation(false);
             _selfRectWindow.gameObject.SetActive(false);
 
             _setting.levelType = type;
             if (!_setting.GetShowBannerOption())
                 Advertisement.Banner.Hide();
 
-            FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 2);
+            FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, sceneIndex: 2);
         }
     }
 }

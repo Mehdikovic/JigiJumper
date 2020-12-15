@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class RecordsWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _homeWindow = null;
@@ -16,24 +16,27 @@ namespace JigiJumper.UI {
         [Header("Viewport")]
         [SerializeField] private RectTransform _viewport = null;
 
-        private void Awake() {
+        protected override void OnAwake() {
             InitialComponent();
+            
+            SetBehaviorActivation(false);
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent() {
-            _uiBehaviors = new Behaviour[]
-            {
+        protected override Behaviour[] Behaviors() {
+            return new Behaviour[] {
                 _btnBack,
                 _scrollbar,
             };
-
-            DeactiveAllRecordUiItems();
-
-            _btnBack.onClick.AddListener(() => TransitionToWindow(this, _homeWindow));
         }
 
-        protected override void BeginToShow() {
+        private void InitialComponent() {
+            DeactiveAllRecordUiItems();
+
+            _btnBack.onClick.AddListener(() => Ui.TransitionTo(this, _homeWindow));
+        }
+
+        public override void BeginToShow() {
             var records = Data.SettingData.LoadRecords();
             SetHeightOfRect(0);
 
@@ -53,11 +56,11 @@ namespace JigiJumper.UI {
             _viewport.sizeDelta = rect;
         }
 
-        protected override void EndOfShow() {
+        public override void EndOfShow() {
             _scrollbar.value = 1;
         }
 
-        protected override void EndOfHide() {
+        public override void EndOfHide() {
             DeactiveAllRecordUiItems();
         }
 

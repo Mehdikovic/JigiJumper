@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class StatusBarUi : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI _txtLevel = null;
         [SerializeField] private TextMeshProUGUI _txtLife = null;

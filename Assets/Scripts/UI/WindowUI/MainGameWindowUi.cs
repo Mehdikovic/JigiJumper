@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class MainGameWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _settingsWindow = null;
@@ -31,7 +31,7 @@ namespace JigiJumper.UI {
         private GameManager _gameManager;
         private bool _isActivatingSettingWindow = false;
 
-        private void Awake() {
+        protected override void OnAwake() {
             _gameManager = GameManager.instance;
             InitialUIComponents();
             _selfRectWindow.gameObject.SetActive(false);
@@ -39,16 +39,9 @@ namespace JigiJumper.UI {
             _gameManager.OnLevelChanged += OnLevelChanged;
         }
 
-        public void ActivateSettingMenuWindow() {
-            if (_isActivatingSettingWindow) { return; }
 
-            _isActivatingSettingWindow = true;
-            ActiveSettingsWindow(true);
-            Utils.DoTweenUtility.DoShowWindow(_selfRectWindow, () => _isActivatingSettingWindow = false);
-        }
-
-        private void InitialUIComponents() {
-            _uiBehaviors = new Behaviour[]
+        protected override Behaviour[] Behaviors() {
+            return new Behaviour[]
             {
                 _btnShowAd,
                 _btnHome,
@@ -56,52 +49,69 @@ namespace JigiJumper.UI {
                 _btnShowSettings,
                 _btnClose,
             };
+        }
 
+        // called by button event subscriber at canvas
+        public void ActivateSettingMenuWindow() {
+            if (_isActivatingSettingWindow) { return; }
+
+            _isActivatingSettingWindow = true;
+            ActiveSettingsWindow(true);
+            
+            Ui.DoShowWindow(_selfRectWindow, () => _isActivatingSettingWindow = false);
+        }
+
+        private void InitialUIComponents() {
             _btnShowSettings.onClick.AddListener(() => {
-                SetActivation(false, _uiBehaviors);
-                Utils.DoTweenUtility.DoShowWindow(_settingsWindow.GetRectWindow(), () => SetActivation(true, _uiBehaviors));
+                SetBehaviorActivation(false);
+                Ui.DoShowWindow(_settingsWindow.GetRectWindow(),
+                    () => {
+                        Ui.SetBehaviorActivation(true, _settingsWindow.GetUiBehaviors());
+                        SetBehaviorActivation(true);
+                    }
+                );
             });
 
             _btnRestart.onClick.AddListener(() => {
-                SetActivation(false, _uiBehaviors);
+                SetBehaviorActivation(false);
                 _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, SceneManager.GetActiveScene().buildIndex);
             });
 
             _btnHome.onClick.AddListener(() => {
-                SetActivation(false, _uiBehaviors);
+                SetBehaviorActivation(false);
                 _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 1);
             });
 
             _btnClose.onClick.AddListener(() => {
-                SetActivation(false, _uiBehaviors);
-                Utils.DoTweenUtility.DoHideWindow(_selfRectWindow, () => SetActivation(true, _uiBehaviors));
+                SetBehaviorActivation(false);
+                Ui.DoHideWindow(_selfRectWindow, () => SetBehaviorActivation(true));
             });
 
             _btnShowAd.onClick.AddListener(OnBtnShowAd);
         }
 
         private void OnBtnShowAd() {
-            SetActivation(false, _uiBehaviors); // remember to re-enable them again!
+            SetBehaviorActivation(false); // remember to re-enable them again!
 
             if (_remainingAds > 0) {
                 _ads.ShowRewardedVideo(
                     onAdsFinish: (result) => {
-                        SetActivation(true, _uiBehaviors);
+                        SetBehaviorActivation(true);
                         OnUnityAdsFinishCallback(result);
                     },
-                    onAdsError: (error) => SetActivation(true, _uiBehaviors)
+                    onAdsError: (error) => SetBehaviorActivation(true)
                 );
             } else {
                 _remainingAds = 0;
-                _popup.ShowPopup(() => SetActivation(true, _uiBehaviors));
+                _popup.ShowPopup(() => SetBehaviorActivation(true));
             }
         }
 
         private void OnCompleteRestartRequest() {
             ActiveSettingsWindow(false);
-            Utils.DoTweenUtility.DoShowWindow(_selfRectWindow);
+            Ui.DoShowWindow(_selfRectWindow, () => SetBehaviorActivation(true));
         }
 
         private void OnLevelChanged(int newLevel) {
@@ -138,5 +148,6 @@ namespace JigiJumper.UI {
             _btnClose.enabled = active;
             _watchAdItem.SetActive(!active);
         }
+
     }
 }

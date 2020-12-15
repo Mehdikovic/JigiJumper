@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using JigiJumper.Component;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class SelfDestructorUi : MonoBehaviour {
         [SerializeField] private SelfDestructor _destructor = null;
         [SerializeField] private Text _textUI = null;

@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class SettingsWindowUi : WindowUi {
         private const string MUSIC_VOLUME = "MusicVolume";
         private const string IN_GAME_VOLUME = "InGameVolume";
@@ -21,21 +21,23 @@ namespace JigiJumper.UI {
         [SerializeField] private Button _btnBack = null;
         [SerializeField] private Image _toggleImage = null;
 
-        private void Awake() {
+        protected override void OnAwake() {
             InitialComponent();
 
+            SetBehaviorActivation(false);
             _selfRectWindow.gameObject.SetActive(false);
         }
 
-        private void InitialComponent() {
-            _uiBehaviors = new Behaviour[]
-            {
+        protected override Behaviour[] Behaviors() {
+            return new Behaviour[] {
                 _musicSlider,
                 _inGameSoundSlider,
                 _toggle,
                 _btnBack,
             };
+        }
 
+        private void InitialComponent() {
             _musicSlider.onValueChanged.AddListener((value) => {
                 _setting.SetMusicVol(value);
                 _audioMixer.SetFloat(MUSIC_VOLUME, value);
@@ -48,10 +50,10 @@ namespace JigiJumper.UI {
 
             _btnBack.onClick.AddListener(() => {
                 if (_homeWindow == null) {
-                    SetActivation(false, _uiBehaviors);
-                    Utils.DoTweenUtility.DoHideWindow(_selfRectWindow, () => SetActivation(true, _uiBehaviors));
+                    SetBehaviorActivation(false);
+                    Ui.DoHideWindow(_selfRectWindow, () => SetBehaviorActivation(true));
                 } else {
-                    TransitionToWindow(this, _homeWindow);
+                    Ui.TransitionTo(this, _homeWindow);
                 }
             });
 

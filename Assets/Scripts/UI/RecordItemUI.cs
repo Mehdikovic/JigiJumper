@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class RecordItemUi : MonoBehaviour {
         [SerializeField] private TextMeshProUGUI _id = null;
         [SerializeField] private TextMeshProUGUI _total = null;

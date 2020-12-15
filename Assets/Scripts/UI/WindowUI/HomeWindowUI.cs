@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace JigiJumper.UI {
+namespace JigiJumper.Ui {
     public class HomeWindowUi : WindowUi {
         [Header("Windows")]
         [SerializeField] private WindowUi _gameWindow = null;
@@ -16,28 +16,31 @@ namespace JigiJumper.UI {
         [SerializeField] private Button _btnSettings = null;
         [SerializeField] private Button _btnQuit = null;
 
-        private void Awake() {
+        protected override void OnAwake() {
             InitialComponent();
 
-            SetActivation(false, _uiBehaviors);
+            SetBehaviorActivation(false);
             _selfRectWindow.gameObject.SetActive(false);
 
-            GameManager.instance.jumper.OnPlanetReached += (Actors.PlanetController arg1, Actors.PlanetController arg2) => {
-                Utils.DoTweenUtility.DoShowWindow(_selfRectWindow,
-                    onComplete: () => SetActivation(true, _uiBehaviors)
+            GameManager.instance.jumper.OnPlanetReached += (Actors.PlanetController a, Actors.PlanetController b) => {
+                Ui.DoShowWindow(_selfRectWindow,
+                    onComplete: () => SetBehaviorActivation(true)
                 );
             };
         }
 
-        private void InitialComponent() {
-            _uiBehaviors = new Behaviour[]
+        protected override Behaviour[] Behaviors() {
+            return  new Behaviour[]
             {
                 _btnStart,
                 _btnRecords,
                 _btnSettings,
                 _btnQuit,
             };
+        }
 
+        private void InitialComponent() {
+            
             _btnStart.onClick.AddListener(OnBtnStartClicked);
             _btnRecords.onClick.AddListener(OnBtnRecordClicked);
             _btnSettings.onClick.AddListener(OnBtnSettingsClicked);
@@ -45,15 +48,15 @@ namespace JigiJumper.UI {
         }
 
         private void OnBtnStartClicked() {
-            TransitionToWindow(this, _gameWindow);
+            Ui.TransitionTo(this, _gameWindow);
         }
 
         private void OnBtnRecordClicked() {
-            TransitionToWindow(this, _recordsWindow);
+            Ui.TransitionTo(this, _recordsWindow);
         }
 
         private void OnBtnSettingsClicked() {
-            TransitionToWindow(this, _settingsWindow);
+            Ui.TransitionTo(this, _settingsWindow);
         }
 
         private void OnBtnQuitClicked() {

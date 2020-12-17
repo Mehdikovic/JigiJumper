@@ -9,11 +9,13 @@ namespace JigiJumper.Ui {
         [SerializeField] private WindowUi _gameWindow = null;
         [SerializeField] private WindowUi _recordsWindow = null;
         [SerializeField] private WindowUi _settingsWindow = null;
+        [SerializeField] private WindowUi _creditsWindow = null;
 
         [Header("Home Window Buttons")]
         [SerializeField] private Button _btnStart = null;
         [SerializeField] private Button _btnRecords = null;
         [SerializeField] private Button _btnSettings = null;
+        [SerializeField] private Button _btnCredits = null;
         [SerializeField] private Button _btnQuit = null;
 
         protected override void OnAwake() {
@@ -30,37 +32,23 @@ namespace JigiJumper.Ui {
         }
 
         protected override Behaviour[] Behaviors() {
-            return  new Behaviour[]
+            return new Behaviour[]
             {
                 _btnStart,
                 _btnRecords,
                 _btnSettings,
+                _btnCredits,
                 _btnQuit,
             };
         }
 
         private void InitialComponent() {
-            
-            _btnStart.onClick.AddListener(OnBtnStartClicked);
-            _btnRecords.onClick.AddListener(OnBtnRecordClicked);
-            _btnSettings.onClick.AddListener(OnBtnSettingsClicked);
-            _btnQuit.onClick.AddListener(OnBtnQuitClicked);
-        }
 
-        private void OnBtnStartClicked() {
-            Ui.TransitionTo(this, _gameWindow);
-        }
-
-        private void OnBtnRecordClicked() {
-            Ui.TransitionTo(this, _recordsWindow);
-        }
-
-        private void OnBtnSettingsClicked() {
-            Ui.TransitionTo(this, _settingsWindow);
-        }
-
-        private void OnBtnQuitClicked() {
-            Application.Quit();
+            _btnStart.onClick.AddListener(() => Ui.TransitionTo(this, _gameWindow));
+            _btnRecords.onClick.AddListener(() => Ui.TransitionTo(this, _recordsWindow));
+            _btnSettings.onClick.AddListener(() => Ui.TransitionTo(this, _settingsWindow));
+            _btnCredits.onClick.AddListener(() => Ui.TransitionTo(this, _creditsWindow));
+            _btnQuit.onClick.AddListener(() => Application.Quit());
         }
     }
 }

@@ -638,37 +638,43 @@ PrefabInstance:
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[35]
       value: 
-      objectReference: {fileID: 11400000, guid: fbb3d4a22e4f1fe419071b0b537a9135,
+      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
         type: 2}
     - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[36]
       value: 
-      objectReference: {fileID: 11400000, guid: fbb3d4a22e4f1fe419071b0b537a9135,
+      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
         type: 2}
     - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[37]
       value: 
-      objectReference: {fileID: 11400000, guid: fbb3d4a22e4f1fe419071b0b537a9135,
+      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
         type: 2}
     - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[38]
       value: 
-      objectReference: {fileID: 11400000, guid: fbb3d4a22e4f1fe419071b0b537a9135,
+      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
         type: 2}
     - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[39]
       value: 
-      objectReference: {fileID: 11400000, guid: fbb3d4a22e4f1fe419071b0b537a9135,
+      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
         type: 2}
     - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
         type: 3}
       propertyPath: _spawnProbabilities.Array.data[40]
       value: 
-      objectReference: {fileID: 11400000, guid: 980f642a3e0a93e469162d10d04e54a8,
+      objectReference: {fileID: 11400000, guid: fdc909c414d56df4fad62a58c2602a0e,
+        type: 2}
+    - target: {fileID: 2355765107447949610, guid: 1ebbeb3384119fd4b946de3d127d7879,
+        type: 3}
+      propertyPath: _spawnProbabilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 572724a983cee9246a35f9b9737823ba,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ebbeb3384119fd4b946de3d127d7879, type: 3}

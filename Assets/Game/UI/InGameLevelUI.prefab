@@ -1233,7 +1233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3034425235390806201}
   m_Layer: 0
-  m_Name: InGameLevelUI
+  m_Name: InGameLevelUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

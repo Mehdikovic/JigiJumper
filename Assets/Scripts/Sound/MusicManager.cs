@@ -9,7 +9,7 @@ namespace JigiJumper.Sound {
 
     public class MusicManager : MonoBehaviour {
         static bool _isInit = false;
-        const float MUSIC_VOLUME = 0.2f;
+        const float MUSIC_VOLUME = 0.5f;
         
         [SerializeField] BgMusicData[] _bgMusics = null;
 

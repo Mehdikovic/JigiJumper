@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HomeScene
   m_EditorClassIdentifier: 
   _clips:
-  - clip: {fileID: 8300000, guid: 4899178c4074bc04c837202d810afc50, type: 3}
+  - clip: {fileID: 8300000, guid: 71a9196fd76d82147b51f47a90be0135, type: 3}
     start: 0
     endPercent: 1

@@ -9,7 +9,6 @@ namespace JigiJumper.Spawner {
 
         [SerializeField] AudioSource _audioPrefab = null;
         PoolSystem<AudioSource> _pool;
-        Dictionary<int, AudioSource> _audiosMap = null;
         Transform _transform;
 
         void Awake() {
@@ -25,8 +24,6 @@ namespace JigiJumper.Spawner {
             } else {
                 _pool = new PoolSystem<AudioSource>(_audioPrefab);
             }
-
-            _audiosMap = new Dictionary<int, AudioSource>();
         }
 
         public void PlayMusic(AudioClip clip) {
@@ -36,19 +33,26 @@ namespace JigiJumper.Spawner {
             StartCoroutine(DespawnAudioSource(audio, clip.length));
         }
 
-        public int ManualPlayMusic(AudioClip clip) {
+        public AudioSource ManualPlayMusic(AudioClip clip) {
             AudioSource audio = _pool.Spawn(Vector3.zero, Quaternion.identity, _transform);
-            _audiosMap.Add(audio.GetInstanceID(), audio);
             audio.clip = clip;
             audio.Play();
-            return audio.GetInstanceID();
+            return audio;
         }
 
-        public void ManualDespawn(int id) {
-            var audio = _audiosMap[id];
-            _audiosMap.Remove(id);
+        public void ManualDespawn(AudioSource audio) {
             audio.Stop();
             _pool.Despawn(audio);
+        }
+
+        public void StopAllAudios(AudioSource[] audios) {
+            if (audios == null || audios.Length < 1) { return; }
+
+            foreach (var audio in audios) {
+                if (audio == null) continue;
+                audio.Stop();
+                ManualDespawn(audio);
+            }
         }
 
         IEnumerator DespawnAudioSource(AudioSource audio, float time) {

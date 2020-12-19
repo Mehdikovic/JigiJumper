@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumper: {fileID: 0}
   _landClip: {fileID: 8300000, guid: c64407c9a0965334a9c11ea01de51309, type: 3}
-  _jumpClip: {fileID: 8300000, guid: db38dd1984b9f514b97a633af9d9a7ef, type: 3}
+  _jumpClip: {fileID: 8300000, guid: b359b37e9915d70459bfa02337ae84ad, type: 3}
   _afterDeathClip: {fileID: 8300000, guid: 970fe1d27eb687247bfb2f234b737ce2, type: 3}
 --- !u!82 &92356172
 AudioSource:

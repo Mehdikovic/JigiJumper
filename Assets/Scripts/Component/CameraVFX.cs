@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System;
-
+using JigiJumper.Utils;
+using JigiJumper.Data;
 
 namespace JigiJumper.Component {
     public class CameraVFX : MonoBehaviour {
@@ -31,12 +32,15 @@ namespace JigiJumper.Component {
 
         WaitForSeconds _wait;
 
+        Coroutine _vignetteCoroutine;
+        int _prevLevel = 1;
+
         void Awake() {
             _wait = new WaitForSeconds(_timer);
             StartCoroutine(ChangeColor());
 
             SettingTheColorAdjusment();
-            //SettingVignette(); todo -> vignette
+            SettingVignette();
         }
 
         IEnumerator ChangeColor() {
@@ -101,43 +105,95 @@ namespace JigiJumper.Component {
             onRestartDel(_jumper.remainingLife);
             _jumper.OnRestart += onRestartDel;
         }
-        
+
         private void SettingVignette() {
-            var gManager = GameManager.instance;
-            if (gManager.levelType != Data.LevelType.Hard) { return; }
             if (!_volume.TryGet(out Vignette vignette)) { return; }
+            var gManager = GameManager.instance;
+            float newVignetteValue = 0.14f;
 
-            VolumeParameter<float> vignetteParam = new VolumeParameter<float>();
+            Action<int> onLevelChanged = (newLevel) => {
+                int count = 1;
+                float waitTime = 1f;
+                switch (gManager.levelType) {
+                    case Data.LevelType.Easy:
+                        newVignetteValue = Utility.Map(newLevel, 1, 100, 0.14f, 1f);
+                        count = 2;
+                        waitTime = 1f;
+                        break;
+                    case Data.LevelType.Normal:
+                        newVignetteValue = Utility.Map(newLevel, 1, 50, 0.14f, 1f);
+                        count = 4;
+                        waitTime = UnityEngine.Random.Range(.5f, 2f);
+                        break;
+                    case Data.LevelType.Hard:
+                        newVignetteValue = Utility.Map(newLevel, 1, 20, 0.14f, 1f);
+                        count = 5;
+                        waitTime = UnityEngine.Random.Range(.3f, 4f);
+                        break;
+                }
 
-            var seq = DOTween.Sequence().SetAutoKill(false);
-            seq.SetLoops(-1);
+                if (_vignetteCoroutine != null && newLevel - _prevLevel > count) {
+                    ResetVignette(vignette);
+                    return;
+                }
 
-            Action<int> onLevelChangedDel = (newLevel) => {
-                //float remap = Utility.Map(newLevel, 1, 5, 0.14f, 1f);
-                //var seq1 = DOTween.To(
-                //    (value) =>
-                //    {
-                //        vignetteParam.value = value;
-                //        vignette.intensity.SetValue(vignetteParam);
-                //    },
-                //    vignetteParam.value,
-                //    remap,
-                //    1f
-                //);
-                //var seq2 = DOTween.To(
-                //     (value) =>
-                //     {
-                //         vignetteParam.value = value;
-                //         vignette.intensity.SetValue(vignetteParam);
-                //     },
-                //     vignetteParam.value,
-                //     0.14f,
-                //     1f
-                // );
+                if (_vignetteCoroutine != null) { return; }
+
+                if (UnityEngine.Random.Range(0, 2) == 1) {
+                    _prevLevel = newLevel;
+                    _vignetteCoroutine = StartCoroutine(ChangeVignetteThickness(vignette, newVignetteValue, waitTime));
+                }
             };
 
-            onLevelChangedDel(gManager.currentLevel);
-            gManager.OnLevelChanged += onLevelChangedDel;
+            gManager.OnLevelChanged += onLevelChanged;
+        }
+        IEnumerator ChangeVignetteThickness(Vignette vignette, float newVignetteValue, float waitTime) {
+            var vignetteParam = new VolumeParameter<float>();
+            var waitForSecond = new WaitForSeconds(waitTime);
+
+            while (true) {
+                DOTween.To(
+                    (value) => {
+                        vignetteParam.value = value;
+                        vignette.intensity.SetValue(vignetteParam);
+                    },
+                    vignetteParam.value,
+                    newVignetteValue,
+                    waitTime
+                );
+                yield return waitForSecond;
+                DOTween.To(
+                    (value) => {
+                        vignetteParam.value = value;
+                        vignette.intensity.SetValue(vignetteParam);
+                    },
+                    vignetteParam.value,
+                    0.14f,
+                    waitTime
+                );
+                yield return waitForSecond;
+            }
+        }
+
+        private void ResetVignette(Vignette vignette) {
+            StopCoroutine(_vignetteCoroutine);
+            var vignetteParam = new VolumeParameter<float>();
+            DOTween.To(
+                (value) => {
+                    vignetteParam.value = value;
+                    vignette.intensity.SetValue(vignetteParam);
+                },
+                vignetteParam.value,
+                0.14f,
+                1f
+            );
+        }
+
+        private void OnDisable() {
+            if (!_volume.TryGet(out Vignette vignette)) { return; }
+            var vignetteParam = new VolumeParameter<float>();
+            vignetteParam.value = 0.14f;
+            vignette.intensity.SetValue(vignetteParam);
         }
     }
 }

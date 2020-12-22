@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System;
 using JigiJumper.Utils;
-using JigiJumper.Data;
+
 
 namespace JigiJumper.Component {
     public class CameraVFX : MonoBehaviour {
@@ -112,27 +112,28 @@ namespace JigiJumper.Component {
             float newVignetteValue = 0.14f;
 
             Action<int> onLevelChanged = (newLevel) => {
-                int count = 1;
+                int lvlCount = 1;
                 float waitTime = 1f;
                 switch (gManager.levelType) {
                     case Data.LevelType.Easy:
                         newVignetteValue = Utility.Map(newLevel, 1, 100, 0.14f, 1f);
-                        count = 2;
+                        lvlCount = 1;
                         waitTime = 1f;
                         break;
                     case Data.LevelType.Normal:
                         newVignetteValue = Utility.Map(newLevel, 1, 50, 0.14f, 1f);
-                        count = 4;
+                        lvlCount = UnityEngine.Random.Range(1, 3);
                         waitTime = UnityEngine.Random.Range(.5f, 2f);
                         break;
                     case Data.LevelType.Hard:
-                        newVignetteValue = Utility.Map(newLevel, 1, 20, 0.14f, 1f);
-                        count = 5;
+                        newVignetteValue = Utility.Map(newLevel, 1, 10, 0.14f, 1f);
+                        lvlCount = UnityEngine.Random.Range(1, 5);
                         waitTime = UnityEngine.Random.Range(.3f, 4f);
                         break;
                 }
 
-                if (_vignetteCoroutine != null && newLevel - _prevLevel > count) {
+                if (_vignetteCoroutine != null && newLevel - _prevLevel >= lvlCount) {
+                    _prevLevel = newLevel;
                     ResetVignette(vignette);
                     return;
                 }

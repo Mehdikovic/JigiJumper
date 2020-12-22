@@ -33,7 +33,7 @@ namespace JigiJumper.Component {
             planetController.OnJumperEnter += OnJumperEnter;
             planetController.OnJumperExit += OnJumperExit;
 
-            planetController.OnJumperPersistOnPlanetAfterRestart += () => _isActivated = false;
+            planetController.OnJumperPersistOnCurrentPlanetAfterRestart += () => Initialize();
         }
 
         private void OnHoldForJumping() {
@@ -62,10 +62,14 @@ namespace JigiJumper.Component {
         public float timer => _timer;
 
         public void OnJumperEnter() {
+            Initialize();
+        }
+
+        private void Initialize() {
+            _isActivated = false;
             SetupProbs();
             _internalState = _spawnProbabiliteis.GetState();
             _timer = _spawnProbabiliteis.GetSelfDestructionTimer();
-            
             if (_internalState == DestructionState.OnEnterDestruction) {
                 _isActivated = true;
             }
@@ -77,7 +81,6 @@ namespace JigiJumper.Component {
             _audio.Stop();
             StopAllCoroutines();
         }
-
 
         private void TimeToStartTimer(float timer) {
             if (_isTimerStart) { return; }

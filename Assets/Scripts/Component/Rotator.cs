@@ -21,7 +21,7 @@ namespace JigiJumper.Component {
                 _rotationSpeed = _storedRotationSpeed;
             };
 
-            planetController.OnJumperPersistOnPlanetAfterRestart += () => {
+            planetController.OnJumperPersistOnCurrentPlanetAfterRestart += () => {
                 _rotationSpeed = _storedRotationSpeed;
             };
         }

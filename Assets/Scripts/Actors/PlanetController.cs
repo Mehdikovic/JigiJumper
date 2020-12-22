@@ -43,6 +43,8 @@ namespace JigiJumper.Actors {
 
         public Transform GetPivotCircuit() => _circuit;
 
+        // called before the JumperEnter and wouldn't be called for the first spawned object
+        // ** when this function called, we're guaranteed that it's not the first planet who calls it **
         public void InvokeOnComponentInitialization() {
             var spawnProbabilities = GameManager.instance.GetSpawnProbabilities();
             _planetType = spawnProbabilities.GetPlanetType();

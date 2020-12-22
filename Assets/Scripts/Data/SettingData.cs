@@ -37,7 +37,7 @@ namespace JigiJumper.Data {
         private const string MUSIC_VOL = "musicVol";
         private const string IN_GAME_SOUND = "inGameSoundVol";
         private const string BANNER_OPTION = "bannerShowOption";
-        
+
         [Header("Ads Conf")]
         [SerializeField] private string _gameId_ANDROID = "3872205";
         [SerializeField] private string _gameId_IOS = "3872204";
@@ -46,15 +46,14 @@ namespace JigiJumper.Data {
         [Header("Level Type")]
         public LevelType levelType = LevelType.Easy;
 
-        //[Header("Records")]
-        //public List<RecordData> records = new List<RecordData>();
         public string gameId {
             get {
 #if UNITY_ANDROID
                 return _gameId_ANDROID;
-#endif
-#if UNITY_IOS
+#elif UNITY_IOS
                 return _gameId_IOS;
+#else
+                return "0";
 #endif
             }
         }
@@ -92,6 +91,7 @@ namespace JigiJumper.Data {
         }
 
         static public void SaveRecords(RecordData newRecord) {
+#if !UNITY_WEBGL
             List<RecordData> oldRecords = LoadRecords();
             oldRecords.Add(newRecord);
             oldRecords = oldRecords
@@ -106,10 +106,14 @@ namespace JigiJumper.Data {
                     serializer.Serialize(writer, oldRecords);
                 }
             }
+#endif
         }
 
 
         static public List<RecordData> LoadRecords() {
+#if UNITY_WEBGL
+            return new List<RecordData>(0);
+#else
             if (!System.IO.File.Exists(GetRecordSavePath())) { return new List<RecordData>(0); }
             List<RecordData> records;
 
@@ -121,6 +125,7 @@ namespace JigiJumper.Data {
                 }
             }
             return records;
+#endif
         }
 
         private static string GetRecordSavePath() {

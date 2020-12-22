@@ -14,10 +14,12 @@ namespace JigiJumper.Ads {
         private Action _onAdsReady;
         private Action<string> _onAdsError;
 
+#if UNITY_IOS || UNITY_ANDROID
         void Awake() {
             Advertisement.AddListener(this);
             Advertisement.Initialize(_settings.gameId, _settings.testMode);
         }
+#endif
 
         public void ShowRewardedVideo(
             Action<ShowResult> onAdsFinish,
@@ -25,17 +27,21 @@ namespace JigiJumper.Ads {
             Action onAdsReady = null,
             Action<string> onAdsError = null
         ) {
+
             _onAdsFinishCallback = onAdsFinish;
             _onAdsStart = onAdsStart;
             _onAdsReady = onAdsReady;
             _onAdsError = onAdsError;
-
+#if UNITY_IOS || UNITY_ANDROID
             if (!Advertisement.isInitialized || !Advertisement.IsReady()) {
                 _onAdsError?.Invoke("Ads didn't initialized");
                 return;
             }
 
             Advertisement.Show(myPlacementId);
+#elif UNITY_WEBGL
+            _onAdsError?.Invoke("Ads didn't initialized");
+#endif
         }
 
         // Implement IUnityAdsListener interface methods:
@@ -56,9 +62,10 @@ namespace JigiJumper.Ads {
         void IUnityAdsListener.OnUnityAdsDidStart(string placementId) {
             _onAdsStart?.Invoke();
         }
-
+#if UNITY_IOS || UNITY_ANDROID
         public void OnDestroy() {
             Advertisement.RemoveListener(this);
         }
+#endif
     }
 }

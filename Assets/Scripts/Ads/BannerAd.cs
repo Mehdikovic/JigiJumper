@@ -9,7 +9,7 @@ namespace JigiJumper.Ads {
 
         [SerializeField] private SettingData _settings = null;
         [SerializeField] string placementId = "bannerPlacement";
-
+#if UNITY_IOS || UNITY_ANDROID
         WaitForSeconds _wait;
 
         IEnumerator Start() {
@@ -25,5 +25,6 @@ namespace JigiJumper.Ads {
             Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
             Advertisement.Banner.Show(placementId);
         }
+#endif
     }
 }

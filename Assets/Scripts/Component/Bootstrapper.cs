@@ -12,7 +12,7 @@ namespace JigiJumper.Component {
 
         IEnumerator Start() {
             _sceneManagement.LoadSceneAsyncAfter(2.5f, 1);
-
+#if UNITY_IOS || UNITY_ANDROID
             int counter = 0;
             var wait = new WaitForSeconds(.2f);
 
@@ -22,6 +22,9 @@ namespace JigiJumper.Component {
                 ++counter;
                 yield return wait;
             }
+#elif UNITY_WEBGL
+            yield return null;
+#endif
         }
     }
 }

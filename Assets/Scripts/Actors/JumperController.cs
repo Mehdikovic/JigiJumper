@@ -16,7 +16,6 @@ namespace JigiJumper.Actors {
         private PlanetController _previousPlanet;
         private int _remainingLife = 4;
 
-
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
         public event Action<int> OnRestart;
@@ -85,6 +84,7 @@ namespace JigiJumper.Actors {
             }
 
             _previousPlanet.isVisited = false;
+            _previousPlanet.InvokeOnRestartFromLastPlanet();
             PutJumperOnCircuit(_previousPlanet);
         }
 

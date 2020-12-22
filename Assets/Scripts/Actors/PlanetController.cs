@@ -22,6 +22,7 @@ namespace JigiJumper.Actors {
         public event Action OnPlanetDespawned;
         public event Action OnHoldingForJump;
         public event Action OnJumperPersistOnCurrentPlanetAfterRestart;
+        public event Action OnRestartAfterLastPlanet;
 
 
         private void Awake() {
@@ -81,6 +82,10 @@ namespace JigiJumper.Actors {
 
         public void InvokeOnJumperPersistOnCurrentPlanetAfterRestart() {
             OnJumperPersistOnCurrentPlanetAfterRestart?.Invoke();
+        }
+
+        public void InvokeOnRestartFromLastPlanet() {
+            OnRestartAfterLastPlanet?.Invoke();
         }
     }
 }

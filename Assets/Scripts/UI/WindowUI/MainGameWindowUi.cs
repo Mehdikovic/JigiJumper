@@ -148,6 +148,5 @@ namespace JigiJumper.Ui {
             _btnClose.enabled = active;
             _watchAdItem.SetActive(!active);
         }
-
     }
 }

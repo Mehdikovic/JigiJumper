@@ -107,19 +107,21 @@ namespace JigiJumper.Component {
         }
 
         private void SettingVignette() {
+            var gm = GameManager.instance;
+            if (gm.levelType == Data.LevelType.Easy) { return; }
+            
             if (!_volume.TryGet(out Vignette vignette)) { return; }
-            var gManager = GameManager.instance;
-            float newVignetteValue = 0.14f;
-
+            
             Action<int> onLevelChanged = (newLevel) => {
                 int lvlCount = 1;
                 float waitTime = 1f;
-                switch (gManager.levelType) {
-                    case Data.LevelType.Easy:
-                        newVignetteValue = Utility.Map(newLevel, 1, 100, 0.14f, 1f);
-                        lvlCount = 1;
-                        waitTime = 1f;
-                        break;
+                float newVignetteValue = 0.14f;
+                switch (gm.levelType) {
+                    /* case Data.LevelType.Easy:
+                         newVignetteValue = Utility.Map(newLevel, 1, 100, 0.14f, 1f);
+                         lvlCount = 1;
+                         waitTime = 1f;
+                         break; */
                     case Data.LevelType.Normal:
                         newVignetteValue = Utility.Map(newLevel, 1, 50, 0.14f, 1f);
                         lvlCount = UnityEngine.Random.Range(1, 3);
@@ -146,7 +148,7 @@ namespace JigiJumper.Component {
                 }
             };
 
-            gManager.OnLevelChanged += onLevelChanged;
+            gm.OnLevelChanged += onLevelChanged;
         }
         IEnumerator ChangeVignetteThickness(Vignette vignette, float newVignetteValue, float waitTime) {
             var vignetteParam = new VolumeParameter<float>();

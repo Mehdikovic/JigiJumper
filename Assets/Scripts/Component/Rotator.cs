@@ -11,10 +11,13 @@ namespace JigiJumper.Component {
         private SpawnProbabilities _spawnProbabiliteis;
         private float _rotationSpeed;
         private float _storedRotationSpeed;
+        private int _factorMultiplier = 1;
+        private float _factor = 1.0f;
 
         private void Awake() {
             var planetController = GetComponent<PlanetController>();
-
+            var lvlType = GameManager.instance.levelType;
+            
             planetController.OnJumperEnter += () => SetupSpeed();
 
             planetController.OnJumperExit += () => {
@@ -23,6 +26,15 @@ namespace JigiJumper.Component {
 
             planetController.OnJumperPersistOnCurrentPlanetAfterRestart += () => {
                 _rotationSpeed = _storedRotationSpeed;
+            };
+
+            if (lvlType == LevelType.Easy) { return; }
+
+            planetController.OnRestartAfterLastPlanet += () => {
+                _factor += (_factorMultiplier++ * 0.1f);
+                _rotationSpeed *= _factor;
+                _rotationSpeed = Mathf.Clamp(_rotationSpeed, -220f, 220f);
+                _storedRotationSpeed = _rotationSpeed;
             };
         }
 
@@ -41,6 +53,8 @@ namespace JigiJumper.Component {
             }
             _rotationSpeed = _spawnProbabiliteis.GetRotationSpeed();
             _storedRotationSpeed = _rotationSpeed;
+            _factor = 1.0f;
+            _factorMultiplier = 1;
         }
 
         private void HandleRotation() {

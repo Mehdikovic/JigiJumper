@@ -21,10 +21,12 @@ namespace JigiJumper.Actors {
         public event Action<int> OnRestart;
 
         private Transform _transform;
+        private EventSystem _eventSystem;
 
         private void Awake() {
             _transform = transform;
             _gameManager = GameManager.instance;
+            _eventSystem = EventSystem.current;
         }
 
         private void Update() {
@@ -44,11 +46,11 @@ namespace JigiJumper.Actors {
 
         private void HandleInput() {
 
-            if (isInputSuspend || EventSystem.current.IsPointerOverGameObject()) { return; }
+            if (isInputSuspend || _eventSystem.IsPointerOverGameObject()) { return; }
 
             foreach (var touch in Input.touches) {
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId) &&
-                    EventSystem.current.currentSelectedGameObject != null
+                if (_eventSystem.IsPointerOverGameObject(touch.fingerId) /*&&
+                    EventSystem.current.currentSelectedGameObject != null*/
                    ) { return; }
             }
 

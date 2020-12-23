@@ -24,6 +24,7 @@ namespace JigiJumper.Managers {
 
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
+        public event Action<RecordData> OnTimeToSave;
 
         protected override void OnAwake() {
             _jumper = _lazyJumper.value;
@@ -45,16 +46,6 @@ namespace JigiJumper.Managers {
                     OnCompleteRestartRequest?.Invoke();
                     break;
             }
-        }
-
-        public void SaveRecords() {
-            SettingData.SaveRecords(
-                new RecordData {
-                    allJumpsCount = _point,
-                    level = GetLevel(),
-                    levelType = _setting.levelType,
-                }
-            );
         }
 
         public JumperController jumper => _lazyJumper.value;
@@ -86,7 +77,11 @@ namespace JigiJumper.Managers {
         }
 
         private void OnDestroy() {
-            SaveRecords();
+            OnTimeToSave?.Invoke(new RecordData {
+                allJumpsCount = _point,
+                level = GetLevel(),
+                levelType = _setting.levelType,
+            });
         }
     }
 }

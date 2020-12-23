@@ -74,13 +74,11 @@ namespace JigiJumper.Ui {
 
             _btnRestart.onClick.AddListener(() => {
                 SetBehaviorActivation(false);
-                _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, SceneManager.GetActiveScene().buildIndex);
             });
 
             _btnHome.onClick.AddListener(() => {
                 SetBehaviorActivation(false);
-                _gameManager.SaveRecords();
                 FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, 1);
             });
 

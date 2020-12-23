@@ -43,7 +43,14 @@ namespace JigiJumper.Actors {
         public int remainingLife => _remainingLife;
 
         private void HandleInput() {
+
             if (isInputSuspend || EventSystem.current.IsPointerOverGameObject()) { return; }
+
+            foreach (var touch in Input.touches) {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId) &&
+                    EventSystem.current.currentSelectedGameObject != null
+                   ) { return; }
+            }
 
             if (_currentPlanet == null) { return; }
 

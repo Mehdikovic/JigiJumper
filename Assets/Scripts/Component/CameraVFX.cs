@@ -132,7 +132,7 @@ namespace JigiJumper.Component {
                         break;
                 }
 
-                if (_vignetteCoroutine != null && newLevel - _prevLevel >= lvlCount) {
+                if (_vignetteCoroutine != null && newLevel - _prevLevel > lvlCount) {
                     _prevLevel = newLevel;
                     ResetVignette(vignette);
                     return;
@@ -177,7 +177,10 @@ namespace JigiJumper.Component {
         }
 
         private void ResetVignette(Vignette vignette) {
-            StopCoroutine(_vignetteCoroutine);
+            if (_vignetteCoroutine != null) {
+                StopCoroutine(_vignetteCoroutine);
+                _vignetteCoroutine = null;
+            }
             var vignetteParam = new VolumeParameter<float>();
             DOTween.To(
                 (value) => {

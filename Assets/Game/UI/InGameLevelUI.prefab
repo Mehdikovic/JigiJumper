@@ -137,7 +137,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 1
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -189,8 +189,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 457.7096, y: -779.51605}
-  m_SizeDelta: {x: 815.4192, y: 300}
+  m_AnchoredPosition: {x: 409.1169, y: -868.2338}
+  m_SizeDelta: {x: 718.2338, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2139982733
 GameObject:
@@ -1213,7 +1213,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 080ce9f038d80da45bc525ace07e3396, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0fd1070f9532941f6a6fdf5719a3fd1a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3c0f3f4a542ece147873d14b7f4b7999, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6da6a02d4b7c14e9b97f5be021635cf6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2522,8 +2522,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 457.7096, y: -1229.5161}
-  m_SizeDelta: {x: 815.4192, y: 300}
+  m_AnchoredPosition: {x: 409.1169, y: -1318.2339}
+  m_SizeDelta: {x: 718.2338, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &3488511619296440457
 GameObject:
@@ -2559,8 +2559,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 457.7096, y: -329.51605}
-  m_SizeDelta: {x: 815.4192, y: 300}
+  m_AnchoredPosition: {x: 409.1169, y: -418.23383}
+  m_SizeDelta: {x: 718.2338, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &4703703116782176610
 GameObject:
@@ -2672,7 +2672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.54341525, b: 0.16509432, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3111,8 +3111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 457.7096, y: -50}
-  m_SizeDelta: {x: 815.4192, y: 300}
+  m_AnchoredPosition: {x: 409.1169, y: -268.23383}
+  m_SizeDelta: {x: 718.2338, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &8507081753041528624
 GameObject:

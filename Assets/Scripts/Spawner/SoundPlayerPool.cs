@@ -1,21 +1,15 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using JigiJumper.Managers;
 
 
 namespace JigiJumper.Spawner {
-    public class SoundPlayerPool : MonoBehaviour {
-        static bool _isInit = false;
-
+    public class SoundPlayerPool : PersistentBehavior<SoundPlayerPool> {
         [SerializeField] AudioSource _audioPrefab = null;
         PoolSystem<AudioSource> _pool;
         Transform _transform;
 
-        void Awake() {
-            if (_isInit) { Destroy(gameObject); }
-            _isInit = true;
-            DontDestroyOnLoad(gameObject);
-            
+        protected override void OnAwake() {
             _transform = transform;
 
             var preAudioSources = GetComponentsInChildren<AudioSource>();

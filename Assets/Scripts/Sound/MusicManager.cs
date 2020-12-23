@@ -3,12 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using JigiJumper.Data;
+using JigiJumper.Managers;
 
 
 namespace JigiJumper.Sound {
-
-    public class MusicManager : MonoBehaviour {
-        static bool _isInit = false;
+    public class MusicManager : PersistentBehavior<MusicManager> {
         const float MUSIC_VOLUME = 0.5f;
         
         [SerializeField] BgMusicData[] _bgMusics = null;
@@ -18,11 +17,7 @@ namespace JigiJumper.Sound {
         private int _lastSceneIndex = -1;
         private int _currentSceneIndex = -1;
 
-        void Awake() {
-            if (_isInit) { Destroy(gameObject); }
-            _isInit = true;
-            DontDestroyOnLoad(gameObject);
-            
+        protected override void OnAwake() {
             _audioSource = GetComponent<AudioSource>();
         }
 

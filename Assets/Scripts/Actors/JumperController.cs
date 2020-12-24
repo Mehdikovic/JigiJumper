@@ -3,6 +3,7 @@ using Cinemachine;
 using JigiJumper.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using JigiJumper.Utils;
 
 
 namespace JigiJumper.Actors {
@@ -21,12 +22,12 @@ namespace JigiJumper.Actors {
         public event Action<int> OnRestart;
 
         private Transform _transform;
-        private EventSystem _eventSystem;
+        private EventSystemUtility _esUtility;
 
         private void Awake() {
             _transform = transform;
             _gameManager = GameManager.instance;
-            _eventSystem = EventSystem.current;
+            _esUtility = new EventSystemUtility(EventSystem.current);
         }
 
         private void Update() {
@@ -45,8 +46,11 @@ namespace JigiJumper.Actors {
         public int remainingLife => _remainingLife;
 
         private void HandleInput() {
-
-            if (isInputSuspend || IsPointerOverUiObject(_eventSystem)) { return; }
+            var point = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            
+            if (isInputSuspend || _esUtility.IsPointerOverUiObject(point)) {
+                return;
+            }
 
             if (_currentPlanet == null) { return; }
 
@@ -112,14 +116,6 @@ namespace JigiJumper.Actors {
             if (_previousPlanet != planetController) {
                 OnPlanetReached?.Invoke(_previousPlanet, planetController);
             }
-        }
-
-        static private bool IsPointerOverUiObject(EventSystem eventSystem) {
-            PointerEventData eventDataCurrentPosition = new PointerEventData(eventSystem);
-            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            var results = new System.Collections.Generic.List<RaycastResult>();
-            eventSystem.RaycastAll(eventDataCurrentPosition, results);
-            return results.Count > 0;
         }
     }
 }

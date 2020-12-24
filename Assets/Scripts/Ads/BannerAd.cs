@@ -1,29 +1,29 @@
 ﻿using JigiJumper.Data;
+using JigiJumper.Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
-
+using UnityEngine.SceneManagement;
 
 namespace JigiJumper.Ads {
-    public class BannerAd : MonoBehaviour {
+    public class BannerAd : PersistentBehavior<BannerAd> {
 
         [SerializeField] private SettingData _settings = null;
         [SerializeField] string placementId = "bannerPlacement";
 #if UNITY_IOS || UNITY_ANDROID
         WaitForSeconds _wait;
 
-        IEnumerator Start() {
+        void Start() {
             Advertisement.Initialize(_settings.gameId, _settings.testMode);
-            _wait = new WaitForSeconds(0.5f);
-            yield return ShowBannerWhenInitialized();
+            SceneManager.sceneLoaded += SceneLoaded;
         }
 
-        IEnumerator ShowBannerWhenInitialized() {
-            while (!Advertisement.isInitialized) {
-                yield return _wait;
+        private void SceneLoaded(Scene scene, LoadSceneMode _) {
+            if (!Advertisement.isInitialized) { return; }
+            if (scene.buildIndex == 1) {
+                Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+                Advertisement.Banner.Show(placementId);
             }
-            Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-            Advertisement.Banner.Show(placementId);
         }
 #endif
     }

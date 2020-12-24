@@ -46,13 +46,7 @@ namespace JigiJumper.Actors {
 
         private void HandleInput() {
 
-            if (isInputSuspend || _eventSystem.IsPointerOverGameObject()) { return; }
-
-            foreach (var touch in Input.touches) {
-                if (_eventSystem.IsPointerOverGameObject(touch.fingerId) /*&&
-                    EventSystem.current.currentSelectedGameObject != null*/
-                   ) { return; }
-            }
+            if (isInputSuspend || IsPointerOverUiObject(_eventSystem)) { return; }
 
             if (_currentPlanet == null) { return; }
 
@@ -118,6 +112,14 @@ namespace JigiJumper.Actors {
             if (_previousPlanet != planetController) {
                 OnPlanetReached?.Invoke(_previousPlanet, planetController);
             }
+        }
+
+        static private bool IsPointerOverUiObject(EventSystem eventSystem) {
+            PointerEventData eventDataCurrentPosition = new PointerEventData(eventSystem);
+            eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            var results = new System.Collections.Generic.List<RaycastResult>();
+            eventSystem.RaycastAll(eventDataCurrentPosition, results);
+            return results.Count > 0;
         }
     }
 }

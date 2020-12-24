@@ -160,7 +160,7 @@ namespace JigiJumper.Component {
                         vignetteParam.value = value;
                         vignette.intensity.SetValue(vignetteParam);
                     },
-                    vignetteParam.value,
+                    vignette.intensity.value,
                     newVignetteValue,
                     waitTime
                 );
@@ -170,7 +170,7 @@ namespace JigiJumper.Component {
                         vignetteParam.value = value;
                         vignette.intensity.SetValue(vignetteParam);
                     },
-                    vignetteParam.value,
+                    vignette.intensity.value,
                     0.14f,
                     waitTime
                 );
@@ -189,7 +189,7 @@ namespace JigiJumper.Component {
                     vignetteParam.value = value;
                     vignette.intensity.SetValue(vignetteParam);
                 },
-                vignetteParam.value,
+                vignette.intensity.value,
                 0.14f,
                 1f
             );

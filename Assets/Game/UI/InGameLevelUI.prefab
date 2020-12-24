@@ -137,7 +137,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -189,8 +189,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 409.1169, y: -868.2338}
-  m_SizeDelta: {x: 718.2338, y: 300}
+  m_AnchoredPosition: {x: 457.7096, y: -779.51605}
+  m_SizeDelta: {x: 815.4192, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2139982733
 GameObject:
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3e86ce34507f4309b0dba14987a34d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18937ce52bb4c4ba8adefb39eebdbf73, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2522,8 +2522,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 409.1169, y: -1318.2339}
-  m_SizeDelta: {x: 718.2338, y: 300}
+  m_AnchoredPosition: {x: 457.7096, y: -1229.5161}
+  m_SizeDelta: {x: 815.4192, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &3488511619296440457
 GameObject:
@@ -2559,8 +2559,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 409.1169, y: -418.23383}
-  m_SizeDelta: {x: 718.2338, y: 300}
+  m_AnchoredPosition: {x: 457.7096, y: -329.51605}
+  m_SizeDelta: {x: 815.4192, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &4703703116782176610
 GameObject:

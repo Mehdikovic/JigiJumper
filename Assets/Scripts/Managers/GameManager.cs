@@ -4,27 +4,31 @@ using JigiJumper.Actors;
 using JigiJumper.Utils;
 using JigiJumper.Data;
 using System;
+using JigiJumper.Component;
 
 
 namespace JigiJumper.Managers {
     public enum RestartMode { Reallocate, Destruction }
-
     public class GameManager : SingletonBehavior<GameManager> {
-        private const int LEVEL_DETR = 5;
         [Header("Settings")]
         [SerializeField] private SettingData _setting = null;
 
         [Header("SpawnData")]
         [SerializeField] private SpawnProbabilities[] _spawnProbabilities = null;
 
-        LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>(() => FindObjectOfType<JumperController>());
+        [Header("SavingController")]
+        [SerializeField] private SavingController _saving = null;
+
+        LazyValue<ManagePoints> _managePoints = new LazyValue<ManagePoints>(
+                                                () => new ManagePoints());
+        LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>(
+                                                  () => FindObjectOfType<JumperController>());
+
         JumperController _jumper;
 
-        private int _point = 0;
 
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
-        public event Action<RecordData> OnTimeToSave;
 
         protected override void OnAwake() {
             _jumper = _lazyJumper.value;
@@ -49,10 +53,10 @@ namespace JigiJumper.Managers {
         }
 
         public JumperController jumper => _lazyJumper.value;
-        public int currentLevel => GetLevel();
+        public int currentLevel => _managePoints.value.GetLevel();
 
         public SpawnProbabilities GetSpawnProbabilities() {
-            int calculatedLevel = (GetLevel() - 1) + (int)_setting.levelType;
+            int calculatedLevel = (_managePoints.value.GetLevel() - 1) + (int)_setting.levelType;
             int validIndex = Mathf.Clamp(calculatedLevel, 0, _spawnProbabilities.Length - 1);
             return _spawnProbabilities[validIndex];
         }
@@ -64,24 +68,15 @@ namespace JigiJumper.Managers {
             RequestToRestart(RestartMode.Destruction);
         }
 
-        private void OnPlanetReached(PlanetController arg1, PlanetController arg2) {
-            ++_point;
-
-            if (_point % LEVEL_DETR != 0) { return; }
-
-            OnLevelChanged?.Invoke(GetLevel());
-        }
-
-        private int GetLevel() {
-            return Mathf.Clamp((_point / LEVEL_DETR) + 1, 1, 999);
+        private void OnPlanetReached(PlanetController _, PlanetController __) {
+            if (_managePoints.value.AddPointToReachNextLevel()) {
+                OnLevelChanged?.Invoke(_managePoints.value.GetLevel());
+            }
         }
 
         private void OnDestroy() {
-            OnTimeToSave?.Invoke(new RecordData {
-                allJumpsCount = _point,
-                level = GetLevel(),
-                levelType = _setting.levelType,
-            });
+            if (_saving != null)
+                _saving.Save(_managePoints.value.GetSavingRecordSession(_setting.levelType));
         }
     }
 }

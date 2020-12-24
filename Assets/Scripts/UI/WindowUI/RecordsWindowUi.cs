@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JigiJumper.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace JigiJumper.Ui {
@@ -37,7 +38,7 @@ namespace JigiJumper.Ui {
         }
 
         public override void BeginToShow() {
-            var records = Data.SettingData.LoadRecords();
+            var records = SavingUtility.LoadRecords();
             SetHeightOfRect(0);
 
             if (records.Count == 0) { return; }
@@ -47,7 +48,7 @@ namespace JigiJumper.Ui {
                 _recordsUi[i].SetData(i + 1, records[i]);
             }
 
-            SetHeightOfRect(150 * records.Count + 1);
+            SetHeightOfRect(150 * records.Count + 2);
         }
 
         private void SetHeightOfRect(float value) {

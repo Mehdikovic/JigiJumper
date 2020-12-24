@@ -130,7 +130,7 @@ namespace JigiJumper.Ui {
                     break;
                 case UnityEngine.Advertisements.ShowResult.Finished:
                     --_remainingAds;
-                    GameManager.instance.RequestToRestart(RestartMode.Reallocate, GenerateLife());
+                    GameManager.instance.RequestToRestart(RestartMode.AfterAdWatched, GenerateLife());
                     _selfRectWindow.gameObject.SetActive(false);
                     break;
             }

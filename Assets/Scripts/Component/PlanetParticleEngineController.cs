@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Actors;
+using JigiJumper.Managers;
 using UnityEngine;
 
 
@@ -13,7 +14,7 @@ namespace JigiJumper.Component {
             _jumper.OnRestart += OnJumperRestart;
         }
 
-        private void OnJumperRestart(int remainingLife) {
+        private void OnJumperRestart(int remainingLife, RestartMode _) {
             _particleInstance.Stop();
         }
 

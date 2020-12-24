@@ -8,7 +8,7 @@ using JigiJumper.Component;
 
 
 namespace JigiJumper.Managers {
-    public enum RestartMode { Reallocate, Destruction }
+    public enum RestartMode { Reallocate, Destruction, AfterAdWatched }
     public class GameManager : SingletonBehavior<GameManager> {
         [Header("Settings")]
         [SerializeField] private SettingData _setting = null;
@@ -44,7 +44,10 @@ namespace JigiJumper.Managers {
         public void RequestToRestart(RestartMode mode, byte addedLife) {
             switch (mode) {
                 case RestartMode.Reallocate:
-                    _jumper.ReallocateYourself(addedLife);
+                    _jumper.ReallocateYourself(addedLife, mode);
+                    break;
+                case RestartMode.AfterAdWatched:
+                    _jumper.ReallocateYourself(addedLife, mode);
                     break;
                 case RestartMode.Destruction:
                     OnCompleteRestartRequest?.Invoke();

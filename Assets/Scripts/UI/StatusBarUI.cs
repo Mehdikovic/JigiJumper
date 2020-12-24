@@ -33,7 +33,7 @@ namespace JigiJumper.Ui {
             DoTweenAnimation(_txtLevel.rectTransform);
         }
 
-        private void OnJumpeRestart(int remainingLife) {
+        private void OnJumpeRestart(int remainingLife, RestartMode _) {
             _txtLife.text = remainingLife.ToString();
             DoTweenShake();
         }

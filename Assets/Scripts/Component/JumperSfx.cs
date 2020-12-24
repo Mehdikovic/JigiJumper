@@ -1,4 +1,5 @@
 ﻿using JigiJumper.Actors;
+using JigiJumper.Managers;
 using JigiJumper.Spawner;
 using UnityEngine;
 
@@ -36,7 +37,8 @@ namespace JigiJumper.Component {
             _soundPool.PlayMusic(_jumpClip);
         }
 
-        private void JumperOnRestart(int obj) {
+        private void JumperOnRestart(int remainingLife, RestartMode mode) {
+            if (mode == RestartMode.AfterAdWatched) { return; }
             _soundPool.PlayMusic(_afterDeathClip);
         }
     }

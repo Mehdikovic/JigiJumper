@@ -75,7 +75,7 @@ namespace JigiJumper.Component {
             Tweener fadeColorful = null;
             VolumeParameter<float> colorAdjustParam = new VolumeParameter<float>();
 
-            Action<int> onRestartDel = (remainingLife) => {
+            Action<int, RestartMode> onRestartDel = (remainingLife, _) => {
                 if (remainingLife == 1) {
                     if (fadeColorful != null && fadeColorful.IsActive()) { fadeColorful.Kill(); }
 
@@ -102,7 +102,7 @@ namespace JigiJumper.Component {
                 }
             };
 
-            onRestartDel(_jumper.remainingLife);
+            onRestartDel(_jumper.remainingLife, RestartMode.Reallocate);
             _jumper.OnRestart += onRestartDel;
         }
 

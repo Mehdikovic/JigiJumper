@@ -9,11 +9,11 @@ namespace JigiJumper.Component {
         [SerializeField] private CinemachineVirtualCamera _camera = null;
 
         private CinemachineBasicMultiChannelPerlin _noise;
-
+        
         private void Awake() {
             _noise = _camera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-            GetComponent<JumperController>().OnRestart += (remianingLife) => {
+            GetComponent<JumperController>().OnRestart += (remianingLife, mode) => {
+                if (mode == Managers.RestartMode.AfterAdWatched) { return; }
                 StartCoroutine(ShakeTheCamera());
             };
         }

@@ -19,7 +19,7 @@ namespace JigiJumper.Actors {
 
         public event Action<PlanetController, PlanetController> OnPlanetReached;
         public event Action OnJump;
-        public event Action<int> OnRestart;
+        public event Action<int, RestartMode> OnRestart;
 
         private Transform _transform;
         private EventSystemUtility _esUtility;
@@ -70,7 +70,7 @@ namespace JigiJumper.Actors {
             }
         }
 
-        public void ReallocateYourself(byte addedLife) {
+        public void ReallocateYourself(byte addedLife, RestartMode restartMode) {
             _remainingLife = Mathf.Clamp(_remainingLife + addedLife, 0, 10);
 
             --_remainingLife;
@@ -80,11 +80,11 @@ namespace JigiJumper.Actors {
                 _gameManager.RequestToRestart(RestartMode.Destruction);
             }
 
-            Restart();
+            Restart(restartMode);
         }
 
-        private void Restart() {
-            OnRestart?.Invoke(_remainingLife);
+        private void Restart(RestartMode restartMode) {
+            OnRestart?.Invoke(_remainingLife, restartMode);
             if (_currentPlanet != null) {
                 _currentPlanet.InvokeOnJumperPersistOnCurrentPlanetAfterRestart();
                 return;

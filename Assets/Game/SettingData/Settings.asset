@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameId_ANDROID: 3872205
   _gameId_IOS: 3872204
+  _enable: 0
   _testMode: 1
   levelType: 10

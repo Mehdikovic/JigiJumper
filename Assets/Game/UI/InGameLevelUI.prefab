@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 2139982736}
   - component: {fileID: 2139982735}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: PlayAdText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1149,6 +1149,7 @@ MonoBehaviour:
   _settingsItem: {fileID: 2387257235568988898}
   _watchAdItem: {fileID: 3488511619296440457}
   _closeItem: {fileID: 7318870546091557341}
+  _txtAdButton: {fileID: 2139982735}
 --- !u!1 &3034425234987142732
 GameObject:
   m_ObjectHideFlags: 0

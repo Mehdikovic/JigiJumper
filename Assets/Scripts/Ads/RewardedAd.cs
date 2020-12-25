@@ -16,6 +16,8 @@ namespace JigiJumper.Ads {
 
 #if UNITY_IOS || UNITY_ANDROID
         void Awake() {
+            if (!_settings.adEnable) { return; }
+            
             Advertisement.AddListener(this);
             Advertisement.Initialize(_settings.gameId, _settings.testMode);
         }
@@ -33,6 +35,11 @@ namespace JigiJumper.Ads {
             _onAdsReady = onAdsReady;
             _onAdsError = onAdsError;
 #if UNITY_IOS || UNITY_ANDROID
+            if (!_settings.adEnable) {
+                onAdsFinish?.Invoke(ShowResult.Finished);
+                return;
+            }
+
             if (!Advertisement.isInitialized || !Advertisement.IsReady()) {
                 _onAdsError?.Invoke("Ads didn't initialized");
                 return;

@@ -23,6 +23,7 @@ namespace JigiJumper.Data {
         private const string BANNER_OPTION = "bannerShowOption";
 
         [Header("Ads Conf")]
+        [SerializeField] private bool _enable = true;
         [SerializeField] private string _gameId_ANDROID = "3872205";
         [SerializeField] private string _gameId_IOS = "3872204";
         [SerializeField] private bool _testMode = true;
@@ -42,7 +43,7 @@ namespace JigiJumper.Data {
             }
         }
         public bool testMode => _testMode;
-
+        public bool adEnable => _enable;
         public void SetMusicVol(float musicVol) {
             musicVol = Mathf.Clamp(musicVol, -80, 0);
             PlayerPrefs.SetFloat(MUSIC_VOL, musicVol);

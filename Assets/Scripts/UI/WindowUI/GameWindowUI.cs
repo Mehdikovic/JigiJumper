@@ -44,7 +44,7 @@ namespace JigiJumper.Ui {
             _selfRectWindow.gameObject.SetActive(false);
 
             _setting.levelType = type;
-            if (!_setting.GetShowBannerOption())
+            if (_setting.adEnable && !_setting.GetShowBannerOption())
                 Advertisement.Banner.Hide();
 
             FindObjectOfType<SceneManagement>().LoadSceneAsyncAfter(0, sceneIndex: 2);

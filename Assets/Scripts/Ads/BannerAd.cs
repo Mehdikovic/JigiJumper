@@ -14,6 +14,8 @@ namespace JigiJumper.Ads {
         WaitForSeconds _wait;
 
         void Start() {
+            if (!_settings.adEnable) { return; }
+
             Advertisement.Initialize(_settings.gameId, _settings.testMode);
             SceneManager.sceneLoaded += SceneLoaded;
         }

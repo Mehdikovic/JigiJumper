@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace JigiJumper.Ui {
     public class MainGameWindowUi : WindowUi {
+        const string WATCH_AD = "Watch Ad to receive another chance!";
+        const string GET_CHANCE = "Receive more chances!";
+        
         [Header("Windows")]
         [SerializeField] private WindowUi _settingsWindow = null;
         [SerializeField] private PopupUi _popup = null;
@@ -26,6 +29,8 @@ namespace JigiJumper.Ui {
         [SerializeField] private GameObject _settingsItem = null;
         [SerializeField] private GameObject _watchAdItem = null;
         [SerializeField] private GameObject _closeItem = null;
+        [SerializeField] private TMPro.TextMeshProUGUI _txtAdButton = null;
+
 
         private int _remainingAds = 2;
         private GameManager _gameManager;
@@ -88,6 +93,8 @@ namespace JigiJumper.Ui {
             });
 
             _btnShowAd.onClick.AddListener(OnBtnShowAd);
+
+            _txtAdButton.text = _setting.adEnable ? WATCH_AD : GET_CHANCE;
         }
 
         private void OnBtnShowAd() {
@@ -131,9 +138,18 @@ namespace JigiJumper.Ui {
                 case UnityEngine.Advertisements.ShowResult.Finished:
                     --_remainingAds;
                     GameManager.instance.RequestToRestart(RestartMode.AfterAdWatched, GenerateLife());
+                    GameManager.instance.jumper.isInputSuspend = true;
                     _selfRectWindow.gameObject.SetActive(false);
+                    StartCoroutine(ActiveJumperInput());
                     break;
             }
+        }
+
+        private System.Collections.IEnumerator ActiveJumperInput() {
+            for (int i = 0; i < 2; ++i) {
+                yield return new WaitForEndOfFrame();
+            }
+            GameManager.instance.jumper.isInputSuspend = false;
         }
 
         private byte GenerateLife() {

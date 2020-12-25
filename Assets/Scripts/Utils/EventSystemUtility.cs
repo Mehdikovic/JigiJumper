@@ -15,6 +15,8 @@ namespace JigiJumper.Utils {
         }
 
         public bool IsPointerOverUiObject(Vector2 inputs) {
+            if (!(0 < inputs.x && inputs.x < Screen.width && 0 < inputs.y && inputs.y < Screen.height))
+                return true;
             _results.Clear();
             _eventData.position = inputs;
             _eventSystem.RaycastAll(_eventData, _results);

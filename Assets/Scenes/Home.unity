@@ -568,6 +568,10 @@ PrefabInstance:
       propertyPath: isInputSuspend
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 705266658, guid: 4ddfdba9d94b74144ad3eb35658c1e9c, type: 3}
+      propertyPath: _isInputSuspend
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5656339767696157777, guid: 4ddfdba9d94b74144ad3eb35658c1e9c,
         type: 3}
       propertyPath: m_Name

@@ -7,9 +7,9 @@ using JigiJumper.Utils;
 
 
 namespace JigiJumper.Actors {
-    public class JumperController : MonoBehaviour {
-        public bool isInputSuspend = false;
+    public class JumperController : MonoBehaviour, IInputHandler {
         [SerializeField] private CinemachineVirtualCamera _cinemachine = null;
+        [SerializeField] private bool _isInputSuspend = false;
 
         private float _holdingPassedTime = 0f;
         private GameManager _gameManager;
@@ -45,10 +45,18 @@ namespace JigiJumper.Actors {
         public GameObject currentPlanetGameObject => (_currentPlanet != null) ? _currentPlanet.gameObject : null;
         public int remainingLife => _remainingLife;
 
+        public void SuspendInput() {
+            _isInputSuspend = true;
+        }
+
+        public void ReleaseInput() {
+            _isInputSuspend = false;
+        }
+
         private void HandleInput() {
             var point = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             
-            if (isInputSuspend || _esUtility.IsPointerOverUiObject(point)) {
+            if (_isInputSuspend || _esUtility.IsPointerOverUiObject(point)) {
                 return;
             }
 

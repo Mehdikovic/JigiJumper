@@ -10,7 +10,7 @@ namespace JigiJumper.Ui {
     public class MainGameWindowUi : WindowUi {
         const string WATCH_AD = "Watch Ad to receive another chance!";
         const string GET_CHANCE = "Receive more chances!";
-        
+
         [Header("Windows")]
         [SerializeField] private WindowUi _settingsWindow = null;
         [SerializeField] private PopupUi _popup = null;
@@ -62,7 +62,7 @@ namespace JigiJumper.Ui {
 
             _isActivatingSettingWindow = true;
             ActiveSettingsWindow(true);
-            
+
             Ui.DoShowWindow(_selfRectWindow, () => _isActivatingSettingWindow = false);
         }
 
@@ -138,7 +138,7 @@ namespace JigiJumper.Ui {
                 case UnityEngine.Advertisements.ShowResult.Finished:
                     --_remainingAds;
                     GameManager.instance.RequestToRestart(RestartMode.AfterAdWatched, GenerateLife());
-                    GameManager.instance.jumper.isInputSuspend = true;
+                    GameManager.instance.SuspendAllInputs();
                     _selfRectWindow.gameObject.SetActive(false);
                     StartCoroutine(ActiveJumperInput());
                     break;
@@ -146,10 +146,9 @@ namespace JigiJumper.Ui {
         }
 
         private System.Collections.IEnumerator ActiveJumperInput() {
-            for (int i = 0; i < 2; ++i) {
-                yield return new WaitForEndOfFrame();
-            }
-            GameManager.instance.jumper.isInputSuspend = false;
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            GameManager.instance.ReleaseAllInputs();
         }
 
         private byte GenerateLife() {

@@ -5,7 +5,7 @@ using JigiJumper.Utils;
 using JigiJumper.Data;
 using System;
 using JigiJumper.Component;
-
+using System.Collections.Generic;
 
 namespace JigiJumper.Managers {
     public enum RestartMode { Reallocate, Destruction, AfterAdWatched }
@@ -19,6 +19,8 @@ namespace JigiJumper.Managers {
         [Header("SavingController")]
         [SerializeField] private SavingController _saving = null;
 
+        
+
         LazyValue<ManagePoints> _lazyManagePoints = new LazyValue<ManagePoints>(
                                                     () => new ManagePoints());
 
@@ -30,9 +32,13 @@ namespace JigiJumper.Managers {
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
 
+        private List<IInputHandler> _inputHandlers;
+
         protected override void OnAwake() {
+            _inputHandlers = new List<IInputHandler>();
             _jumper = _lazyJumper.value;
             _jumper.OnPlanetReached += OnPlanetReached;
+            _inputHandlers.Add(_jumper);
         }
 
         public LevelType levelType => _setting.levelType;
@@ -66,9 +72,20 @@ namespace JigiJumper.Managers {
 
         public void RequestSelfDestructionPlanet(GameObject selfDestructorGameObject) {
             if (_jumper.currentPlanetGameObject != selfDestructorGameObject) { return; }
-
             // todo -> make animations
             RequestToRestart(RestartMode.Destruction);
+        }
+
+        public void SuspendAllInputs() {
+            foreach (var input in _inputHandlers) {
+                input.SuspendInput();
+            }
+        }
+
+        public void ReleaseAllInputs() {
+            foreach (var input in _inputHandlers) {
+                input.ReleaseInput();
+            }
         }
 
         private void OnPlanetReached(PlanetController _, PlanetController __) {

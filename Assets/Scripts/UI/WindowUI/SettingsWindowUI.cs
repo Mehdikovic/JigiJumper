@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JigiJumper.Managers;
+using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
@@ -20,6 +21,9 @@ namespace JigiJumper.Ui {
         [SerializeField] private Toggle _toggle = null;
         [SerializeField] private Button _btnBack = null;
         [SerializeField] private Image _toggleImage = null;
+
+        [Header("Gfxs")]
+        [SerializeField] private GameObject _toggleHolder = null;
 
         protected override void OnAwake() {
             InitialComponent();
@@ -68,6 +72,11 @@ namespace JigiJumper.Ui {
             _inGameSoundSlider.value = _setting.GetInGameSound();
             _toggle.isOn = _setting.GetShowBannerOption();
             _toggleImage.enabled = _toggle.isOn;
+
+            if (!_setting.adEnable && _toggleHolder != null) {
+                _toggleHolder.SetActive(false);
+            }
+
         }
 
     }

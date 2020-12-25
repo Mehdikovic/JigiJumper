@@ -12,6 +12,7 @@ namespace JigiJumper.Utils {
 
         public T value {
             get {
+                if (_initialized) { return _value; }
                 ForceInit();
                 return _value;
             }

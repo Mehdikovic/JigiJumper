@@ -19,13 +19,13 @@ namespace JigiJumper.Managers {
         [Header("SavingController")]
         [SerializeField] private SavingController _saving = null;
 
-        LazyValue<ManagePoints> _managePoints = new LazyValue<ManagePoints>(
-                                                () => new ManagePoints());
+        LazyValue<ManagePoints> _lazyManagePoints = new LazyValue<ManagePoints>(
+                                                    () => new ManagePoints());
+
         LazyValue<JumperController> _lazyJumper = new LazyValue<JumperController>(
                                                   () => FindObjectOfType<JumperController>());
 
         JumperController _jumper;
-
 
         public event Action<int> OnLevelChanged;
         public event Action OnCompleteRestartRequest;
@@ -56,10 +56,10 @@ namespace JigiJumper.Managers {
         }
 
         public JumperController jumper => _lazyJumper.value;
-        public int currentLevel => _managePoints.value.GetLevel();
+        public int currentLevel => _lazyManagePoints.value.GetLevel();
 
         public SpawnProbabilities GetSpawnProbabilities() {
-            int calculatedLevel = (_managePoints.value.GetLevel() - 1) + (int)_setting.levelType;
+            int calculatedLevel = (_lazyManagePoints.value.GetLevel() - 1) + (int)_setting.levelType;
             int validIndex = Mathf.Clamp(calculatedLevel, 0, _spawnProbabilities.Length - 1);
             return _spawnProbabilities[validIndex];
         }
@@ -72,14 +72,14 @@ namespace JigiJumper.Managers {
         }
 
         private void OnPlanetReached(PlanetController _, PlanetController __) {
-            if (_managePoints.value.AddPointToReachNextLevel()) {
-                OnLevelChanged?.Invoke(_managePoints.value.GetLevel());
+            if (_lazyManagePoints.value.AddPointToReachNextLevel()) {
+                OnLevelChanged?.Invoke(_lazyManagePoints.value.GetLevel());
             }
         }
 
         private void OnDestroy() {
             if (_saving != null)
-                _saving.Save(_managePoints.value.GetSavingRecordSession(_setting.levelType));
+                _saving.Save(_lazyManagePoints.value.GetSavingRecordSession(_setting.levelType));
         }
     }
 }

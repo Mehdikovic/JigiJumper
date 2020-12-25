@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9937dbb6fd24dde40a3efd81ab0cec6c, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
+  _enable: 1
   _gameId_ANDROID: 3872205
   _gameId_IOS: 3872204
-  _enable: 0
   _testMode: 1
-  levelType: 10
+  levelType: 0

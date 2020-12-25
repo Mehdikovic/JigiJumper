@@ -1,9 +1,9 @@
 ﻿using JigiJumper.Data;
 using JigiJumper.Managers;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
+
 
 namespace JigiJumper.Ads {
     public class BannerAd : PersistentBehavior<BannerAd> {

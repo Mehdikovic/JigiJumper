@@ -1,4 +1,4 @@
-﻿using JigiJumper.Data;
+using JigiJumper.Data;
 using JigiJumper.Managers;
 using System.Collections;
 using UnityEngine;
@@ -23,6 +23,8 @@ namespace JigiJumper.Component {
                 yield return wait;
             }
 #elif UNITY_WEBGL
+            yield return null;
+#else
             yield return null;
 #endif
         }

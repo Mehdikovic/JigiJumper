@@ -15,10 +15,9 @@ namespace JigiJumper.Ads {
         private Action _onAdsReady;
         private Action<string> _onAdsError;
 
+        private string _rewardedId;
+
 #if UNITY_IOS || UNITY_ANDROID
-
-        string _rewardedId;
-
         void Awake() {
             if (!_settings.adEnable) { return; }
 #if UNITY_ANDROID

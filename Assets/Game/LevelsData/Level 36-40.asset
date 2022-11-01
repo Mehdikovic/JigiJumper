@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1a0521a52636743862b63de1891a0d, type: 3}
+  m_Name: Level 36-40
+  m_EditorClassIdentifier: 
+  _jumperSpeed: []
+  _defaultJumperSpeed: 16
+  _types: []
+  _defaultType: 3
+  _oscillationSpeed:
+  - value: 0.4
+    probability: 30
+  - value: 0.6
+    probability: 30
+  - value: 0.7
+    probability: 40
+  _defaultOscillaionSpeed: 0.3
+  _rotationSpeed:
+  - value: 110
+    probability: 25
+  - value: 130
+    probability: 25
+  - value: 160
+    probability: 25
+  - value: 170
+    probability: 25
+  _defaultRotationSpeed: 110
+  _state:
+  - state: 1
+    probability: 50
+  - state: 2
+    probability: 50
+  _defaultState: 1
+  _selfDestructionTimer:
+  - value: 8
+    probability: 30
+  - value: 6
+    probability: 40
+  - value: 5
+    probability: 30
+  _defaultSelfDestructionTimer: 6
